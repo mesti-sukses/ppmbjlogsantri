@@ -1,0 +1,55 @@
+  <main class="main-content container">
+    <div class="page-header">
+      <h1><?php echo $this->session->userdata('name') ?></a> <small class="roboto-light">List Santri</small></h1>
+    </div>
+
+    <?php echo form_open() ?>
+      <div class="col-lg-4">
+        
+        <div class="panel panel-default">
+          <div class="clean panel-heading">
+            Info Santri
+          </div>
+
+          <div class="panel-body">
+            <input type="text" name="name" class="form-control" placeholder="Nama Santri" value="<?php echo $santriData->name ?>">
+            <input type="text" name="angkatan" class="form-control" placeholder="Angkatan" value="<?php echo $santriData->angkatan ?>">
+            <input type="hidden" id="kosong" name="kosong">
+            <input type="hidden" id="target" value="<?php echo $angkatanData->target ?>">
+            <p>Kosong <span class="kosong"><?php echo $santriData->kosong ?></span> Lembar</p>
+            <p>Ketercapaian <span>50</span> %</p>
+            <button type="submit" class="btn btn-primary submit">Save</button>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-lg-8">
+        <div class="panel panel-default">
+
+          <div class="panel-heading clean">
+            Progress Detail
+          </div>
+
+          <div class="rate panel-body">
+            <?php
+
+            $progress = unserialize($santriData->progress);
+            $juz = 1;
+            for ($i=2; $i <= 605; $i++) {
+              if(($i%20 == 3 && $i != 3 && $i < 603) || $i == 2){
+                echo '<div class="row">';
+                echo '<div class="col-xs-2"><p>Juz '.$juz.'</p></div><div class="col-xs-10">';
+                $juz++;
+              }
+              if(array_key_exists($i, $progress)) $check = 'checked'; else $check = '';
+              echo '<input type="checkbox" id="'.$i.'" name="'.$i.'" value="'.$i.'" '.$check.'/><label for="'.$i.'" title="Halaman '.$i.'"></label>';
+              if($i%20 == 2 && $i != 2 && $i < 602 ) echo '</div></div>';
+            } ?>
+          </div>
+        </div>
+      </div>
+
+    <?php echo form_close(); ?>
+
+
+  </main>

@@ -1,0 +1,49 @@
+.fa{
+	display: inline-block;
+	margin-right: 10px;
+}
+a:hover{
+	text-decoration: none;
+}
+#site-menu{
+	background-color: #00b4ff;
+	width: 300px;
+	z-index: 1040;
+	position: fixed;
+	height: 100%;
+	top: 0;
+	transition: 300ms ease all;
+	left: -300px;
+}
+.show{
+	transform: translateX(300px);
+}
+#site-menu .navbar-brand, #site-menu a{
+	color: white;
+}
+a.close{
+	color: white;
+	padding: 15px 15px;
+}
+.dropdown-menu .form-control{
+	margin: 0px 15px;
+}
+.off-menu{
+	display: block;
+	margin-top: 60px;
+	padding-left: 0px;
+}
+.off-menu li{
+	list-style: inside none;
+	padding: 15px;
+	padding-left: 40px;
+}
+.off-menu li .fa-angle-down{
+	float: right;
+}
+.img{
+	padding: 15px;
+}
+.off-menu li ul{
+	padding-left: 0px;
+}

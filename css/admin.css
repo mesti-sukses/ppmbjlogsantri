@@ -1,0 +1,76 @@
+body, html{
+	font-family: "Roboto";
+	overflow-x:hidden;}
+
+.transit{
+	transition: all 0.5s;
+	-moz-transition: all 0.5s; 
+	-webkit-transition: all 0.5s; 
+	-o-transition: all 0.5s;}
+
+main{
+	margin-top: 30px;
+}
+
+/****Dashboard Stats****/
+
+.page-header h1{
+	font-family: "Roboto Slab";
+	display: inline-block;
+}
+
+.rate {
+    display: block;
+    border: 0;
+}
+/* Hide radio */
+.rate input {
+    display: none;
+}
+/* The star of the show */
+.rate label:before {
+    display: inline-block;
+    font-size: 1.5rem;
+    padding: .3rem .2rem;
+    margin: 0;
+    cursor: pointer;
+    font-family: FontAwesome;
+    content: "\f058 "; /* full star */
+}
+input:checked + label, 
+/* color current and previous stars on checked */
+label:hover{ color: #73B100;  }
+.panel{
+    margin-bottom:30px;}
+
+.panel-heading{
+    font-weight:700;}
+.panel-heading small,
+.panel-heading span,
+.panel-heading.un-bold{
+    font-weight:400;}
+.sparkline h4{
+    display: block;
+    max-width: 80%;
+    font-size: 12px;
+}
+
+/*** default ***/   
+.panel-default > .panel-heading,
+.panel-default > .panel-footer{
+    border-color: #e8e8eb;
+    box-shadow:none;}       
+
+.panel-default > .panel-heading,
+.btn-default{
+    color:#9D9EA5;}
+
+/*** Clean Panel Heading ***/
+.panel-heading.clean,
+.panel-footer.clean{
+    background:none;
+    border:none;}
+
+.form-control{
+    margin-bottom: 24px;
+}

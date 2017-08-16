@@ -1,0 +1,20 @@
+main{
+	width: 450px;
+	padding: 30px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 30px;
+}
+
+main h1{
+	color: white;
+	display: block;
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+main input{
+	margin-bottom: 15px;
+}

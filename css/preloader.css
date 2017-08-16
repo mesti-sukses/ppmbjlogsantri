@@ -1,0 +1,92 @@
+/* all other browsers */
+
+@keyframes spinner {
+  from {
+    -moz-transform: translate(-50%, 250%) rotateX(0deg);
+    -ms-transform: translate(-50%, 250%) rotateX(0deg);
+    transform: translate(-50%, 250%) rotateX(0deg);
+  }
+  to {
+    -moz-transform: translate(-50%, 250%) rotateX(-360deg);
+    -ms-transform: translate(-50%, 250%) rotateX(-360deg);
+    transform: translate(-50%, 250%) rotateX(-360deg);
+  }
+}
+#loader {
+	display: block;
+  z-index: 1051;
+  perspective: 1200px;
+  animation-name: spinner;
+  animation-iteration-count: infinite;
+  animation-duration: 2s;
+  color: white;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  text-align: center;
+}
+#loader h1 {
+  font-size: 48pt;
+}
+#loader-wrapper .loader-section {
+  position: fixed;
+  top: 0;
+  width: 51%;
+  height: 100%;
+  z-index: 1050;
+  -webkit-transform: translateX(0);
+  /* Chrome, Opera 15+, Safari 3.1+ */
+  -ms-transform: translateX(0);
+  /* IE 9 */
+  transform: translateX(0);
+  /* Firefox 16+, IE 10+, Opera */
+}
+#loader-wrapper .loader-section.section-left {
+  left: 0;
+}
+#loader-wrapper .loader-section.section-right {
+  right: 0;
+}
+
+/* Loaded */
+
+.loaded #loader-wrapper .loader-section.section-left {
+  -webkit-transform: translateX(-100%);
+  /* Chrome, Opera 15+, Safari 3.1+ */
+  -ms-transform: translateX(-100%);
+  /* IE 9 */
+  transform: translateX(-100%);
+  /* Firefox 16+, IE 10+, Opera */
+  -webkit-transition: all 0.7s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+  transition: all 0.7s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+  transition-delay: 0.3s;
+}
+.loaded #loader-wrapper .loader-section.section-right {
+  -webkit-transform: translateX(100%);
+  /* Chrome, Opera 15+, Safari 3.1+ */
+  -ms-transform: translateX(100%);
+  /* IE 9 */
+  transform: translateX(100%);
+  /* Firefox 16+, IE 10+, Opera */
+  -webkit-transition: all 0.7s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+  transition: all 0.7s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+  transition-delay: 0.3s;
+}
+.loaded #loader {
+  opacity: 0;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  transition-delay: 0s;
+}
+.loaded #loader-wrapper {
+	height: 0px;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  transition-delay: 1s
+}
+
+/* JavaScript Turned Off */
+
+.no-js #loader-wrapper {
+  display: none;
+}
