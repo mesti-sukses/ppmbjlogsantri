@@ -8,7 +8,7 @@
     <?php if ($this->session->userdata('level') == 0): ?>
 
     <li>
-      <a href="<?php echo base_url('user/angkatan') ?>"><i class="fa fa-university"></i> Angkatan</a>
+      <a href="<?php echo base_url('user/admin') ?>"><i class="fa fa-university"></i> Angkatan</a>
     </li>
       
     <?php endif ?>

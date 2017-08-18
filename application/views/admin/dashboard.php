@@ -1,6 +1,9 @@
   <main class="main-content container">
     <div class="page-header">
       <h1><?php echo $this->session->userdata('name') ?></a> <small class="roboto-light">List Santri</small></h1>
+      <?php if ($this->session->userdata('level') == 0): ?>
+        <a href="<?php echo base_url('user/save') ?>" class="btn btn-primary pull-right save" style="margin-top: 20px"><i class="fa fa-save"></i>Save Record</a>
+      <?php endif ?>
     </div>
     <table>
       <thead>
@@ -15,12 +18,12 @@
       <tbody>
         <?php foreach ($dataSantri as $santri): ?>
           <tr>
-            <td data-label="Account">
+            <td data-label="Nama">
               <a href="<?php echo base_url('santri/edit/'.$santri->id) ?>"><?php echo $santri->name ?></a>
             </td>
-            <td data-label="Due Date"><?php echo $santri->kosong." Halaman" ?></td>
-            <td data-label="Due Date"><?php echo $santri->angkatan ?></td>
-            <td data-label="Amount">
+            <td data-label="Kosong"><?php echo $santri->kosong." Halaman" ?></td>
+            <td data-label="Angkatan"><?php echo $santri->angkatan ?></td>
+            <td class="presentasi" data-label="Presentase" data-id="<?php echo $santri->id ?>">
               <?php
                 $target = 0;
                 foreach($dataAngkatan as $angkatan){
@@ -31,7 +34,7 @@
                 echo $precentage." %"
               ?>
               </td>
-            <td data-label="Period">
+            <td data-label="Last Update">
               <?php
                 $date = strtotime($santri->modified);
                 echo date("d F y", $date);

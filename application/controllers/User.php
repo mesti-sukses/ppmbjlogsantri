@@ -5,6 +5,7 @@
 			$this->load->model('Santri_m');
 			$this->load->model('Angkatan_m');
 			$this->load->model('User_m');
+			$this->load->model('Progress_m');
 		}
 
 		public function login(){
@@ -43,7 +44,7 @@
 			$this->data['page_info'] = array(
 				'title' => 'Dashboard | '.$this->session->userdata('name'),
 				'css' => array('admin.css', 'table.css'),
-				'js' => array('')
+				'js' => array('savereport.js')
 				);
 			$this->data['subview'] = 'admin/dashboard';
 			$this->data['dataSantri'] = $this->Santri_m->get_by(array('wali' => $this->session->userdata('id')));
@@ -99,16 +100,41 @@
 			$this->User_m->logout();	
 		}
 
-		public function angkatan(){
+		public function admin(){
 			//Page Info
 			$this->data['page_info'] = array(
 				'title' => 'Setting | '.$this->session->userdata('name'),
 				'css' => array('admin.css'),
 				'js' => array('')
 				);
-			$this->data['subview'] = 'admin/angkatan';
+			$this->data['subview'] = 'admin/admin';
+
+			//validation
+			$rules = $this->Angkatan_m->rules;
+			$this->form_validation->set_rules($rules);
+			if($this->form_validation->run() == TRUE){
+				$angkatanData = $this->Angkatan_m->array_from_post(array('id', 'target'));
+
+				$id = $angkatanData['id'];
+				$old = (array)$this->Angkatan_m->get_by(array('id' => $id), TRUE);
+
+				$old['target'] = $angkatanData['target'];
+
+				$this->Angkatan_m->save($old, $id);
+			}
 
 			$this->load->view('components/main_layout', $this->data);
+		}
+
+		public function save(){
+			$progress = $_POST;
+
+			foreach ($progress as $key => $value) {
+				$data['santri_id'] = $key;
+				$data['precentage'] = intval(substr($value, 2));
+
+				$this->Progress_m->save($data);
+			}
 		}
 	}
 ?>
