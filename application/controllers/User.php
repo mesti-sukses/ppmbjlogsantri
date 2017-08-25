@@ -104,9 +104,12 @@
 			//Page Info
 			$this->data['page_info'] = array(
 				'title' => 'Setting | '.$this->session->userdata('name'),
-				'css' => array('admin.css'),
+				'css' => array('admin.css', 'table.css'),
 				'js' => array('')
 				);
+
+			$this->data['angkatanList'] = $this->Angkatan_m->get();
+			$this->data['adminList'] = $this->User_m->get();
 			$this->data['subview'] = 'admin/admin';
 
 			//validation

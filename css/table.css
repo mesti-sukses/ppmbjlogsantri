@@ -2,6 +2,7 @@ table {
   border: 1px solid #ccc;
   border-collapse: collapse;
   margin: 0;
+  margin-bottom: 60px;
   padding: 0;
   width: 100%;
   table-layout: fixed;
