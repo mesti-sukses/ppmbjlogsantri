@@ -11,8 +11,17 @@
           <th scope="col">Nama</th>
           <th scope="col">Kosong</th>
           <th scope="col">Angkatan</th>
+          <?php
+            if($this->session->userdata('level') == 0)
+              echo '<th scope="col">Wali</th>';
+          ?>
           <th scope="col">Presentase (%)</th>
-          <th scope="col">Last Updated</th>
+          <?php
+            if($this->session->userdata('level') == 0)
+              echo '<th scope="col">Last Updated</th>';
+            else
+              echo '<th scope="col">Action</th>';
+          ?>
         </tr>
       </thead>
       <tbody>
@@ -23,6 +32,10 @@
             </td>
             <td data-label="Kosong"><?php echo $santri->kosong." Halaman" ?></td>
             <td data-label="Angkatan"><?php echo $santri->angkatan ?></td>
+            <?php
+              if($this->session->userdata('level') == 0)
+                echo '<td data-label="Wali">'.$santri->nama_wali.'</td>';
+            ?>
             <td class="presentasi" data-label="Presentase" data-id="<?php echo $santri->id ?>">
               <?php
                 $target = 0;
@@ -33,13 +46,19 @@
                 $precentage = intval((($target - $kosong)/$target)*100);
                 echo $precentage." %"
               ?>
-              </td>
-            <td data-label="Last Update">
-              <?php
-                $date = strtotime($santri->modified);
-                echo date("d F y", $date);
-              ?>
             </td>
+            <?php if ($this->session->userdata('level') == 0): ?>
+              <td data-label="Last Update">
+                <?php
+                  $date = strtotime($santri->modified);
+                  echo date("d F y", $date);
+                ?>
+              </td>
+            <?php else :  ?>
+              <td data-label="Action">
+                <a href="<?php echo base_url('santri/delete/'.$santri->id) ?>" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
+              </td>
+            <?php endif ?>
           </tr>
         <?php endforeach ?>
       </tbody>

@@ -38,5 +38,10 @@
 
 			$this->load->view('components/main_layout', $this->data);
 		}
+
+		public function delete($id){
+			$this->Santri_m->delete($id);
+			redirect('admin/user', 'refresh');
+		}
 	}
 ?>

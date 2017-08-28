@@ -14,7 +14,7 @@
 					'title' => 'Login | Loggy',
 					'no-navigation' => true,
 					'css' => array('login.css'),
-					'js' => array()
+					'js' => array('login.js')
 				);
 			$this->data['subview'] = 'components/__login_page';
 
@@ -48,7 +48,7 @@
 				);
 			$this->data['subview'] = 'admin/dashboard';
 			$this->data['dataSantri'] = $this->Santri_m->get_by(array('wali' => $this->session->userdata('id')));
-			if($this->session->userdata('level') == 0) $this->data['dataSantri'] = $this->Santri_m->get();
+			if($this->session->userdata('level') == 0) $this->data['dataSantri'] = $this->Santri_m->get_santri_joinned_wali();
 			$this->data['dataAngkatan'] = $this->Angkatan_m->get();
 
 			//validation
