@@ -17,8 +17,9 @@
 			parent::__construct();
 		}
 
-		public function get_santri_joinned_wali(){
+		public function get_santri_joinned_wali($id = NULL){
 			$this->db->select('santri.*, user_admin.name as nama_wali');
+			if($id) $this->db->where(array('wali' => $id));
 			$this->db->join('user_admin', 'santri.wali = user_admin.id');
 
 			return parent::get();

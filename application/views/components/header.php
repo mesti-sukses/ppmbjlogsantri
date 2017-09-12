@@ -41,6 +41,24 @@
   ?>
     <link href="<?php echo base_url('css/'.$css); ?>" rel="stylesheet" type="text/css">    
   <?php endforeach; ?>
+
+  <style type="text/css">
+    #wali li{
+      padding-left: 18px;
+    }
+
+    #site-menu-wrapper{
+      overflow: scroll;
+      width: 320px;
+      height: 105%;
+    }
+
+    #site-menu{
+      overflow: hidden;
+      width: 300px;
+      height: 100%;
+    }
+  </style>
 </head>
 
 <body>

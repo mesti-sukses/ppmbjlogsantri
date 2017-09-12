@@ -47,8 +47,15 @@
 				'js' => array('savereport.js')
 				);
 			$this->data['subview'] = 'admin/dashboard';
+
+			$id = intval($this->uri->segment(3));
+
 			$this->data['dataSantri'] = $this->Santri_m->get_by(array('wali' => $this->session->userdata('id')));
-			if($this->session->userdata('level') == 0) $this->data['dataSantri'] = $this->Santri_m->get_santri_joinned_wali();
+			if($this->session->userdata('level') == 0){
+				if($id != NULL)
+					$this->data['dataSantri'] = $this->Santri_m->get_santri_joinned_wali($id);
+				else $this->data['dataSantri'] = $this->Santri_m->get_santri_joinned_wali();
+			}
 			$this->data['dataAngkatan'] = $this->Angkatan_m->get();
 
 			//validation
