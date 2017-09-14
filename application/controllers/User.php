@@ -141,7 +141,7 @@
 
 			foreach ($progress as $key => $value) {
 				$data['santri_id'] = $key;
-				$data['precentage'] = intval(substr($value, 2));
+				$data['precentage'] = $value;
 
 				$this->Progress_m->save($data);
 			}

@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	$("input[type=checkbox]").change(function(){
 		var a = $("input[type=checkbox]:checked").length;
-		$('.kosong').text(parseInt($('#target').val()) - a);
+		$('.kosong').text(a);
 	});
 
 	$('.submit').click(function(){

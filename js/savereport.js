@@ -1,10 +1,10 @@
 $(document).ready(function(){
 	var myData = {};
-	$('.presentasi').each(function(){
+	$('.kosong').each(function(){
 		var key = $(this).data('id');
-		var valu = $(this).text();
+		var value = $(this).data('kosong');
 
-		myData[key] = valu;
+		myData[key] = value;
 	});
 
 	$('.save').click(function(e){
@@ -15,7 +15,7 @@ $(document).ready(function(){
 	    	target,
 	  		myData,
 	  		function(data){
-	  			alert(data);
+	  			console.log(myData);
 	  		}
 	    );
 	});

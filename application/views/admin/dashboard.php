@@ -9,6 +9,7 @@
       <thead>
         <tr>
           <th scope="col">Nama</th>
+          <th scope="col">Terisi</th>
           <th scope="col">Kosong</th>
           <th scope="col">Angkatan</th>
           <?php
@@ -27,23 +28,26 @@
       <tbody>
         <?php foreach ($dataSantri as $santri): ?>
           <tr>
+            <?php
+              $target = 0;
+              foreach($dataAngkatan as $angkatan){
+                if($angkatan->angkatan == $santri->angkatan) $target = $angkatan->target;
+              }
+              $kosong = $santri->kosong;
+              $precentage = intval((($kosong)/$target)*100);
+            ?>
             <td data-label="Nama">
               <a href="<?php echo base_url('santri/edit/'.$santri->id) ?>"><?php echo $santri->name ?></a>
             </td>
-            <td data-label="Kosong"><?php echo $santri->kosong." Halaman" ?></td>
+            <td class="kosong" data-label="Terisi" data-kosong="<?php echo $santri->kosong ?>" data-id="<?php echo $santri->id ?>"><?php echo $santri->kosong." Hal" ?></td>
+            <td data-label="Kosong"><?php echo $target - $santri->kosong." Hal" ?></td>
             <td data-label="Angkatan"><?php echo $santri->angkatan ?></td>
             <?php
               if($this->session->userdata('level') == 0)
                 echo '<td data-label="Wali">'.$santri->nama_wali.'</td>';
             ?>
-            <td class="presentasi" data-label="Presentase" data-id="<?php echo $santri->id ?>">
+            <td class="presentasi" data-label="Presentase">
               <?php
-                $target = 0;
-                foreach($dataAngkatan as $angkatan){
-                  if($angkatan->angkatan == $santri->angkatan) $target = $angkatan->target;
-                }
-                $kosong = $santri->kosong;
-                $precentage = intval((($target - $kosong)/$target)*100);
                 echo $precentage." %"
               ?>
             </td>

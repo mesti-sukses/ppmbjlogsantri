@@ -17,7 +17,6 @@
             <input type="hidden" id="kosong" name="kosong">
             <input type="hidden" id="target" value="<?php echo $angkatanData->target ?>">
             <p>Kosong <span class="kosong"><?php echo $santriData->kosong ?></span> Lembar</p>
-            <p>Ketercapaian <span>50</span> %</p>
             <button type="submit" class="btn btn-primary submit">Save</button>
           </div>
         </div>
