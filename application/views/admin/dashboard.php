@@ -39,8 +39,8 @@
             <td data-label="Nama">
               <a href="<?php echo base_url('santri/edit/'.$santri->id) ?>"><?php echo $santri->name ?></a>
             </td>
-            <td class="kosong" data-label="Terisi" data-kosong="<?php echo $santri->kosong ?>" data-id="<?php echo $santri->id ?>"><?php echo $santri->kosong." Hal" ?></td>
-            <td data-label="Kosong"><?php echo $target - $santri->kosong." Hal" ?></td>
+            <td data-label="Terisi"><?php echo $santri->kosong." Hal" ?></td>
+            <td class="kosong" data-id="<?php echo $santri->id ?>" data-kosong="<?php echo $target-$santri->kosong ?>" data-label="Kosong"><?php echo $target - $santri->kosong." Hal" ?></td>
             <td data-label="Angkatan"><?php echo $santri->angkatan ?></td>
             <?php
               if($this->session->userdata('level') == 0)
@@ -50,6 +50,11 @@
               <?php
                 echo $precentage." %"
               ?>
+              <span class="inlinebar"><?php
+              foreach ($progress[$santri->id] as $value) {
+                echo $value->precentage.', ';
+              }
+              ?></span>
             </td>
             <?php if ($this->session->userdata('level') == 0): ?>
               <td data-label="Last Update">

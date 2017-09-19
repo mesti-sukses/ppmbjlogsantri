@@ -44,7 +44,7 @@
 			$this->data['page_info'] = array(
 				'title' => 'Dashboard | '.$this->session->userdata('name'),
 				'css' => array('admin.css', 'table.css'),
-				'js' => array('savereport.js')
+				'js' => array('savereport.js', 'jquery.sparkline.min.js')
 				);
 			$this->data['subview'] = 'admin/dashboard';
 
@@ -57,6 +57,14 @@
 				else $this->data['dataSantri'] = $this->Santri_m->get_santri_joinned_wali();
 			}
 			$this->data['dataAngkatan'] = $this->Angkatan_m->get();
+
+			$this->data['progress'] = array();
+			$this->load->model('Progress_m');
+			foreach ($this->data['dataSantri'] as $santri) {
+				$id = $santri->id;
+
+				$this->data['progress'][$id] = $this->Progress_m->get_by(array('santri_id' => $id));
+			}
 
 			//validation
 			$rules = $this->Santri_m->rules;

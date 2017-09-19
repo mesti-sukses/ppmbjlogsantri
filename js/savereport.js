@@ -19,4 +19,6 @@ $(document).ready(function(){
 	  		}
 	    );
 	});
+
+	$('.inlinebar').sparkline('html', {type: 'bar', barColor: 'red'} );
 });
