@@ -1,0 +1,34 @@
+.comparator{
+  border: 1px solid #ccc;
+  margin: 0;
+  margin-bottom: 60px;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.comparator tr{
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+.comparator td{
+  text-align: center;
+  display: inline-block;
+  padding: 10px;
+  font-size: 9px;
+}
+
+.comparator .juz{
+  display: inline-block;
+  width: 75px;
+}
+
+  .comparator td{
+  color: white;
+}
+
+.check{
+  display: block;
+}

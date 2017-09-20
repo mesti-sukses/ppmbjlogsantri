@@ -6,6 +6,9 @@
       <li>
         <a href="<?php echo base_url('user') ?>"><i class="fa fa-dashboard"></i>Dashboard</a>
       </li>
+      <li>
+        <a href="<?php echo base_url('user/compare') ?>"><i class="fa fa-clipboard"></i>Pembanding</a>
+      </li>
       <?php if ($this->session->userdata('level') == 0): ?>
 
         <li>
@@ -40,12 +43,14 @@
     <div class="container-fluid">
       <a class="navbar-brand roboto-bold toggle-site-menu" href="#" id="menu-corner"><i class="fa fa-navicon"></i> <?php echo $this->session->userdata('name') ?></a>
 
-
-
       <ul class="nav navbar-nav pull-right">
-        <li>
-          <a role="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Tambah Santri</a>
-        </li>
+        <?php if (uri_string() == 'admin/user' || uri_string() == 'user'): ?>
+
+          <li>
+            <a role="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Tambah Santri</a>
+          </li>
+          
+        <?php endif ?>
       </ul>
     </div>
   </nav>

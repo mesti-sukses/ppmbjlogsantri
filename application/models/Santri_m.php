@@ -28,5 +28,12 @@
 		public function get_report(){
 			return $this->db->get('santri');
 		}
+
+		public function get_santri(){
+			if($this->session->userdata('level') == 0) return $this->get();
+			else $id = $this->session->userdata('id');
+
+			return $this->get_by(array('wali' => $id));
+		}
 	}
 ?>

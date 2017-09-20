@@ -1,4 +1,13 @@
 <?php
+	/*
+
+	* Still don't understand what called MVC, but I just continue my design pattern
+	* Controller send page info to views
+	* I'll refine this once I understand
+
+	*/
+	
+
 	class User extends Admin_Controller{
 		public function __construct(){
 			parent::__construct();
@@ -8,6 +17,7 @@
 			$this->load->model('Progress_m');
 		}
 
+		//login function
 		public function login(){
 			// Page info
 			$this->data['page_info'] = array(
@@ -38,6 +48,7 @@
 			$this->load->view("components/main_layout", $this->data);
 		}
 
+		//dashboard that list the santri
 		public function index(){
 
 			//Page Info
@@ -82,6 +93,7 @@
 			$this->load->view('components/main_layout', $this->data);
 		}
 
+		//setting to update username and password
 		public function setting(){
 
 			//Page Info
@@ -111,10 +123,13 @@
 			$this->load->view('components/main_layout', $this->data);
 		}
 
+		//untuk log out
 		public function logout(){
 			$this->User_m->logout();	
 		}
 
+		//khusus yang level admin untuk angkatan
+		//TO DO : untuk tambah dan hapus wali
 		public function admin(){
 			//Page Info
 			$this->data['page_info'] = array(
@@ -144,6 +159,7 @@
 			$this->load->view('components/main_layout', $this->data);
 		}
 
+		//untuk save progress via AJAX.
 		public function save(){
 			$progress = $_POST;
 
@@ -153,6 +169,41 @@
 
 				$this->Progress_m->save($data);
 			}
+		}
+
+		public function compare(){
+			$this->data['page_info'] = array(
+				'title' => 'Pembanding | '.$this->session->userdata('name'),
+				'css' => array('admin.css', 'compare.css'),
+				'js' => array()
+				);
+
+			$this->data['subview'] = 'admin/compare';
+
+			$this->data['dataSantri'] = $this->Santri_m->get_santri();
+
+			$rules = array(
+					array(
+						'field' => 'check[]',
+						'rules' => 'trim|required'
+						)
+				);
+
+			$this->form_validation->set_rules($rules);
+			if($this->form_validation->run() == TRUE){
+				$check = $_POST['check'];
+				//$this->data['santriCheck'] = $check;
+				$data = array();
+
+				foreach ($check as $santri) {
+					$dataProgress = unserialize($this->Santri_m->get_by(array('id' => intval($santri)), TRUE)->progress);
+
+					$data =array_merge($data, $dataProgress);
+					$this->data['check'] = $data;
+				}
+			}
+
+			$this->load->view('components/main_layout', $this->data);
 		}
 	}
 ?>
