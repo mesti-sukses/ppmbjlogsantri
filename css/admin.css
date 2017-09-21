@@ -37,9 +37,9 @@ main{
     font-family: FontAwesome;
     content: "\f058 "; /* full star */
 }
-input:checked + label, 
+input:checked + label
 /* color current and previous stars on checked */
-label:hover{ color: #73B100;  }
+{ color: #73B100;  }
 .panel{
     margin-bottom:30px;}
 
