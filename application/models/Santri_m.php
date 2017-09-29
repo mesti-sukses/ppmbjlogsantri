@@ -1,5 +1,5 @@
 <?php
-	class Santri_m extends MY_Model{
+	class Santri_m extends User_m{
 		protected $_table_name = 'santri';
 		protected $_order_by = 'wali, name';
 		protected $_timestamps = TRUE;

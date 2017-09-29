@@ -3,33 +3,45 @@
     <a class="navbar-brand roboto-bold" href="#"><i class="fa fa-navicon"></i> <?php echo $this->session->userdata('name') ?></a> <a class="pull-right close" href="#"><i class="fa fa-close"></i></a>
 
     <ul class="off-menu">
-      <li>
-        <a href="<?php echo base_url('user') ?>"><i class="fa fa-dashboard"></i>Dashboard</a>
-      </li>
-      <li>
-        <a href="<?php echo base_url('user/compare') ?>"><i class="fa fa-clipboard"></i>Pembanding</a>
-      </li>
-      <?php if ($this->session->userdata('level') == 0): ?>
+      <?php if ($this->session->userdata('level') < 2): ?>
 
         <li>
-          <a href="<?php echo base_url('user/admin') ?>"><i class="fa fa-hashtag"></i>Superuser</a>
+          <a href="<?php echo base_url('user') ?>"><i class="fa fa-dashboard"></i>Dashboard</a>
+        </li>
+        <li>
+          <a href="<?php echo base_url('user/compare') ?>"><i class="fa fa-clipboard"></i>Pembanding</a>
+        </li>
+        <?php if ($this->session->userdata('level') == 0): ?>
+
+          <li>
+            <a href="<?php echo base_url('user/admin') ?>"><i class="fa fa-hashtag"></i>Superuser</a>
+          </li>
+
+          <li>
+            <a href="#" data-toggle="collapse" data-target="#wali"><i class="fa fa-group"></i>Wali</a>
+
+            <ul class="collapse" id="wali">
+              <?php foreach ($userData as $user): ?>
+                <li><a href="<?php echo base_url('user/index/'.$user->id) ?>"><i class="fa fa-user"></i><?php echo $user->name ?></a></li>
+              <?php endforeach ?>
+            </ul>
+          </li>
+        <?php endif ?>
+
+        <li>
+          <a href="<?php echo base_url('user/setting') ?>"><i class="fa fa-gear"></i>Setting</a>
+        </li>
+
+      <?php else : ?>
+        <li>
+          <a href="<?php echo base_url('santri/edit/'.$this->session->userdata('id')) ?>"><i class="fa fa-book"></i>Materi</a>
         </li>
 
         <li>
-          <a href="#" data-toggle="collapse" data-target="#wali"><i class="fa fa-group"></i>Wali</a>
-
-          <ul class="collapse" id="wali">
-            <?php foreach ($userData as $user): ?>
-              <li><a href="<?php echo base_url('user/index/'.$user->id) ?>"><i class="fa fa-user"></i><?php echo $user->name ?></a></li>
-            <?php endforeach ?>
-          </ul>
+          <a href="<?php echo base_url('santri/setting') ?>"><i class="fa fa-gear"></i>Setting</a>
         </li>
         
       <?php endif ?>
-
-      <li>
-        <a href="<?php echo base_url('user/setting') ?>"><i class="fa fa-gear"></i>Setting</a>
-      </li>
 
       <li>
         <a href=" <?php echo base_url('user/logout')  ?>"><i class="fa fa-power-off"></i>Sign Out</a>

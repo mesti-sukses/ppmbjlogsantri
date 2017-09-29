@@ -29,8 +29,11 @@
 			$this->data['subview'] = 'components/__login_page';
 
 			//redirect to dashboard
-			$dashboard = 'admin/user';
+			$dashboard = 'user';
 			$this->User_m->loggedin() == FALSE || redirect($dashboard);
+
+			$dashboardSantri ='santri/edit/';
+			$this->Santri_m->loggedin() == FALSE || redirect($dashboardSantri.$this->session->userdata('id'));
 
 			//validation form
 			$rules = $this->User_m->rules;
@@ -40,8 +43,12 @@
 				if($loginCheck){
 					redirect($dashboard);
 				} else {
-					$this -> session -> set_flashdata('error', 'That email password combination does not exist. Please login with your valid email and password');
-					redirect('user/login', 'refresh');
+					if($this->Santri_m->login() == TRUE){
+						redirect($dashboardSantri.$this->session->userdata('id'));
+					} else {
+						$this -> session -> set_flashdata('error', 'That email password combination does not exist. Please login with your valid email and password');
+						redirect('user/login', 'refresh');
+					}
 				}
 			}
 

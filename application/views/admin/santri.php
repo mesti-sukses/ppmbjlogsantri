@@ -1,6 +1,6 @@
   <main class="main-content container">
     <div class="page-header">
-      <h1><?php echo $this->session->userdata('name') ?></a> <small class="roboto-light">List Santri</small></h1>
+      <h1><?php echo $this->session->userdata('name') ?></a> <small class="roboto-light">Ketercapaian</small></h1>
     </div>
 
     <?php echo form_open() ?>
@@ -16,7 +16,7 @@
             <input type="text" name="angkatan" class="form-control" placeholder="Angkatan" value="<?php echo $santriData->angkatan ?>">
             <input type="hidden" id="kosong" name="kosong">
             <input type="hidden" id="target" value="<?php echo $angkatanData->target ?>">
-            <p>Kosong <span class="kosong"><?php echo $santriData->kosong ?></span> Lembar</p>
+            <p>Terisi <span class="kosong"><?php echo $santriData->kosong ?></span> Lembar</p>
             <button type="submit" class="btn btn-primary submit">Save</button>
           </div>
         </div>
@@ -35,14 +35,12 @@
             $progress = unserialize($santriData->progress);
             $juz = 1;
             for ($i=2; $i <= 605; $i++) {
-              if(($i%20 == 3 && $i != 3 && $i < 603) || $i == 2){
-                echo '<div class="row">';
-                echo '<div class="col-xs-2"><p>Juz '.$juz.'</p></div><div class="col-xs-10">';
-                $juz++;
-              }
               if(array_key_exists($i, $progress)) $check = 'checked'; else $check = '';
-              echo '<input type="checkbox" id="'.$i.'" name="'.$i.'" value="'.$i.'" '.$check.'/><label for="'.$i.'" title="Halaman '.$i.'"></label>';
-              if($i%20 == 2 && $i != 2 && $i < 602 ) echo '</div></div>';
+              echo '<label class="switch">
+                <input type="checkbox" id="'.$i.'" name="'.$i.'" value="'.$i.'" '.$check.'>
+                <span class="slider">'.$i.'</span>
+              </label>';
+              //echo '<input type="checkbox" id="'.$i.'" name="'.$i.'" value="'.$i.'" '.$check.'/><label for="'.$i.'" title="Halaman '.$i.'"></label>';
             } ?>
           </div>
         </div>

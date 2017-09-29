@@ -21,10 +21,11 @@
 		}
 
 		public function login(){
-			$user = $this -> get_by(array(
+			$userData = array(
 				'name' => $this->input->post('user'),
 				'pass' => $this->hash($this->input->post('password'))
-			), TRUE);
+			);
+			$user = $this -> get_by($userData, TRUE);
 			if(count($user)){
 				//logged in
 				$data = array(
@@ -44,7 +45,7 @@
 
 		public function logout(){
 			$this->session->sess_destroy();
-			redirect('admin/user/login');
+			redirect('user/login');
 		}
 	}
 ?>
