@@ -141,26 +141,33 @@
 			//Page Info
 			$this->data['page_info'] = array(
 				'title' => 'Setting | '.$this->session->userdata('name'),
-				'css' => array('admin.css', 'table.css'),
-				'js' => array('')
+				'css' => array('admin.css'),
+				'js' => array('counter.js')
 				);
 
 			$this->data['angkatanList'] = $this->Angkatan_m->get();
-			$this->data['adminList'] = $this->User_m->get();
 			$this->data['subview'] = 'admin/admin';
 
 			//validation
 			$rules = $this->Angkatan_m->rules;
+
 			$this->form_validation->set_rules($rules);
 			if($this->form_validation->run() == TRUE){
-				$angkatanData = $this->Angkatan_m->array_from_post(array('id', 'target'));
+				$angkatanData = $this->Angkatan_m->array_from_post(array('id', 'angkatan', 'target'));
 
 				$id = $angkatanData['id'];
-				$old = (array)$this->Angkatan_m->get_by(array('id' => $id), TRUE);
 
-				$old['target'] = $angkatanData['target'];
+				$progress = array();
 
-				$this->Angkatan_m->save($old, $id);
+				for ($i=2; $i <= 605; $i++) { 
+					if($this->input->post($i) != NULL) $progress[$i] = $i;
+				}
+
+				$angkatanData['progress'] = serialize($progress);
+
+				$this->Angkatan_m->save($angkatanData, $id);
+
+				redirect('user/admin', 'refresh');
 			}
 
 			$this->load->view('components/main_layout', $this->data);

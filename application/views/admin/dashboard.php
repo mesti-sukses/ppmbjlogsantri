@@ -17,10 +17,9 @@
               echo '<th scope="col">Wali</th>';
           ?>
           <th scope="col">Presentase (%)</th>
+          <th scope="col">Last Updated</th>
           <?php
-            if($this->session->userdata('level') == 0)
-              echo '<th scope="col">Last Updated</th>';
-            else
+            if($this->session->userdata('level') == 1)
               echo '<th scope="col">Action</th>';
           ?>
         </tr>
@@ -56,14 +55,13 @@
               }
               ?></span>
             </td>
-            <?php if ($this->session->userdata('level') == 0): ?>
-              <td data-label="Last Update">
-                <?php
-                  $date = strtotime($santri->modified);
-                  echo date("d F y", $date);
-                ?>
-              </td>
-            <?php else :  ?>
+            <td data-label="Last Update">
+              <?php
+                $date = strtotime($santri->modified);
+                echo date("d F y", $date);
+              ?>
+            </td>
+            <?php if ($this->session->userdata('level') == 1): ?>
               <td data-label="Action">
                 <a href="<?php echo base_url('santri/delete/'.$santri->id) ?>" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
               </td>

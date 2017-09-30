@@ -5,7 +5,7 @@
 
 		public $rules = array(
 				array(
-					'field' => 'id',
+					'field' => 'angkatan',
 					'rules' => 'trim|required'
 					),
 				array(

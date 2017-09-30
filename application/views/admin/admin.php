@@ -2,82 +2,44 @@
   <div class="page-header" style="display: block; width: 100%">
     <h1>Superuser Menu</h1>
   </div>
-  <?php echo form_open_multipart('', array('class' => 'form-horizontal form-label-left')) ?>
 
-  <div class="col-md-6">
-    <div class="panel panel-default">
+  <?php $j = 1; foreach ($angkatanList as $angkatan): ?>
 
-      <div class="panel-heading clean">
-        Angkatan
-      </div>
+    <?php echo form_open_multipart('', array('class' => 'form-horizontal form-label-left')) ?>
+    
+      <div class="col-md-6">
+        <div class="panel panel-default">
 
-      <div class="panel-body">
-        <div class="input-group" style="margin-bottom: 24px">
-
-          <div class="input-group-addon">
-            <select name="id">
-              <option value="1">2015</option>
-              <option value="2">2016</option>
-              <option value="3">2017</option>
-            </select>
+          <div class="panel-heading clean">
+            Angkatan <?php echo $angkatan->angkatan ?>
           </div>
 
-          <input type="text" name="target" class="form-control">
+          <div class="panel-body">
+            <input type="hidden" name="id" value="<?php echo $angkatan->id ?>">
 
-          <div class="input-group-btn">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <input type="hidden" name="angkatan" value="<?php echo $angkatan->angkatan ?>">
+
+            <input type="hidden" id="kosong-<?php echo $j ?>" name="target">
+
+            <div class="info" style="margin-bottom: 24px">
+              Target <span class="kosong-<?php echo $j ?>"><?php echo $angkatan->target ?></span> halaman
+              <button type="submit" class="submit btn btn-primary pull-right">Save</button>
+            </div>
+            <?php
+              $progress = unserialize($angkatan->progress);
+              $juz = 1;
+              for ($i=2; $i <= 605; $i++) {
+                if(array_key_exists($i, $progress)) $check = 'checked'; else $check = '';
+                echo '<label class="switch switch-'.$j.'">
+                  <input type="checkbox" id="'.$i.'" name="'.$i.'" value="'.$i.'" '.$check.'>
+                  <span class="slider">'.$i.'</span>
+                </label>';
+                //echo '<input type="checkbox" id="'.$i.'" name="'.$i.'" value="'.$i.'" '.$check.'/><label for="'.$i.'" title="Halaman '.$i.'"></label>';
+              } ?>
           </div>
         </div>
-
-        <table>
-            <thead>
-              <tr>
-                <th scope="col">Angkatan</th>
-                <th scope="col">Target</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($angkatanList as $angkatan): ?>
-                <tr>
-                  <td data-label="Angkatan">
-                    <?php echo $angkatan->angkatan ?>
-                  </td>
-                  <td data-label="Target"><?php echo $angkatan->target." Halaman" ?></td>
-                </tr>
-              <?php endforeach ?>
-            </tbody>
-          </table>
-      </div>
+      <?php echo form_close() ?>
     </div>
-  </div>
-  <?php echo form_close() ?>
-  <div class="col-md-6">
-    <div class="panel panel-default">
 
-      <div class="panel-heading clean">
-        Wali
-      </div>
-
-      <div class="panel-body">
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">Username</th>
-              <th scope="col">Level</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($adminList as $admin): ?>
-              <tr>
-                <td data-label="Nama">
-                  <?php echo $admin->name ?>
-                </td>
-                <td data-label="Action"><?php echo ($admin->level == 0) ? "Admin" : "User" ?></td>
-              </tr>
-            <?php endforeach ?>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+  <?php $j++; endforeach; ?>
 </main>

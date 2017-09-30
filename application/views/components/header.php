@@ -75,13 +75,13 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: #ccc;
+      background-color: #FF1942;
       -webkit-transition: .4s;
       transition: .4s;
       padding: 9px 5px;
       text-align: right;
       font-size: .75em;
-      color: #FF1942;
+      color: #fff;
     }
 
     .slider:before {
@@ -100,6 +100,11 @@
       background-color: #2196F3;
       text-align: left;
       color: #515151;
+    }
+
+    input:disabled + .slider{
+      background-color: #ccc;
+      color: #ccc;
     }
 
     input:checked + .slider:before {
