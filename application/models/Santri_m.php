@@ -1,7 +1,7 @@
 <?php
 	class Santri_m extends User_m{
 		protected $_table_name = 'santri';
-		protected $_order_by = 'modified';
+		protected $_order_by = 'kosong';
 		protected $_timestamps = TRUE;
 		public $rules = array(
 				array(
