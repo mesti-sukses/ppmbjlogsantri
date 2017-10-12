@@ -9,7 +9,7 @@
 		public function edit($id){
 			$this->data['page_info'] = array(
 					'title' => 'Santri Database',
-					'css' => array('admin.css'),
+					'css' => array('admin.css', 'switch.css'),
 					'js' => array('counter.js')
 				);
 			$this->data['subview'] = 'admin/santri';

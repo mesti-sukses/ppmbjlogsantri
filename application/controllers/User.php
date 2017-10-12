@@ -62,7 +62,7 @@
 			$this->data['page_info'] = array(
 				'title' => 'Dashboard | '.$this->session->userdata('name'),
 				'css' => array('admin.css', 'table.css'),
-				'js' => array('savereport.js', 'jquery.sparkline.min.js')
+				'js' => array('savereport.js', 'jquery.sparkline.min.js', 'jquery.dataTables.min.js')
 				);
 			$this->data['subview'] = 'admin/dashboard';
 
@@ -137,11 +137,11 @@
 
 		//khusus yang level admin untuk angkatan
 		//TO DO : untuk tambah dan hapus wali
-		public function admin(){
+		public function target(){
 			//Page Info
 			$this->data['page_info'] = array(
 				'title' => 'Setting | '.$this->session->userdata('name'),
-				'css' => array('admin.css'),
+				'css' => array('admin.css', 'switch.css'),
 				'js' => array('counter.js')
 				);
 

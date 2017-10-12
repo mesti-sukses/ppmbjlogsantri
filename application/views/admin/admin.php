@@ -1,6 +1,6 @@
 <main class="main-content container">
   <div class="page-header" style="display: block; width: 100%">
-    <h1>Superuser Menu</h1>
+    <h1>Target Angkatan</h1>
   </div>
 
   <?php $j = 1; foreach ($angkatanList as $angkatan): ?>

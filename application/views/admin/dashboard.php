@@ -5,7 +5,7 @@
         <a href="<?php echo base_url('user/save') ?>" class="btn btn-primary pull-right save" style="margin-top: 20px"><i class="fa fa-save"></i>Save Record</a>
       <?php endif ?>
     </div>
-    <table>
+    <table id="list-santri">
       <thead>
         <tr>
           <th scope="col">Nama</th>
@@ -36,7 +36,7 @@
               $precentage = intval((($kosong)/$target)*100);
             ?>
             <td data-label="Nama">
-              <input type="checkbox" name=""><a href="<?php echo base_url('santri/edit/'.$santri->id) ?>"><?php echo $santri->name ?></a>
+              <a href="<?php echo base_url('santri/edit/'.$santri->id) ?>"><?php echo $santri->name ?></a>
             </td>
             <td data-label="Terisi"><?php echo $santri->kosong." Hal" ?></td>
             <td class="kosong" data-id="<?php echo $santri->id ?>" data-kosong="<?php echo $target-$santri->kosong ?>" data-label="Kosong"><?php echo $target - $santri->kosong." Hal" ?></td>

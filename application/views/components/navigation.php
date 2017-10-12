@@ -11,11 +11,8 @@
         <li>
           <a href="<?php echo base_url('user/compare') ?>"><i class="fa fa-clipboard"></i>Pembanding</a>
         </li>
-        <?php if ($this->session->userdata('level') == 0): ?>
 
-          <li>
-            <a href="<?php echo base_url('user/admin') ?>"><i class="fa fa-hashtag"></i>Superuser</a>
-          </li>
+        <?php if ($this->session->userdata('level') == 0): ?>
 
           <li>
             <a href="#" data-toggle="collapse" data-target="#wali"><i class="fa fa-group"></i>Wali</a>
@@ -41,6 +38,17 @@
           <a href="<?php echo base_url('santri/setting') ?>"><i class="fa fa-gear"></i>Setting</a>
         </li>
         
+      <?php endif ?>
+
+
+
+      <?php if ($this->session->userdata('level') == 0 || $this->session->userdata('level') == 4): ?>
+          
+        <li>
+          <a href="<?php echo base_url('user/target') ?>"><i class="fa fa-area-chart"></i>Target</a>
+        </li>
+
+
       <?php endif ?>
 
       <li>
