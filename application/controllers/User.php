@@ -132,10 +132,12 @@
 
 		//untuk log out
 		public function logout(){
+			
 			$this->User_m->logout();	
 		}
 
 		//khusus yang level admin untuk angkatan
+		//ganti menuju tim jurnal
 		//TO DO : untuk tambah dan hapus wali
 		public function target(){
 			//Page Info
@@ -217,6 +219,22 @@
 				}
 			}
 
+			$this->load->view('components/main_layout', $this->data);
+		}
+
+		public function wali(){
+
+			//Page Info
+			$this->data['page_info'] = array(
+				'title' => 'Wali | '.$this->session->userdata('name'),
+				'css' => array('admin.css', 'table.css'),
+				'js' => array('jquery.dataTables.min.js')
+				);
+			$this->data['subview'] = 'admin/wali';
+
+			$this->data['dataWali'] = $this->User_m->get();
+			
+			//Load View
 			$this->load->view('components/main_layout', $this->data);
 		}
 	}

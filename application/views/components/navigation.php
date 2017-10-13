@@ -15,7 +15,9 @@
         <?php if ($this->session->userdata('level') == 0): ?>
 
           <li>
-            <a href="#" data-toggle="collapse" data-target="#wali"><i class="fa fa-group"></i>Wali</a>
+            <a href="<?php echo base_url('user/wali') ?>"><i class="fa fa-group"></i>Wali</a>
+
+            <a href="#" class="pull-right" data-toggle="collapse" data-target="#wali"><i class="fa fa-angle-double-down"></i></a>
 
             <ul class="collapse" id="wali">
               <?php foreach ($userData as $user): ?>

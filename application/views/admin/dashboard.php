@@ -38,8 +38,8 @@
             <td data-label="Nama">
               <a href="<?php echo base_url('santri/edit/'.$santri->id) ?>"><?php echo $santri->name ?></a>
             </td>
-            <td data-label="Terisi"><?php echo $santri->kosong." Hal" ?></td>
-            <td class="kosong" data-id="<?php echo $santri->id ?>" data-kosong="<?php echo $target-$santri->kosong ?>" data-label="Kosong"><?php echo $target - $santri->kosong." Hal" ?></td>
+            <td data-label="Terisi" data-order="<?php echo $target-$santri->kosong ?>"><?php echo $santri->kosong." Hal" ?></td>
+            <td class="kosong" data-id="<?php echo $santri->id ?>" data-kosong="<?php echo $target-$santri->kosong ?>" data-label="Kosong" data-order="<?php echo $target-$santri->kosong ?>"><?php echo $target - $santri->kosong." Hal" ?></td>
             <td data-label="Angkatan"><?php echo $santri->angkatan ?></td>
             <?php
               if($this->session->userdata('level') == 0)
@@ -55,7 +55,7 @@
               }
               ?></span>
             </td>
-            <td data-label="Last Update">
+            <td data-label="Last Update" data-order="<?php echo $santri->modified ?>">
               <?php
                 $date = strtotime($santri->modified);
                 echo date("d F y", $date);

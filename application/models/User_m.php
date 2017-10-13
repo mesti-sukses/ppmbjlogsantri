@@ -1,7 +1,7 @@
 <?php
 	class User_m extends MY_Model{
 		protected $_table_name = 'user_admin';
-		protected $_order_by = 'name';
+		protected $_order_by = 'last';
 		public $rules = array(
 				array(
 					'field' => 'password',
@@ -34,6 +34,13 @@
 					'loggedin' => TRUE,
 					'level' => intval($user->level)
 				);
+				if($data['level'] == 1){
+					$now = date('Y-m-d H:i:s');
+					$dataUser = (array)$user;
+					$dataUser['last'] = $now;
+					$this->save($dataUser, $dataUser['id']);
+				}
+
 				$this->session->set_userdata($data);
 				return TRUE;
 			}
@@ -44,6 +51,7 @@
 		}
 
 		public function logout(){
+
 			$this->session->sess_destroy();
 			redirect('user/login');
 		}
