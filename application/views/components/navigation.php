@@ -32,6 +32,10 @@
         </li>
 
       <?php else : ?>
+
+        <li>
+          <a href="<?php echo base_url('santri/dashboard') ?>"><i class="fa fa-dashboard"></i>Dashboard</a>
+        </li>
         <li>
           <a href="<?php echo base_url('santri/edit/'.$this->session->userdata('id')) ?>"><i class="fa fa-book"></i>Materi</a>
         </li>

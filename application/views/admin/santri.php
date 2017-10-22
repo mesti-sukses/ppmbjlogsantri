@@ -1,33 +1,28 @@
   <main class="main-content container">
     <div class="page-header">
-      <h1><?php echo $this->session->userdata('name') ?></a> <small class="roboto-light">Ketercapaian</small></h1>
+      <h1>Materi <small class="roboto-light">Al-Quran</small></h1>
     </div>
 
     <?php echo form_open() ?>
-      <div class="col-lg-4">
-        
+      <div>
         <div class="panel panel-default">
-          <div class="clean panel-heading">
-            Info Santri
-          </div>
-
-          <div class="panel-body">
-            <input type="text" name="name" class="form-control" placeholder="Nama Santri" value="<?php echo $santriData->name ?>">
-            <input type="text" name="angkatan" class="form-control" placeholder="Angkatan" value="<?php echo $santriData->angkatan ?>">
-            <input type="hidden" id="kosong" name="kosong">
-            <input type="hidden" id="target" value="<?php echo $angkatanData->target ?>">
-            <p>Terisi <span class="kosong"><?php echo $santriData->kosong ?></span> Lembar</p>
-            <p>Kosong <?php echo ($angkatanData->target) - ($santriData->kosong) ?> Lembar</p>
-            <button type="submit" class="btn btn-primary submit">Save</button>
-          </div>
-        </div>
-
-      </div>
-      <div class="col-lg-8">
-        <div class="panel panel-default">
+          <input type="hidden" id="kosong" name="kosong">
+          <input type="hidden" id="target" value="<?php echo $angkatanData->target ?>">
+          <input type="hidden" name="name" class="form-control" placeholder="Nama Santri" value="<?php echo $santriData->name ?>">
+          <input type="hidden" name="angkatan" class="form-control" placeholder="Angkatan" value="<?php echo $santriData->angkatan ?>">
 
           <div class="panel-heading clean">
-            Progress Detail
+            <?php
+              if(($angkatanData->target) - ($santriData->kosong) > 50)
+                $label = 'danger';
+              else if(($angkatanData->target) - ($santriData->kosong) > 20)
+                $label = 'warning';
+              else
+                $label = 'success';
+            ?>
+            Kosong <span class="label label-<?php echo $label ?>"><?php echo ($angkatanData->target) - ($santriData->kosong) ?></span>
+            Terisi <span class="kosong label label-success"><?php echo $santriData->kosong ?></span>
+            <button type="submit" class="pull-right btn-sm btn btn-primary submit"><i class="fa fa-floppy-o"></i>Save</button>
           </div>
 
           <div class="rate panel-body">

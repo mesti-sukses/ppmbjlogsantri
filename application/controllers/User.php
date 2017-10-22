@@ -138,7 +138,7 @@
 
 		//khusus yang level admin untuk angkatan
 		//ganti menuju tim jurnal
-		//TO DO : untuk tambah dan hapus wali
+		//TO DO : untuk tambah dan hapus wali DONE
 		public function target(){
 			//Page Info
 			$this->data['page_info'] = array(
@@ -223,6 +223,11 @@
 		}
 
 		public function wali(){
+
+			if($this->session->userdata('level') != 0){
+				echo "Access Denied";
+				exit();
+			}
 
 			//Page Info
 			$this->data['page_info'] = array(

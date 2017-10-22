@@ -7,6 +7,10 @@
 		}
 
 		public function edit($id){
+			if($this->session->userdata('level') > 1 && $this->session->userdata('id') != $id){
+				echo "Arep lapo awakmu he?";
+				exit();
+			}
 			$this->data['page_info'] = array(
 					'title' => 'Santri Database',
 					'css' => array('admin.css', 'switch.css'),
@@ -33,7 +37,10 @@
 
 				$this->Santri_m->save($dataSantri, $id);
 
-				redirect('admin/dashboard');
+				if($this->session->userdata('level') < 2)
+					redirect('admin/dashboard');
+				else
+					redirect('santri/dashboard');
 			}
 
 			$this->load->view('components/main_layout', $this->data);
@@ -82,6 +89,20 @@
 		public function delete($id){
 			$this->Santri_m->delete($id);
 			redirect('user', 'refresh');
+		}
+
+		public function dashboard(){
+			$this->data['page_info'] = array(
+					'title' => 'Santri Database',
+					'css' => array('admin.css'),
+					'js' => array()
+				);
+			$this->data['subview'] = 'admin/santri_dashboard';
+
+			$this->data['santriData'] = $this->Santri_m->get_by(array('id' => $this->session->userdata('id')), TRUE);
+			$this->data['angkatanData'] = $this->Angkatan_m->get_by(array('angkatan' => $this->data['santriData']->angkatan), TRUE);
+
+			$this->load->view('components/main_layout', $this->data);
 		}
 	}
 ?>

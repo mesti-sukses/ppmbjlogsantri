@@ -20,7 +20,7 @@ $(document).ready(function(){
 	    );
 	});
 
-	$('.inlinebar').sparkline('html', {type: 'bar', barColor: 'red'} );
+	$('.inlinebar').sparkline('html', {type: 'line'} );
 
 	$('#list-santri').DataTable();
 });
