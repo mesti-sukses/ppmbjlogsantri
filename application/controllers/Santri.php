@@ -104,5 +104,42 @@
 
 			$this->load->view('components/main_layout', $this->data);
 		}
+
+		public function hadist($idHadist){
+			$this->data['page_info'] = array(
+					'title' => 'Materi Hadist',
+					'css' => array('admin.css', 'switch.css'),
+					'js' => array('counter.js')
+				);
+
+			$this->data['subview'] = 'admin/santri_hadist';
+
+			$this->data['santriData'] = $this->Santri_m->get_by(array('id' => $this->session->userdata('id')), TRUE);;
+			$this->data['hadistDataSantri'] = $this->Hadist_m->get_by(array('id' => $idHadist), TRUE);
+
+			$rules = $this->Hadist_m->rules;
+			$this->form_validation->set_rules($rules);
+
+			//form validation
+			if($this->form_validation->run() == TRUE){
+				$dataSantri = $this->Santri_m->array_from_post(array('name'));
+				$progress = unserialize($this->data['santriData']->hadist);
+
+				for ($i=2; $i <= 605; $i++) {
+					if($this->input->post($i) != NULL) $progress[$i] = $i;
+				}
+
+				$dataSantri['hadist'] = serialize($progress);
+
+				$this->Santri_m->save($dataSantri, $this->session->userdata('id'));
+
+				if($this->session->userdata('level') < 2)
+					redirect('admin/dashboard');
+				else
+					redirect('santri/dashboard');
+			}
+
+			$this->load->view('components/main_layout', $this->data);
+		}
 	}
 ?>

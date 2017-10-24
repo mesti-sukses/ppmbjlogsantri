@@ -3,7 +3,7 @@
     <a class="navbar-brand roboto-bold" href="#"><i class="fa fa-navicon"></i> <?php echo $this->session->userdata('name') ?></a> <a class="pull-right close" href="#"><i class="fa fa-close"></i></a>
 
     <ul class="off-menu">
-      <?php if ($this->session->userdata('level') < 2): ?>
+      <?php if ($this->session->userdata('level') - 2 < 0): ?>
 
         <li>
           <a href="<?php echo base_url('user') ?>"><i class="fa fa-dashboard"></i>Dashboard</a>
@@ -36,17 +36,32 @@
         <li>
           <a href="<?php echo base_url('santri/dashboard') ?>"><i class="fa fa-dashboard"></i>Dashboard</a>
         </li>
+
         <li>
-          <a href="<?php echo base_url('santri/edit/'.$this->session->userdata('id')) ?>"><i class="fa fa-book"></i>Materi</a>
+          <a href="<?php echo base_url('santri/edit/'.$this->session->userdata('id')) ?>"><i class="fa fa-book"></i>Qur'an</a>
         </li>
+
+        <?php if ($this->session->userdata('level') == 5): ?>
+
+          <li>
+            <a href="#" data-toggle="collapse" data-target="#wali"><i class="fa fa-university"></i>Hadist</a>
+
+            <a href="#" class="pull-right" data-toggle="collapse" data-target="#wali"><i class="fa fa-angle-double-down"></i></a>
+
+            <ul class="collapse" id="wali">
+              <?php foreach ($hadistData as $hadist): ?>
+                <li><a href="<?php echo base_url('santri/hadist/'.$hadist->id) ?>"><i class="fa fa-book"></i><?php echo $hadist->name ?></a></li>
+              <?php endforeach ?>
+            </ul>
+          </li>
+
+        <?php endif; ?>
 
         <li>
           <a href="<?php echo base_url('santri/setting') ?>"><i class="fa fa-gear"></i>Setting</a>
         </li>
         
-      <?php endif ?>
-
-
+      <?php endif; ?>
 
       <?php if ($this->session->userdata('level') == 0 || $this->session->userdata('level') == 4): ?>
           
