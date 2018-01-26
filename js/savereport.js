@@ -20,7 +20,5 @@ $(document).ready(function(){
 	    );
 	});
 
-	$('.inlinebar').sparkline('html', {type: 'line'} );
-
 	$('#list-santri').DataTable();
 });

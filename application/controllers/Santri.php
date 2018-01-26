@@ -1,145 +1,135 @@
 <?php
 	class Santri extends Admin_Controller{
+		/*
+			Santri Class handle all about santri reguler that can update their quran
+		*/
+
 		public function __construct(){
 			parent::__construct();
-			$this->load->model('Santri_m');
-			$this->load->model('Angkatan_m');
 		}
 
-		public function edit($id){
-			if($this->session->userdata('level') > 1 && $this->session->userdata('id') != $id){
-				echo "Arep lapo awakmu he?";
-				exit();
-			}
+		//This function load 
+		public function quran($id = NULL){
+			$this->load->model('Materi_Quran_m');
+
 			$this->data['page_info'] = array(
-					'title' => 'Santri Database',
-					'css' => array('admin.css', 'switch.css'),
-					'js' => array('counter.js')
+					'css' => array('switch.css'),
+					'title' => 'Ketercapaian Quran | '.$this->session->userdata['name'],
+					'js' => array('counter.js'),
+					'no-nav' => FALSE
 				);
-			$this->data['subview'] = 'admin/santri';
 
-			$this->data['santriData'] = $this->Santri_m->get_by(array('id' => $id), TRUE);
-			$this->data['angkatanData'] = $this->Angkatan_m->get_by(array('angkatan' => $this->data['santriData']->angkatan), TRUE);
+			if($id == NULL){
+				$id = $this->session->userdata('id');
+			} else {
+				if((intval($this->session->userdata('level')) & 1) != 1){
+					echo ('Hayoo... Mau ngapain..!');
+					exit();
+				}
+			}
 
-			$rules = $this->Santri_m->rules;
+			$this->data['quranData'] = $this->Materi_Quran_m->get_materi_quran_user_id($id);
+
+			$rules = $this->Materi_Quran_m->rules;
 			$this->form_validation->set_rules($rules);
 
-			//form validation
 			if($this->form_validation->run() == TRUE){
-				$dataSantri = $this->Santri_m->array_from_post(array('name', 'angkatan', 'kosong'));
+				$dataMateriQuran = $this->Materi_Quran_m->array_from_post(array('kosong'));
+				$dataMateriQuran['santri_id'] = $id;
+
 				$progress = array();
 
 				for ($i=2; $i <= 605; $i++) { 
 					if($this->input->post($i) != NULL) $progress[$i] = $i;
 				}
 
-				$dataSantri['progress'] = serialize($progress);
+				$dataMateriQuran['ketercapaian'] = serialize($progress);
 
-				$this->Santri_m->save($dataSantri, $id);
+				$this->Materi_Quran_m->save($dataMateriQuran, $id);
 
-				if($this->session->userdata('level') < 2)
-					redirect('admin/dashboard');
-				else
-					redirect('santri/dashboard');
-			}
+				redirect('user');
+			} else $this->data['dump'] = validation_errors();
 
-			$this->load->view('components/main_layout', $this->data);
+			$this->data['subview'] = 'admin/santri/quran';
+
+			$this->load->view('main_layout', $this->data);
 		}
 
-		public function setting(){
-
-			//Page Info
+		public function addHadist($id = NULL){
+			$this->load->model('Hadist_m');
 			$this->data['page_info'] = array(
-				'title' => 'Setting | '.$this->session->userdata('name'),
-				'css' => array('admin.css'),
-				'js' => array('')
+					'css' => array('table.css'),
+					'title' => 'Tambah Hadist | '.$this->session->userdata['name'],
+					'js' => array(),
+					'no-nav' => FALSE
 				);
-			$this->data['subview'] = 'admin/setting';
 
-			//validation
-			$rules = array(
-				array(
-					'field' => 'password',
-					'rules' => 'trim|required'
-					),
-				array(
-					'field' => 'user',
-					'rules' => 'trim|required|xss_clean'
-					)
-			);
-			$this->form_validation->set_rules($rules);
-			if($this->form_validation->run() == TRUE){
-				$newUserData = (array)$this->Santri_m->get_by(array('id' => $this->session->userdata('id')),TRUE);
+			if($id){
+				$this->load->model('Materi_Hadist_m');
+				$hadistData = $this->Hadist_m->get_by(array('id' => $id), TRUE);
 
-				$userData = $this->Santri_m->array_from_post(array('user', 'password'));
+				$dataHadist['santri_id'] = $this->session->userdata('id');
+				$dataHadist['hadist_id'] = $id;
+				$dataHadist['ketercapaian'] = serialize(array());
+				$dataHadist['kosong'] = $hadistData->offset;
 
-				$newUserData['name'] = $userData['user'];
-				$newUserData['pass'] = $this->Santri_m->hash($userData['password']);
-				$newUserData['level'] = $this->session->userdata('level');
+				$this->Materi_Hadist_m->save($dataHadist);
 
-				$this->Santri_m->save($newUserData, $this->session->userdata('id'));
+				redirect('santri/addhadist');
+			} else {
 
-				redirect('santri/setting', 'refresh');
+				$this->data['hadistData'] = $this->Hadist_m->get_hadist_added();
+
+				$this->data['subview'] = 'admin/santri/tambah_hadist';
+
+				$this->load->view('main_layout', $this->data);
 			}
-			
-			//Load View
-			$this->load->view('components/main_layout', $this->data);
-		}
-
-		public function delete($id){
-			$this->Santri_m->delete($id);
-			redirect('user', 'refresh');
-		}
-
-		public function dashboard(){
-			$this->data['page_info'] = array(
-					'title' => 'Santri Database',
-					'css' => array('admin.css'),
-					'js' => array()
-				);
-			$this->data['subview'] = 'admin/santri_dashboard';
-
-			$this->data['santriData'] = $this->Santri_m->get_by(array('id' => $this->session->userdata('id')), TRUE);
-			$this->data['angkatanData'] = $this->Angkatan_m->get_by(array('angkatan' => $this->data['santriData']->angkatan), TRUE);
-
-			$this->load->view('components/main_layout', $this->data);
 		}
 
 		public function hadist($idHadist){
+			$this->load->model('Materi_Hadist_m');
+
 			$this->data['page_info'] = array(
-					'title' => 'Materi Hadist',
-					'css' => array('admin.css', 'switch.css'),
-					'js' => array('counter.js')
+					'css' => array('switch.css'),
+					'title' => 'Ketercapaian Hadist | '.$this->session->userdata['name'],
+					'js' => array('counter.js'),
+					'no-nav' => FALSE
 				);
 
-			$this->data['subview'] = 'admin/santri_hadist';
+			$this->data['hadistData'] = $this->Materi_Hadist_m->get_materi_hadist($this->session->userdata('id'), $idHadist);
 
-			$this->data['santriData'] = $this->Santri_m->get_by(array('id' => $this->session->userdata('id')), TRUE);;
-			$this->data['hadistDataSantri'] = $this->Hadist_m->get_by(array('id' => $idHadist), TRUE);
+			$id = $this->session->userdata('id');
+			$idMateri = $this->data['hadistData']->id_materi;
+			$page = $this->data['hadistData']->offset;
 
-			$rules = $this->Hadist_m->rules;
+			$rules = $this->Materi_Hadist_m->rules;
 			$this->form_validation->set_rules($rules);
 
-			//form validation
 			if($this->form_validation->run() == TRUE){
-				$dataSantri = $this->Santri_m->array_from_post(array('name'));
-				$progress = unserialize($this->data['santriData']->hadist);
+				$dataMateriHadist = $this->Materi_Hadist_m->array_from_post(array('kosong'));
+				$dataMateriHadist['id_materi'] = $idMateri;
+				$dataMateriHadist['santri_id'] = $id;
+				$dataMateriHadist['hadist_id'] = $idHadist;
 
-				for ($i=2; $i <= 605; $i++) {
+				$progress = array();
+
+				for ($i=1; $i <= $page; $i++) { 
 					if($this->input->post($i) != NULL) $progress[$i] = $i;
 				}
 
-				$dataSantri['hadist'] = serialize($progress);
+				$dataMateriHadist['ketercapaian'] = serialize($progress);
+				dump($dataMateriHadist);
+				dump($idMateri);
+				dump($this->data['hadistData']);
 
-				$this->Santri_m->save($dataSantri, $this->session->userdata('id'));
+				$this->Materi_Hadist_m->save($dataMateriHadist, $idMateri);
 
-				if($this->session->userdata('level') < 2)
-					redirect('admin/dashboard');
-				else
-					redirect('santri/dashboard');
-			}
+				redirect('user');
+			} else {$this->data['dump'] = validation_errors();
 
-			$this->load->view('components/main_layout', $this->data);
+			$this->data['subview'] = 'admin/santri/hadist';
+
+			$this->load->view('main_layout', $this->data);}
 		}
 	}
 ?>

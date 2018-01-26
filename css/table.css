@@ -23,6 +23,7 @@ table th {
   font-size: .85em;
   letter-spacing: .1em;
   text-transform: uppercase;
+  background-color: #30a5ff;
 }
 @media screen and (max-width: 600px) {
   table {
@@ -67,8 +68,9 @@ table th {
   }
 }
 
-#list-santri_length{
-      display: none;
+  #list-santri_length{
+      /*display: none;*/
+      float: right;
     }
 
     #list-santri_filter{

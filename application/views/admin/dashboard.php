@@ -1,95 +1,56 @@
-  <main class="main-content container">
-    <div class="page-header">
-      <h1><?php echo $this->session->userdata('name') ?></a> <small class="roboto-light">List Santri</small></h1>
-      <?php if ($this->session->userdata('level') == 0): ?>
-        <a href="<?php echo base_url('user/save') ?>" class="btn btn-primary pull-right save" style="margin-top: 20px"><i class="fa fa-save"></i>Save Record</a>
-      <?php endif ?>
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Dashboard</h1>
     </div>
-    <table id="list-santri">
-      <thead>
-        <tr>
-          <th scope="col">Nama</th>
-          <th scope="col">Terisi</th>
-          <th scope="col">Kosong</th>
-          <th scope="col">Angkatan</th>
-          <?php
-            if($this->session->userdata('level') == 0)
-              echo '<th scope="col">Wali</th>';
-          ?>
-          <th scope="col">Presentase (%)</th>
-          <th scope="col">Last Updated</th>
-          <?php
-            if($this->session->userdata('level') == 1)
-              echo '<th scope="col">Action</th>';
-          ?>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($dataSantri as $santri): ?>
-          <tr>
-            <?php
-              $target = 0;
-              foreach($dataAngkatan as $angkatan){
-                if($angkatan->angkatan == $santri->angkatan) $target = $angkatan->target;
-              }
-              $kosong = $santri->kosong;
-              $precentage = intval((($kosong)/$target)*100);
-            ?>
-            <td data-label="Nama">
-              <a href="<?php echo base_url('santri/edit/'.$santri->id) ?>"><?php echo $santri->name ?></a>
-            </td>
-            <td data-label="Terisi" data-order="<?php echo $target-$santri->kosong ?>"><?php echo $santri->kosong." Hal" ?></td>
-            <td class="kosong" data-id="<?php echo $santri->id ?>" data-kosong="<?php echo $target-$santri->kosong ?>" data-label="Kosong" data-order="<?php echo $target-$santri->kosong ?>"><?php echo $target - $santri->kosong." Hal" ?></td>
-            <td data-label="Angkatan"><?php echo $santri->angkatan ?></td>
-            <?php
-              if($this->session->userdata('level') == 0)
-                echo '<td data-label="Wali">'.$santri->nama_wali.'</td>';
-            ?>
-            <td class="presentasi" data-label="Presentase">
-              <?php
-                echo $precentage." %"
-              ?>
-              <span class="inlinebar"><?php
-              foreach ($progress[$santri->id] as $value) {
-                echo $value->precentage.', ';
-              }
-              ?></span>
-            </td>
-            <td data-label="Last Update" data-order="<?php echo $santri->modified ?>">
-              <?php
-                $date = strtotime($santri->modified);
-                echo date("d F y", $date);
-              ?>
-            </td>
-            <?php if ($this->session->userdata('level') == 1): ?>
-              <td data-label="Action">
-                <a href="<?php echo base_url('santri/delete/'.$santri->id) ?>" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
-              </td>
-            <?php endif ?>
-          </tr>
-        <?php endforeach ?>
-      </tbody>
-    </table>
-  </main>
-  <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+  </div>
+  <!--/.row-->
 
-      <!-- Modal content-->
-      <div class="modal-content">
-        <?php echo form_open() ?>
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Tambah Santri</h4>
+
+  <div class="panel panel-container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            Biodata
           </div>
-          <div class="modal-body">
-            <input type="text" name="name" class="form-control" placeholder="Nama Santri">
-            <input type="text" name="angkatan" class="form-control" placeholder="Angkatan">
+
+
+          <div class="panel-body">
+            <ul>
+              <li class="left clearfix" style="list-style: none;">
+                <div class="chat-body clearfix">
+                  <div class="header"><strong class="primary-font">NIS</strong></div>
+                  <p><?php echo $userData->nis ?></p>
+                </div>
+
+                <div class="chat-body clearfix">
+                  <div class="header"><strong class="primary-font">Nama</strong></div>
+                  <p><?php echo $userData->nama ?></p>
+                </div>
+
+                <div class="chat-body clearfix">
+                  <div class="header"><strong class="primary-font">Alamat</strong></div>
+                  <p><?php echo $userData->alamat ?></p>
+                </div>
+
+                <div class="chat-body clearfix">
+                  <div class="header"><strong class="primary-font">Pasus</strong></div>
+                  <p><?php echo $userData->nama_pasus ?></p>
+                </div>
+
+                <?php if($userData->nama_wali != NULL) : ?>
+                  <div class="chat-body clearfix">
+                    <div class="header"><strong class="primary-font">Wali</strong></div>
+                    <p><?php echo $userData->nama_wali ?></p>
+                  </div>
+                <?php endif; ?>
+
+              </li>
+            </ul>
           </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Add</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        <?php echo form_close() ?>
+        </div>
       </div>
     </div>
   </div>
+</div>

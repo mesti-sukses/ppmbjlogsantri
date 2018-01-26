@@ -5,7 +5,7 @@
 		protected $_primary_key = 'id';
 		protected $_primary_filter = 'intval';
 		protected $_order_by = '';
-		protected $_order = 'asc';
+		protected $_order_by_order = 'asc';
 		public $rules = array();
 		protected $_timestamps = FALSE;
 		
@@ -21,7 +21,7 @@
 			return $data;
 		}
 		
-		public function get($id = NULL, $single = FALSE, $limit = 0){
+		public function get($id = NULL, $single = FALSE){
 			if($id != NULL){
 				$filter = $this->_primary_filter;
 				$id = $filter($id);
@@ -32,8 +32,8 @@
 			} else {
 				$method = 'result';
 			}
-			$this -> db -> order_by($this->_order_by, $this->_order);
-			if($limit > 0) $this->db->limit($limit);
+			
+			$this -> db -> order_by($this->_order_by, $this->_order_by_order);
 			
 			return $this->db->get($this->_table_name)->$method();
 		}
@@ -42,12 +42,15 @@
 			$this->db->where($where);
 			return $this->get(NULL, $single);
 		}
+
+		public function get_by_id($id){
+			return $this->get_by(array('id' => $id), TRUE);
+		}
 		
 		public function save($data, $id = NULL){
 			if($this->_timestamps == TRUE){
 				$now = date('Y-m-d H:i:s');
-				$id || $data['created'] = $now;
-				$data['modified'] = $now;
+				$data['updated'] = $now;
 			}
 			
 			if($id === NULL){
@@ -57,7 +60,7 @@
 				$id = $this->db->insert_id();
 			} else {
 				$filter = $this->_primary_filter;
-				//$id = $filter($data[$this->_primary_key]);
+				$id = $filter($data[$this->_primary_key]);
 				$this -> db -> set($data);
 				$this -> db -> where($this->_primary_key, $id);
 				$this -> db -> update($this->_table_name);

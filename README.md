@@ -13,7 +13,9 @@ Saya ingin untuk mencoba untuk mengembangkan aplikasi sistem informasi untuk pon
 1. Tracking makna Al-Qur'an
 2. Target makna Al-Qur'an per angkatan
 3. Membandingkan isi makna Al-Qur'an tiap santri untuk mengetahui halaman mana yang tidak isi
-4. Keamanan dengan enkripsi SHA512
+4. Tracking makna Al-Hadist
+5. Penilaian pasus pada anggotanya
+6. Penilaian ketua santri dan ustadzah pada pasusnya
 
 ## Request for Feature
 
@@ -26,7 +28,7 @@ Kalian dapat memasukkan request feature pada bagian issue
 3. Clone git ini pada folder htdocs
 4. Ubah konfigurasi web pada file application/config/db_config.php
 5. Buat database baru dengan nama sesuai dengan konfigurasi
-6. Import LogSantri.sql pada database baru and
+6. Import LogSantri.sql pada database baru
 7. Masuklah dengan username default : YOGI dan password : gus_yan
 
 ## Notes
