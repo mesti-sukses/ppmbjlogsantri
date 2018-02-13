@@ -49,6 +49,28 @@
 
 			$this->data['userData'] = $this->User_m->get_complete_user_by_id($this->session->userdata('id'));
 
+			if(($this->session->userdata('level') & 2) == 2){
+				$this->load->model('Materi_Quran_m');
+				$this->load->model('Materi_Hadist_m');
+
+				$this->data['materiQuran'] = $this->Materi_Quran_m->get_materi_quran_user_id($this->session->userdata('id'));
+
+				$this->data['materiHadist'] = $this->Materi_Hadist_m->get_materi_hadist_single_user($this->session->userdata('id'));
+			}
+
+			if(($this->session->userdata('level') & 8) == 8){
+				$this->load->model('Pasus_m');
+
+				$this->data['anggotaPasus'] = $this->Pasus_m->get_data_raw($this->session->userdata('id'));
+				$this->data['jumlahPasus'] = count($this->Pasus_m->get_complete_pasus_child($this->session->userdata('id')));
+			}
+
+			if(($this->session->userdata('level') & 1) == 1){
+				$this->load->model('Wali_m');
+
+				$this->data['anggotaWali'] = $this->Wali_m->get_complete_wali_child($this->session->userdata('id'));
+			}
+
 			$this->data['subview'] = 'admin/dashboard';
 
 			$this->load->view('main_layout', $this->data);

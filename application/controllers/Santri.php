@@ -58,9 +58,9 @@
 		public function addHadist($id = NULL){
 			$this->load->model('Hadist_m');
 			$this->data['page_info'] = array(
-					'css' => array('table.css'),
+					'css' => array('jquery.dataTables.min.css', 'responsive.dataTables.min.css'),
 					'title' => 'Tambah Hadist | '.$this->session->userdata['name'],
-					'js' => array(),
+					'js' => array('jquery.dataTables.min.js', 'dataTables.responsive.min.js'),
 					'no-nav' => FALSE
 				);
 

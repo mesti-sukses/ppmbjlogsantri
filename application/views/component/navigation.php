@@ -1,41 +1,5 @@
-<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button class="navbar-toggle collapsed" data-target="#sidebar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <a class="navbar-brand" href="#"><span>Loggy</span> PPM BJ</a>
-    </div>
-  </div>
-  <!-- /.container-fluid -->
-</nav>
-
-
-<div class="col-sm-3 col-lg-2 sidebar" id="sidebar-collapse">
-  <div class="profile-sidebar">
-    <div class="profile-userpic"><img alt="" class="img-responsive" src="<?php echo base_url('images/man.svg') ?>">
-    </div>
-
-
-    <div class="profile-usertitle">
-      <div class="profile-usertitle-name">
-        <?php echo $this->session->userdata('name') ?>
-      </div>
-
-
-      <div class="profile-usertitle-status">
-        <span class="indicator label-success"></span>Online
-      </div>
-    </div>
-
-
-    <div class="clear">
-    </div>
-  </div>
-
-
-  <div class="divider">
-  </div>
-
-
-  <ul class="nav menu">
+<div class="sidebar-nav-wrapper" id="sidebar-wrapper">
+  <ul class="sidebar-nav">
     <li>
       <a href="<?php echo base_url('user') ?>"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a>
     </li>
@@ -172,15 +136,5 @@
       </li>
 
     <?php endif ?>
-
-
-    <li>
-      <a href="<?php echo base_url('user/setting') ?>"><em class="fa fa-user">&nbsp;</em> Profile</a>
-    </li>
-
-    <li>
-      <a href="<?php echo base_url('user/logout') ?>"><em class="fa fa-power-off">&nbsp;</em> Logout</a>
-    </li>
   </ul>
 </div>
-<!--/.sidebar-->

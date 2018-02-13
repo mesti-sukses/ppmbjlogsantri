@@ -15,9 +15,9 @@
 		public function index($id){
 			$this->load->model('Materi_Hadist_m');
 			$this->data['page_info'] = array(
-					'css' => array('table.css'),
+					'css' => array('jquery.dataTables.min.css', 'responsive.dataTables.min.css'),
 					'title' => 'List Santri | '.$this->session->userdata['name'],
-					'js' => array('savereport.js', 'jquery.dataTables.min.js'),
+					'js' => array('savereport.js', 'jquery.dataTables.min.js', 'dataTables.responsive.min.js'),
 					'no-nav' => FALSE
 				);
 
@@ -30,9 +30,9 @@
 
 		public function addHadist(){
 			$this->data['page_info'] = array(
-					'css' => array('table.css'),
-					'title' => 'Dashboard | '.$this->session->userdata['name'],
-					'js' => array('savereport.js', 'jquery.dataTables.min.js'),
+					'css' => array('jquery.dataTables.min.css', 'responsive.dataTables.min.css'),
+					'title' => 'Tambahkan Hadist | '.$this->session->userdata['name'],
+					'js' => array('savereport.js', 'jquery.dataTables.min.js', 'dataTables.responsive.min.js'),
 					'no-nav' => FALSE
 				);
 

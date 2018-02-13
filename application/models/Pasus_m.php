@@ -28,12 +28,13 @@
 			return $this->db->get()->result();
 		}
 
-		public function get_data_raw(){
+		public function get_data_raw($id = NULL){
 			$this->db->select('u.nama, p.nama as pasus, d.ket, d.updated, d.detail');
 			$this->db->from('user u');
 			$this->db->join('user as p', 'u.pasus = p.id', 'left');
 			$this->db->join('pasus_data as d', 'u.id = d.santri_id', 'left');
-
+			$this->db->order_by('d.updated', 'desc');
+			if($id != NULL) $this->db->where(array('u.pasus' => $id));
 			return $this->db->get()->result();
 		}
 	}

@@ -34,5 +34,13 @@
 			$this->db->where(array('m.hadist_id' => $id));
 			return $this->db->get()->result();
 		}
+
+		public function get_materi_hadist_single_user($id){
+			$this->db->select('h.offset, m.kosong');
+			$this->db->from('materi_hadist as m');
+			$this->db->join('hadist as h', 'm.hadist_id = h.id');
+			$this->db->where(array('m.santri_id' => $id));
+			return $this->db->get()->result();
+		}
 	}
 ?>
