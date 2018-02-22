@@ -39,7 +39,23 @@
 						            <td data-label="Terisi" data-order="<?php echo $santri->kosong ?>"><?php echo $santri->kosong." Hal" ?></td>
 						            <td data-label="Kosong" data-order="<?php echo $santri->target - $santri->kosong ?>"><?php echo $santri->target - $santri->kosong." Hal" ?></td>
 						            <td data-label="Angkatan"><?php echo $santri->angkatan ?></td>
-						            <td data-label="Wali"><?php echo $santri->wali ?></td>
+						            <td data-label="Wali" data-order="<?php echo $santri->wali ?>">
+						            	<?php if (($this->session->userdata('level') & 32) == 32): ?>
+							            	<form method="POST" action="<?php echo base_url('wali/change/'.$santri->id) ?>">
+								            	<select name="wali">
+								            		<option>No Wali</option>
+								            		<?php foreach ($waliData as $wali): ?>
+								            			<option value="<?php echo $wali->id ?>" <?php if($wali->nama == $santri->wali) echo "selected" ?> >
+								            				<?php echo $wali->nama ?>		
+								            			</option>
+								            		<?php endforeach ?>
+								            	</select>
+								            	<button type="submit" class="btn-success btn-xs btn"><i class="fa fa-check"></i></button>
+							            	</form>
+							            <?php else : ?>
+							            	<?php echo $santri->wali ?>
+							            <?php endif ?>
+						            </td>
 						            <td data-label="Last Update" data-order="<?php echo $santri->updated ?>">
 						              <?php
 						                $date = strtotime($santri->updated);

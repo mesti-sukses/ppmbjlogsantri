@@ -91,6 +91,10 @@
       </li>
 
       <li class="parent">
+        <a href="<?php echo base_url('user/list') ?>"><em class="fa fa-users">&nbsp;</em> Seluruh Santri</a>
+      </li>
+
+      <li class="parent">
         <a href="<?php echo base_url('pengurus/report') ?>"><em class="fa fa-users">&nbsp;</em> Report Pasus</a>
       </li>
 

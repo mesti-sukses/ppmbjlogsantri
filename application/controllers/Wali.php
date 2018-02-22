@@ -29,8 +29,10 @@
 			} else $idx = $id;
 
 			$this->load->model('Wali_m');
+			$this->load->model('User_m');
 
 			$this->data['santriData'] = $this->Wali_m->get_complete_wali_child($idx);
+			$this->data['waliData'] = $this->User_m->get_by('(level & 1) = 1');
 
 			if (((intval($this->session->userdata('level')) & 32) == 32) && $id == NULL)
 				$this->data['santriData'] = $this->Wali_m->get_complete_wali_child();
@@ -100,6 +102,15 @@
 			$this->data['subview'] = 'admin/wali/compare';
 
 			$this->load->view('main_layout', $this->data);
+		}
+
+		public function change($id){
+			$this->load->model('User_m');
+			$userData = $this->User_m->get_by(array('id' => $id), TRUE);
+			$id_wali = $this->input->post('wali');
+			$userData->wali = $id_wali;
+			$this->User_m->save((array)$userData, $id);
+			redirect('wali');
 		}
 	}
 ?>

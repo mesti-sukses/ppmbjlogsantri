@@ -62,13 +62,16 @@
 		//for database management
 
 		//this method to get complete user data
-		public function get_complete_user_by_id($id){
-			$this->db->select('u.nama, u.nis, u.alamat, u.kelas, u.angkatan, p.nama as nama_pasus, w.nama as nama_wali', FALSE);
+		public function get_complete_user_by_id($id = NULL){
+			$this->db->select('u.id, u.nama, u.nis, u.alamat, u.kelas, u.angkatan, p.nama as nama_pasus, w.nama as nama_wali, u.level', FALSE);
 			$this->db->from('user as u');
 			$this->db->join('user as w', 'u.wali = w.id', 'left');
 			$this->db->join('user as p', 'u.pasus = p.id', 'left');
-			$this->db->where(array('u.id' => $id));
-			return $this->db->get()->row();
+			if($id != NULL) {
+				$this->db->where(array('u.id' => $id));
+				return $this->db->get()->row();
+			}
+			return $this->db->get()->result();
 		}
 	}
 ?>

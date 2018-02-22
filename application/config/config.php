@@ -1,14 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-function __autoload($classname){ //inisialisasi fungsi autoload yang akan diload
+spl_autoload_register(function($classname){ //inisialisasi fungsi autoload yang akan diload
 	if(strpos($classname, 'CI_') !== 0) { //jika ada CI dalam classname, maka otomatis udah di load
 		$file = APPPATH . 'libraries/' . $classname . '.php'; //masukkan classname yang ada didalam folder library
 		if(file_exists($file) && is_file($file)){
 			@include_once($file);
 		}
 	}
-}
+});
 
 /*
 |--------------------------------------------------------------------------

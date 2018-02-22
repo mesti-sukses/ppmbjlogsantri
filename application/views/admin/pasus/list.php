@@ -49,7 +49,7 @@
 						            		<i class="fa fa-pencil"></i> Edit
 						            	</a>
 
-						            	<a href="" class="btn btn-danger btn-sm">
+						            	<a href="<?php echo base_url('pasus/delete/'.$santri->id) ?>" class="btn btn-danger btn-sm">
 						            		<i class="fa fa-trash"> Delete</i>
 						            	</a>
 						            </td>

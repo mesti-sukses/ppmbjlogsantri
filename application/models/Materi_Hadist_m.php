@@ -2,7 +2,6 @@
 	class Materi_Hadist_m extends MY_Model{
 		protected $_table_name = 'materi_hadist';
 		protected $_primary_key = 'id_materi';
-		protected $_order_by = 'id';
 		public function __construct(){
 			parent::__construct();
 		}

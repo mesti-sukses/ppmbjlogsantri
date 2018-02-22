@@ -14,9 +14,9 @@
 			$this->load->library('session');
 			$this->load->model('User_m');
 
-			$this->data['dataWali'] = $this->User_m->get_by(array('level' => 1));
+			$this->data['dataWali'] = $this->User_m->get_by('(level & 1) = 1');
 
-			$this->data['dataPasusAll'] = $this->User_m->get_by(array('pasus' => NULL));
+			$this->data['dataPasusAll'] = $this->User_m->get_by('(level & 8) = 8');
 
 			$this->data['data_hadist_menu'] = $this->Hadist_m->get_hadist_list($this->session->userdata('id'));
 			$this->data['data_hadist_menu_all'] = $this->Hadist_m->get();

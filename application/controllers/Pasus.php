@@ -152,5 +152,22 @@
 
 			$this->load->view('main_layout', $this->data);
 		}
+
+		public function change($id){
+			$this->load->model('User_m');
+			$userData = $this->User_m->get_by(array('id' => $id), TRUE);
+			$id_wali = $this->input->post('pasus');
+			$userData->pasus = $id_wali;
+			$this->User_m->save((array)$userData, $id);
+			redirect('user/list');
+		}
+
+		public function delete($id){
+			$this->load->model('User_m');
+			$userData = $this->User_m->get_by(array('id' => $id), TRUE);
+			$userData->pasus = NULL;
+			$this->User_m->save((array)$userData, $id);
+			redirect('pasus');
+		}
 	}
 ?>
