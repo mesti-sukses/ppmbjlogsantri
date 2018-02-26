@@ -43,20 +43,18 @@
         <div class="collapse navbar-collapse pull-right" id="pathshalaNavbarCollapse">
           <ul class="nav navbar-nav">
             <li>
-              <a href="<?php echo base_url() ?>"><i class="fa fa-home"></i>HOME</a>
+              <a href="<?php echo base_url('user') ?>"><i class="fa fa-dashboard"></i>Dashboard</a>
             </li>
-            <li>
-              <a href="http://blog.ppmbaituljannah.com"><i class="fa fa-file"></i>BLOG</a>
-            </li>
-            <li>
-              <a href="gallery.html"><i class="fa fa-picture-o"></i>GALLERY</a>
-            </li>
-            <li>
-              <a href="<?php echo base_url('page/about') ?>"><i class="fa fa-info-circle"></i>ABOUT</a>
-            </li>
-            <li>
-              <a href="<?php echo base_url('page/contact') ?>"><i class="fa fa-phone-square"></i>CONTACT US</a>
-            </li>
+            <?php foreach ($mainMenu as $menu): 
+                    if($menu->type == 'internal')
+                      $link = base_url($menu->link);
+                    else
+                      $link = $menu->link;
+            ?>
+              <li>
+                <a href="<?php echo $link ?>"><i class="fa fa-<?php echo $menu->icon ?>"></i><?php echo $menu->text ?></a>
+              </li>
+            <?php endforeach ?>
           </ul>
         </div><!-- /.navbar-collapse -->
       </nav>

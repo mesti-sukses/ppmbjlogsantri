@@ -16,6 +16,8 @@ Saya ingin untuk mencoba untuk mengembangkan aplikasi sistem informasi untuk pon
 4. Tracking makna Al-Hadist
 5. Penilaian pasus pada anggotanya
 6. Penilaian ketua santri dan ustadzah pada pasusnya
+7. Migrasi antara pasus, wali
+8. Manajemen santri
 
 ## Request for Feature
 

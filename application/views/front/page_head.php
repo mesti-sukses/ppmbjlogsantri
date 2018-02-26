@@ -9,8 +9,8 @@
   <link href="<?php echo base_url('/') ?>assets/css/bootstrap.min.css" media="screen" rel="stylesheet">
   <link href="<?php echo base_url('/') ?>assets/css/owl.carousel.min.css" media="screen" rel="stylesheet">
   <link href="<?php echo base_url('/') ?>assets/css/owl.theme.default.min.css" media="screen" rel="stylesheet">
-  <link href="<?php echo base_url('/') ?>assets/css/style.css" media="screen" rel="stylesheet"><!-- Fonts -->
-  <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'> -->
+  <link href="<?php echo base_url('/') ?>assets/css/style_home.css" media="screen" rel="stylesheet"><!-- Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
   <link href="<?php echo base_url('/') ?>assets/fonts/font-awesome/css/font-awesome.min.css" media="screen" rel="stylesheet">
 </head>
 <body>
@@ -19,7 +19,9 @@
       <div class="top-navbar">
         <div class="pull-right">
           <div class="top-nav-social pull-left">
-            <a href="index.html#"><i class="fa fa-facebook"></i></a> <a href="index.html#"><i class="fa fa-youtube"></i></a> <a href="index.html#"><i class="fa fa-instagram"></i></a>
+            <?php foreach ($socialMenu as $menu): ?>
+              <a href="<?php echo $menu->link ?>"><i class="fa fa-<?php echo $menu->icon ?>"></i></a>
+            <?php endforeach ?>
           </div>
           <div class="top-nav-login-btn pull-right">
             <a data-target="#loginModal" data-toggle="modal" href="index.html#"><i class="fa fa-sign-in"></i>LOGIN</a>
@@ -36,20 +38,18 @@
         <div class="collapse navbar-collapse" id="pathshalaNavbarCollapse">
           <ul class="nav navbar-nav">
             <li>
-              <a href="<?php echo base_url() ?>"><i class="fa fa-home"></i>HOME</a>
+              <a href="<?php echo base_url() ?>"><i class="fa fa-home ?>"></i>Home</a>
             </li>
-            <li>
-              <a href="http://blog.ppmbaituljannah.com"><i class="fa fa-file"></i>BLOG</a>
-            </li>
-            <li>
-              <a href="<?php echo base_url('page/gallery') ?>"><i class="fa fa-picture-o"></i>GALLERY</a>
-            </li>
-            <li>
-            	<a href="<?php echo base_url('page/about') ?>"><i class="fa fa-info-circle"></i>ABOUT</a>
-            </li>
-            <li>
-              <a href="<?php echo base_url('page/contact') ?>"><i class="fa fa-phone-square"></i>CONTACT US</a>
-            </li>
+            <?php foreach ($mainMenu as $menu): 
+              if($menu->type == 'internal')
+                $link = base_url($menu->link);
+              else
+                $link = $menu->link;
+            ?>
+              <li>
+                <a href="<?php echo $link ?>"><i class="fa fa-<?php echo $menu->icon ?>"></i><?php echo $menu->text ?></a>
+              </li>
+            <?php endforeach ?>
           </ul>
         </div><!-- /.navbar-collapse -->
       </nav>

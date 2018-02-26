@@ -1,8 +1,20 @@
 <div class="sidebar-nav-wrapper" id="sidebar-wrapper">
   <ul class="sidebar-nav">
-    <li>
-      <a href="<?php echo base_url('user') ?>"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a>
-    </li>
+    <!-- Untuk admin website -->
+
+    <?php if ((intval($this->session->userdata('level')) & 64) == 64 ): ?>
+
+      <li class="parent">
+        <a data-toggle="collapse" href="#sub-item-4"><em class="fa fa-globe">&nbsp;</em> Web <span class="icon pull-right" data-toggle="collapse"><em class="fa fa-plus"></em></span></a>
+
+        <ul class="children collapse" id="sub-item-4">
+          <li>
+            <a class="" href="<?php echo base_url('admin/menu') ?>"><span class="fa fa-list"></span> Menu</a>
+          </li>
+        </ul>
+      </li>
+
+    <?php endif ?>
 
     <!-- Untuk pasus -->
 

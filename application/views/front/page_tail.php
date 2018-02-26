@@ -2,12 +2,16 @@
   <div class="row apply-know-row">
     <div class="container">
       <div class="col-sm-6 admission-row">
-        <h3>KRITIK & SARAN</h3>
-        <p>It is a long established fact that a reader will be distracted by the content of a page when looking at its layout.</p>
+        <iframe style="width: 100%; height: 315px" src="https://www.youtube.com/embed/N_C7WePSBzk?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
-      <div class="col-sm-6 info-row">
-        <h3>ABOUT US</h3>
-        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p><a href="index.html#"><i class="fa fa-edit"></i>KIRIM KRITIK & SARAN</a>
+      <div class="col-sm-6 info-row" style="min-height: 315px">
+        <h3>Profile Video</h3>
+        <p>Produser : Alif Purnomo<br>
+        Scriptwriter : Nurlita Aldania Rizki, Onivia Nur Fitri, Wilujeng Putri Utami<br>
+        Kamera : Fadel Ruzikul Muslih, Aldo A. Wildani<br>
+        Editor : Aldo A. Wildani<br></p>
+        <p>Watch our youtube channel to be more updated with our recent content</p>
+        <a href="https://www.youtube.com/channel/UC_MFIkIPzVbRH4g5iVAQbXQ/featured?view_as=subscriber" class="know-more-btn" style="color: white"><i class="fa fa-play"></i>Watch More</a>
       </div>
     </div>
   </div><!-- Footer Section -->
@@ -53,7 +57,9 @@
       </div>
     </div>
     <div class="footer-social-row">
-      <a href="index.html#"><i class="fa fa-facebook"></i></a> <a href="index.html#"><i class="fa fa-twitter"></i></a> <a href="index.html#"><i class="fa fa-google-plus"></i></a> <a href="index.html#"><i class="fa fa-linkedin"></i></a>
+      <?php foreach ($socialMenu as $menu): ?>
+        <a href="<?php echo $menu->link ?>"><i class="fa fa-<?php echo $menu->icon ?>"></i></a>
+      <?php endforeach ?>
     </div>
   </div><!-- Login Modal -->
   <!-- Modal -->
@@ -65,7 +71,7 @@
           <h4 class="modal-title"><i class="fa fa-sign-in"></i>LOGIN</h4>
         </div>
         <div class="modal-body">
-          <form method="POST" action="http://akun.ppmbaituljannah.com/user/login">
+          <form method="POST" action="<?php echo base_url('user/login') ?>">
             <div>
               <label><i class="fa fa-user"></i>USERNAME</label> <input class="form-control" placeholder="Username" type="text" name="user">
             </div>
@@ -84,7 +90,7 @@
   </script> 
   <script src="<?php echo base_url('/') ?>assets/plugins/owl.carousel.min.js">
   </script> 
-  <script src="<?php echo base_url('/') ?>assets/js/js.js">
+  <script src="<?php echo base_url('/') ?>assets/js/slider.js">
   </script>
 </body>
 </html>

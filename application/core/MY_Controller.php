@@ -5,8 +5,8 @@
 		
 		function __construct(){
 			parent::__construct();
-			$this -> data['errors'] = array();
-			$this -> data['site_name'] = config_item('site_name');
+			$this->load->model('Menu_m');
+			$this->data['mainMenu'] = $this->Menu_m->get_by(array('location' => 'main'));
 		}
 	}
 ?>

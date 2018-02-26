@@ -2,7 +2,7 @@
 	/**
 	* 
 	*/
-	class Page extends CI_Controller
+	class Page extends Frontend_Controller
 	{
 		
 		public function index(){

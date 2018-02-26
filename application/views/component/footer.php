@@ -10,6 +10,7 @@
 		<!-- Scripts -->
     <script src="<?php echo base_url() ?>assets/js/jQuery_v3_2_0.min.js"></script>
     <script src="<?php echo base_url() ?>assets/js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url() ?>js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url() ?>assets/js/js.js"></script>
 
     <?php foreach ($page_info['js'] as $js): ?>

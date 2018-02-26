@@ -1,9 +1,4 @@
 <main>
-  
-<!-- Form Mixin-->
-<!-- Input Mixin-->
-<!-- Button Mixin-->
-<!-- Pen Title-->
   <div class="pen-title">
     <h1>Sistem Informasi Baitul Jannah</h1><span>Design by Logic Boys</span>
   </div>
