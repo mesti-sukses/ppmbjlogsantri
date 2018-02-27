@@ -47,26 +47,29 @@
 		}
 
 		public function content(){
-			$this->load->model('Menu_m');
+			$this->load->model('Web_Component_m');
 			$this->data['page_info'] = array(
-					'css' => array('checkbox.css'),
+					'css' => array('summernote.css'),
 					'title' => 'Konten Web | '.$this->session->userdata['name'],
-					'js' => array(),
+					'js' => array('summernote.js', 'editr.js'),
 					'no-nav' => FALSE
 				);
 
-			$rules = $this->Menu_m->rules;
+			$this->data['dewanGuruData'] = $this->Web_Component_m->get_by(array('location' => 'dgcontent'));
+			$this->data['testimoniData'] = $this->Web_Component_m->get_by(array('location' => 'testimoni'));
+			$this->data['ketuaData'] = $this->Web_Component_m->get_by(array('location' => 'ketua'), TRUE);
+
+			$rules = $this->Web_Component_m->rules;
 
 			$this->form_validation->set_rules($rules);
 			if($this->form_validation->run() == TRUE){
-				$menuData = $this->Menu_m->array_from_post(array('icon', 'text', 'type', 'location', 'link'));
-				$this->Menu_m->save($menuData);
-				redirect('admin/menu', 'refresh');
+				$componentData = $this->Web_Component_m->array_from_post(array('location', 'nama', 'content', 'extra'));
+				$componentData['image'] = 'male.png';
+				$this->Web_Component_m->save($componentData);
+				redirect('admin/content', 'refresh');
 			}
 
-			$this->data['socialMenu'] = $this->Menu_m->get_by(array('location' => 'social'));
-
-			$this->data['subview'] = 'admin/web/menu';
+			$this->data['subview'] = 'admin/web/content';
 
 			$this->load->view('main_layout', $this->data);
 		}

@@ -42,10 +42,14 @@
       <div class="col-md-3 col-sm-6 footer-item">
         <h5>QUICK LINKS</h5>
         <div class="quick-link-box">
-          <a href="http://blog.ppmbaituljannah.com"><i class="fa fa-file"></i>BLOG</a>
-          <a href="http://ppmbaituljannah.com/page/gallery"><i class="fa fa-picture-o"></i>GALLERY</a>
-          <a href="http://ppmbaituljannah.com/page/about"><i class="fa fa-info-circle"></i>ABOUT</a>
-          <a href="http://ppmbaituljannah.com/page/contact"><i class="fa fa-phone-square"></i>CONTACT US</a>    
+          <?php foreach ($mainMenu as $menu): 
+              if($menu->type == 'internal')
+                $link = base_url($menu->link);
+              else
+                $link = $menu->link;
+            ?>
+              <a href="<?php echo $link ?>"><i class="fa fa-<?php echo $menu->icon ?>"></i><?php echo $menu->text ?></a>
+            <?php endforeach ?>
         </div>
       </div>
       <div class="clearfix visible-sm"></div>

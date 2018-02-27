@@ -4,19 +4,19 @@
 		protected $_order_by = 'id';
 		public $rules = array(
 				array(
-					'field' => 'icon',
+					'field' => 'location',
 					'rules' => 'trim|required'
 					),
 				array(
-					'field' => 'text',
+					'field' => 'nama',
 					'rules' => 'trim|required'
 				),
 				array(
-					'field' => 'type',
+					'field' => 'content',
 					'rules' => 'trim|required'
 				),
 				array(
-					'field' => 'link',
+					'field' => 'extra',
 					'rules' => 'trim|required'
 				)
 			);

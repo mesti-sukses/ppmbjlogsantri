@@ -11,6 +11,9 @@
           <li>
             <a class="" href="<?php echo base_url('admin/menu') ?>"><span class="fa fa-list"></span> Menu</a>
           </li>
+          <li>
+            <a class="" href="<?php echo base_url('admin/content') ?>"><span class="fa fa-pencil-square"></span> Content</a>
+          </li>
         </ul>
       </li>
 

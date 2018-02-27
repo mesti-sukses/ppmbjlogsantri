@@ -32,16 +32,6 @@ if (!function_exists('dump_exit')) {
     }
 }
 
-function get_excerpt($article, $numwords = 27){
-	$string = '';
-	$url = 'article/'.intval($article->id).'/'.e($article->slug);
-	$string .= '<h2>'.e($article->title).' </h2>';
-	$string .= '<i><small>Published on '.e($article->pubdate).'</small></i>';
-	$string .= '<p>'. e(limit_to_numwords(strip_tags($article->body), $numwords)) .'...</p>';
-	$string .= anchor($url, 'More', array('class' => 'button alt'));
-	return $string;
-}
-
 function limit_to_numwords($string, $numwords){
 	$excerpt = explode(' ', $string, $numwords + 1);
 	if(count($excerpt) >= $numwords){
