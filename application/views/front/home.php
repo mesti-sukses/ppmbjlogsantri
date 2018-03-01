@@ -27,54 +27,45 @@
       <div class="tab-content">
         <div class="tab-pane active" id="1">
           <div class="col-md-8 left-event-items">
-            <div class="event-item">
-              <div class="col-sm-7">
-                <div class="event-date">
-                  <p><span>11</span> JAN</p>
+            <?php foreach ($postData as $post): ?>
+              <div class="event-item">
+                <div class="col-sm-7">
+                  <div class="event-date">
+                    <?php
+                      $date = strtotime($post->updated);
+                    ?>
+                    <p><span><?php echo date('d', $date) ?></span> <?php echo date('F', $date) ?></p>
+                  </div>
+                  <h3><?php echo $post->title ?></h3>
+                  <h6><i class="fa fa-tag"></i><?php echo $post->name ?></h6>
+                  <p><?php echo limit_to_numwords(strip_tags($post->content), 15).'...' ?></p>
                 </div>
-                <h3>Anjangsana dengan PPM NH Bandung</h3>
-                <h6><i class="fa fa-map-marker"></i>Asrama Putra Baitul Jannah</h6>
-                <p>Kamis, 11 Januari 2018, PPM Nurul Hakim Bandung Timur tiba di kota Malang dalam rangkaian kegiatan Tour Barokah 2018 yang mereka adakan. Setiba di kota Malang, PPM Nurul Hakim langsung menuju PPM Baitul Jannah untuk melakukan anjangsana.</p>
-              </div>
-              <div class="col-sm-5 event-item-img">
-                <div class="event-img">
-                  <img alt="event" src="<?php echo base_url('/') ?>assets/img/news/news-sm1.jpg">
-                  <div class="event-detail-link">
-                    <a href="index.html#">VIEW DETAILS</a>
+                <div class="col-sm-5 event-item-img">
+                  <div class="event-img">
+                    <img src="<?php echo base_url('images/Post/'.$post->image) ?>" alt="event" />
+                    <div class="event-detail-link">
+                      <a href="<?php echo base_url('blog/post/'.$post->id) ?>">VIEW DETAILS</a>
+                    </div>
                   </div>
                 </div>
+                <div class="clearfix"></div>
               </div>
-              <div class="clearfix"></div>
-            </div>
-            <div class="event-item">
-              <div class="col-sm-7">
-                <div class="event-date">
-                  <p><span>01</span> JAN</p>
-                </div>
-                <h3>Pengajian Akhir Tahun</h3>
-                <h6><i class="fa fa-map-marker"></i>Asrama Putra Baitul Jannah</h6>
-                <p>Pengadaan program pengajian akhir tahun merupakan agenda tahunan dari PPM Ma'had Baitul Jannah. Untuk tahun 2018 ini bertajuk Lentera. Apa sih makna dari lentera?</p>
-              </div>
-              <div class="col-sm-5 event-item-img">
-                <div class="event-img">
-                  <img alt="event" src="<?php echo base_url('/') ?>assets/img/news/news-sm2.jpg">
-                  <div class="event-detail-link">
-                    <a href="index.html#">VIEW DETAILS</a>
-                  </div>
-                </div>
-              </div>
-              <div class="clearfix"></div>
-            </div>
+            <?php endforeach ?>
           </div>
           <div class="col-md-4 right-event-items">
-            <div class="event-item"><img alt="event" src="<?php echo base_url('/') ?>assets/img/news/news-lg3.jpg"></div>
+            <div class="event-item"><img src="<?php echo base_url('images/Post/'.$stickyData->image) ?>" alt="event" />
+            </div>
             <div class="featured-event">
               <div class="event-date">
-                <p><span>24</span> DEC</p>
+                <?php
+                  $date = strtotime($stickyData->updated);
+                ?>
+                <p><span><?php echo date('d', $date) ?></span> <?php echo date('F', $date) ?></p>
               </div>
-              <h3>Festival Santri Soleh</h3>
-              <h6><i class="fa fa-map-marker"></i>Taman Wisata Lembah Dieng</h6>
-              <p>Merupakan program tahunan dari PPM Malang raya untuk mewadahi para santri untuk berkompetisi di bidang keagamaan. Mari lihat serunya kompetisi mereka...</p><a href="index.html#"><i class="fa fa-paper-plane"></i> KNOW MORE</a>
+              <h3><?php echo $stickyData->title ?></h3>
+              <h6><i class="fa fa-tag"></i><?php echo $stickyData->name ?></h6>
+              <p><?php echo limit_to_numwords($stickyData->content, 25).'...' ?></p>
+              <a href="<?php echo base_url('blog/post/'.$stickyData->id) ?>"><i class="fa fa-paper-plane"></i> KNOW MORE</a>
             </div>
           </div>
         </div>

@@ -235,10 +235,6 @@ html, body {
 .dash-item .inner-item {
 	padding: 30px;
 }
-.dash-item .inner-item  img{
-	max-width: 40px;
-	border-radius: 50%;
-}
 .dash-item .inner-item  .title {
 	font-weight: 600;
 	font-size: 13px;

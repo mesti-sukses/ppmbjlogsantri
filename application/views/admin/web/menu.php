@@ -198,7 +198,7 @@
 										<button type="submit" class="btn btn-success btn-xs"><i class="fa fa-check"></i>Save</button>
 									</div>
 								</div>
-							</form>
+							<?php echo form_close() ?>
 						</div>
 					</div>
 				</div>

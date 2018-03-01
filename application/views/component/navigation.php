@@ -9,10 +9,16 @@
 
         <ul class="children collapse" id="sub-item-4">
           <li>
-            <a class="" href="<?php echo base_url('admin/menu') ?>"><span class="fa fa-list"></span> Menu</a>
+            <a class="" href="<?php echo base_url('admin/menu') ?>"><i class="fa fa-list"></i> Menu</a>
           </li>
           <li>
-            <a class="" href="<?php echo base_url('admin/content') ?>"><span class="fa fa-pencil-square"></span> Content</a>
+            <a class="" href="<?php echo base_url('admin/content') ?>"><i class="fa fa-pencil-square"></i> Content</a>
+          </li>
+          <li>
+            <a class="" href="<?php echo base_url('admin/blog') ?>"><i class="fa fa-file"></i> Blog</a>
+          </li>
+          <li>
+            <a class="" href="<?php echo base_url('admin/category') ?>"><i class="fa fa-tag"></i> Category</a>
           </li>
         </ul>
       </li>
