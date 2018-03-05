@@ -13,6 +13,17 @@
 				)
 			);
 
+		public $rules_register = array(
+			array(
+				'field' => 'pass',
+				'rules' => 'trim|required'
+				),
+			array(
+				'field' => 'nama',
+				'rules' => 'trim|required|xss_clean'
+				)
+			);
+
 		public $rules_setting = array(
 			array(
 				'field' => 'pass',

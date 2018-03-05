@@ -21,7 +21,7 @@
 			$this->data['data_hadist_menu'] = $this->Hadist_m->get_hadist_list($this->session->userdata('id'));
 			$this->data['data_hadist_menu_all'] = $this->Hadist_m->get();
 			
-			$exception = array('user/login', 'user/logout');
+			$exception = array('user/login', 'user/logout', 'user/register');
 			if(in_array(uri_string(), $exception) == FALSE){
 				if($this->User_m->loggedin() == FALSE){
 					redirect('user/login');

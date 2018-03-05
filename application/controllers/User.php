@@ -38,6 +38,34 @@
 			$this->load->view('main_layout', $this->data);
 		}
 
+		public function register(){
+			$this->data['page_info'] = array(
+					'css' => array('login.css'),
+					'title' => 'Admin Register | '. config_item('site_name'),
+					'js' => array('login.js'),
+					'no-nav' => TRUE
+				);
+
+			$this->data['subview'] = 'register';
+
+			$data = $this->User_m->get_by(array('level' => 16));
+			if(count($data)) redirect('/');
+
+			//validation form
+			$rules = $this->User_m->rules_register;
+			$this->form_validation->set_rules($rules);
+			if($this->form_validation->run() == TRUE){
+				$data = $this->User_m->array_from_post(array('nama', 'pass'));
+				$data['pass'] = $this->User_m->hash($data['pass']);
+				$data['level'] = 16;
+				$this->User_m->save($data);
+				redirect('user/login');
+			}
+
+			$this->load->view('main_layout', $this->data);
+		}
+
+
 		//Index method handle the dashboard that used by the controller
 		public function index(){
 			$this->data['page_info'] = array(
