@@ -119,12 +119,20 @@
 	        		<input class="status-check" type="checkbox" name="koordinator" id="koordinator">
 	        		<span class="checkmark"></span>
 						</label>
+	        	<label class="container">Admin Web
+	        		<input class="status-check" type="checkbox" name="admin" id="admin">
+	        		<span class="checkmark"></span>
+						</label>
 	        	<label class="container">Ustadzah
 	        		<input class="status-check" type="checkbox" name="ustadzah" id="ustadzah">
 	        		<span class="checkmark"></span>
 						</label>
 	        	<label class="container">Wali Hadist
 	        		<input class="status-check" type="checkbox" name="hadist" id="hadist">
+	        		<span class="checkmark"></span>
+						</label>
+	        	<label class="container">Santri Saringan
+	        		<input class="status-check" type="checkbox" name="saringan" id="saringan">
 	        		<span class="checkmark"></span>
 						</label>
 	        </div>

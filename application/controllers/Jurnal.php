@@ -1,10 +1,16 @@
 <?php
-	class Jurnal extends Admin_Controller{
-		/*
-			Santri Class handle all about santri reguler that can update their quran
-		*/
 
-		public function __construct(){
+	/*
+		* Class ini mengatur tentang apa saja yang dilakukan oleh tim jurnal
+
+		@package controller
+		@author Logic_boys
+	*/
+	class Jurnal extends Admin_Controller
+	{
+
+		public function __construct()
+		{
 			parent::__construct();
 			
 			if((intval($this->session->userdata('level')) & 4) != 4){
@@ -13,10 +19,14 @@
 			}
 		}
 
-		//This function load 
-		public function index(){
+		/*
+			* Method ini merupakan method untuk memanggil jurnal target alquran
+		*/
+		public function index()
+		{
 			$this->load->model('Target_Quran_m');
 
+			//load page info
 			$this->data['page_info'] = array(
 					'css' => array('switch.css'),
 					'title' => 'Jurnal Target Quran | '.$this->session->userdata['name'],
@@ -24,31 +34,42 @@
 					'no-nav' => FALSE
 				);
 
+			//fetch the data
 			$this->data['targetQuran'] = $this->Target_Quran_m->get();
 
+			//declare form rules
 			$rules = $this->Target_Quran_m->rules;
-
 			$this->form_validation->set_rules($rules);
-			if($this->form_validation->run() == TRUE){
-				$angkatanData = $this->Target_Quran_m->array_from_post(array('id','angkatan', 'target'));
 
+			//run form action when satisfied
+			if($this->form_validation->run() == TRUE)
+			{
+
+				//ambil target yang sudah di post berupa halaman dan angkatannya
+				$angkatanData = $this->Target_Quran_m->array_from_post(array('id','angkatan', 'target'));
 				$id = $angkatanData['id'];
 
+				//buat array kosong yang akan menampung halaman yang sudah dikaji
 				$progress = array();
 
-				for ($i=2; $i <= 605; $i++) { 
+				//dari halaman 2 sampai 605 ambil halaman berapa saja yang sudah dikaji sehingga bernilai true dalam post
+				for ($i=2; $i <= 605; $i++) 
+				{ 
+
+					//lalu masukan dalam array progress
 					if($this->input->post($i) != NULL) $progress[$i] = $i;
 				}
 
+				//serialize array progress sehingga membentuk string untuk disimpan dalam database
 				$angkatanData['target_detail'] = serialize($progress);
 
+				//simpan data dalam database
 				$this->Target_Quran_m->save($angkatanData, $id);
-
 				redirect('user', 'refresh');
 			}
 
+			//load page
 			$this->data['subview'] = 'admin/jurnal/quran';
-
 			$this->load->view('main_layout', $this->data);
 		}
 	}

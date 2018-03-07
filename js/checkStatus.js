@@ -13,7 +13,9 @@ $(document).ready(function(){
 		if((level & 8) == 8) $("#pasus").prop('checked', true);
 		if((level & 16) == 16) $("#kesiswaan").prop('checked', true);
 		if((level & 32) == 32) $("#koordinator").prop('checked', true);
+		if((level & 32) == 32) $("#admin").prop('checked', true);
 		if((level & 128) == 128) $("#ustadzah").prop('checked', true);
 		if((level & 256) == 256) $("#hadist").prop('checked', true);
+		if((level & 512) == 512) $("#saringan").prop('checked', true);
 	});
 });
