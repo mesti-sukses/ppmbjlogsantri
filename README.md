@@ -1,15 +1,10 @@
-# Loggy, Log Your Favourite
-
-## Overview
-
-Personal project untuk sistem informasi bagi santri pondok pesantren mahasiswa baitul jannah
+# Acadequis, Academy of Quran Information System
+Sistem Informasi yang dikhususkan untuk lembaga pendidikan berbasis pondok pesantren yang menitik beratkan pada pembelajaran makna, keterangan, dan tafsir Al-Qur'an dan Al-Hadist. Juga memfasilitasi tentang pendidikan karakter, kontrol ibadah, dan lain sebagainya untuk membentuk generasi yang unggul dengan tagline Profesional Religius.
+## Purpose and Needs
 
 ## Motivation
-
 Saya ingin untuk mencoba untuk mengembangkan aplikasi sistem informasi untuk pondok pesantren mahasiswa baitul jannah supaya pengontrolan santri termasuk absensi, ketercapaian materi, dan penilaian dewan guru bisa menjadi lebih mudah dan fleksibel.
-
 ## Features
-
 1. Tracking makna Al-Qur'an
 2. Target makna Al-Qur'an per angkatan
 3. Membandingkan isi makna Al-Qur'an tiap santri untuk mengetahui halaman mana yang tidak isi
@@ -20,11 +15,8 @@ Saya ingin untuk mencoba untuk mengembangkan aplikasi sistem informasi untuk pon
 8. Manajemen santri
 
 ## Request for Feature
-
 Kalian dapat memasukkan request feature pada bagian issue
-
 ## Installation
-
 1. Syaratnya harus mempunyai web server (Apache, nginx, dll) dan database server (MySQL, SQL Server)
 2. Bisa online maupun offline
 3. Clone git ini pada folder htdocs
