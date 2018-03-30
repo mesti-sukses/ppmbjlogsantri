@@ -1,4 +1,4 @@
-<img style="display: block;margin: 0 auto" src="media/logo.png">
+![Logo](media/logo.png)
 # Academy of Quran Information System
 ## Overview
 Sistem Informasi yang dikhususkan untuk lembaga pendidikan berbasis pondok pesantren yang menitik beratkan pada pembelajaran makna, keterangan, dan tafsir Al-Qur'an dan Al-Hadist. Juga memfasilitasi tentang pendidikan karakter, kontrol ibadah, dan lain sebagainya untuk membentuk generasi yang unggul dengan tagline Profesional Religius.
