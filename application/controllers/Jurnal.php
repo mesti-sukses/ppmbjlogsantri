@@ -22,7 +22,7 @@
 		/*
 			* Method ini merupakan method untuk memanggil jurnal target alquran
 		*/
-		public function index()
+		public function index($tahun)
 		{
 			$this->load->model('Target_Quran_m');
 
@@ -35,7 +35,7 @@
 				);
 
 			//fetch the data
-			$this->data['targetQuran'] = $this->Target_Quran_m->get();
+			$this->data['target'] = $this->Target_Quran_m->get_by(array('angkatan' => $tahun), TRUE);
 
 			//declare form rules
 			$rules = $this->Target_Quran_m->rules;
@@ -65,7 +65,7 @@
 
 				//simpan data dalam database
 				$this->Target_Quran_m->save($angkatanData, $id);
-				redirect('user', 'refresh');
+				redirect('jurnal/index/'.$tahun, 'refresh');
 			}
 
 			//load page

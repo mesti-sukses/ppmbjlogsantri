@@ -108,7 +108,7 @@
 		//@param $id int: id dari user yang ingin diambil datanya. Jika null maka ambil semuanya
 		public function get_complete_user_by_id($id = NULL)
 		{
-			$this->db->select('u.id, u.nama, u.nis, u.alamat, u.kelas, u.angkatan, p.nama as nama_pasus, w.nama as nama_wali, u.level', FALSE);
+			$this->db->select('u.id, u.nama, u.nis, u.alamat, u.kelas, u.angkatan, u.pasus, u.wali, p.nama as nama_pasus, w.nama as nama_wali, u.level', FALSE);
 			$this->db->from('user as u');
 			$this->db->join('user as w', 'u.wali = w.id', 'left');
 			$this->db->join('user as p', 'u.pasus = p.id', 'left');

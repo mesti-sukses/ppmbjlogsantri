@@ -7,7 +7,7 @@
 
         <div class="section-divider">
         </div>
-        <?php $j = 1; foreach ($targetQuran as $target) : ?><?php echo form_open() ?>
+        <?php echo form_open(); $j = 1; ?>
 
         <div class="row">
           <div class="col-md-12">
@@ -36,7 +36,7 @@
             </div>
           </div>
         </div>
-        <?php $j++; echo form_close() ?><?php endforeach; ?>
+        <?php echo form_close() ?>
       </div>
     </div>
   </div>

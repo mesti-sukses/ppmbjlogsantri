@@ -16,7 +16,7 @@
 		{
 			parent::__construct();
 			
-			if((intval($this->session->userdata('level')) & 128) != 128 && (intval($this->session->userdata('level')) & 32) != 32){
+			if((intval($this->session->userdata('level')) & 128) != 128 && (intval($this->session->userdata('level')) & 16) != 16){
 				echo('Anda bukan pengurus XD');
 				exit();
 			}

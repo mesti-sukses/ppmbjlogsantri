@@ -13,8 +13,7 @@
 					<div class="col-md-12">
 						<div class="dash-item">
 							<div class="item-title">
-								List Santri 
-								<a class="btn btn-success pull-right btn-xs" data-target="#modal-add" data-toggle="modal"><i class="fa fa-plus"></i> Anggota</a>
+								List Santri
 							</div>
 
 
@@ -59,8 +58,7 @@
 
 												  $disabled = ($now == $curr) ? "disabled" : "";
 												?> 
-												<a class="btn btn-default btn-sm <?php echo $disabled ?>" href="<?php echo base_url('pasus/edit/'.$santri->id) ?>"><i class="fa fa-pencil"></i> Edit</a> 
-												<a class="btn btn-danger btn-sm" href="<?php echo base_url('pasus/delete/'.$santri->id) ?>"><i class="fa fa-trash">Delete</i></a>
+												<a class="btn btn-default btn-sm <?php echo $disabled ?>" href="<?php echo base_url('pasus/edit/'.$santri->id) ?>"><i class="fa fa-pencil"></i> Edit</a>
 											</td>
 										</tr>
 										<?php endforeach ?>
@@ -74,30 +72,3 @@
 		</div>
 	</div>
 	<!-- Modal -->
-
-
-	<div class="modal fade" id="modal-add" role="dialog">
-		<div class="modal-dialog">
-			<!-- Modal content-->
-			<?php echo form_open('pasus/add') ?>
-
-			<div class="modal-content">
-				<div class="modal-header">
-					<button class="close" data-dismiss="modal" type="button">&times;</button>
-
-					<h4 class="modal-title">Tambah Anggota Pasus</h4>
-				</div>
-
-
-				<div class="modal-body">
-					<input class="form-control" name="nama" placeholder="Masukkan Nama" type="text">
-				</div>
-
-
-				<div class="modal-footer">
-					<button class="btn btn-default" data-dismiss="modal" type="button">Close</button> <button class="btn btn-success" type="submit"><i class="fa fa-floppy-o"></i> Save</button>
-				</div>
-			</div>
-			<?php echo form_close() ?>
-		</div>
-	</div>

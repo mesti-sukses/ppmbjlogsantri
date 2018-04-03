@@ -2,7 +2,7 @@
   <div class="row apply-know-row">
     <div class="container">
       <div class="col-sm-6 admission-row">
-        <iframe style="width: 100%; height: 315px" src="https://www.youtube.com/embed/N_C7WePSBzk?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <iframe style="width: 100%; height: 315px" src="https://www.youtube.com/embed/GH0nd4V0qQY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
       <div class="col-sm-6 info-row" style="min-height: 315px">
         <h3>Profile Video</h3>

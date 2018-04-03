@@ -59,18 +59,8 @@
 											<td data-label="Angkatan"><?php echo $santri->angkatan ?>
 											</td>
 
-											<td data-label="Wali" data-order="<?php echo $santri->nama_wali ?>">
-												<form action="<?php echo base_url('wali/change/'.$santri->id) ?>" method="post">
-													<select name="wali">
-														<option>
-															No Wali
-														</option><?php foreach ($waliData as $wali): ?>
-
-														<option value="<?php echo $wali->id ?>">
-															<?php echo $wali->nama ?>
-														</option><?php endforeach ?>
-													</select> <button class="btn-success btn-xs btn" type="submit"><i class="fa fa-check"></i></button>
-												</form>
+											<td data-label="Wali">
+												<?php echo $santri->nama_wali ?>
 											</td>
 
 											<td data-label="Pasus" data-order="<?php echo $santri->nama_pasus ?>">
@@ -80,9 +70,11 @@
 															Pasus
 														</option><?php foreach ($dataPasusAll as $pasus): ?>
 
-														<option value="<?php echo $pasus->id ?>">
-															<?php echo $pasus->nama ?>
-														</option><?php endforeach ?>
+															<option value="<?php echo $pasus->id ?>" <?php if($pasus->id == $santri->pasus) echo 'selected' ?>>
+																<?php echo $pasus->nama ?>
+															</option>
+
+														<?php endforeach ?>
 													</select> <button class="btn-success btn-xs btn" type="submit"><i class="fa fa-check"></i></button>
 												</form>
 											</td>
@@ -122,7 +114,7 @@
 
 					<div class="modal-body">
 						<div id="user-level">
-							<label class="container">Wali <input class="status-check" id="wali" name="wali" type="checkbox"> <span class="checkmark"></span></label> <label class="container">Santri Reguler <input class="status-check" id="reguler" name="reguler" type="checkbox"> <span class="checkmark"></span></label> <label class="container">Tim Jurnal <input class="status-check" id="jurnal" name="jurnal" type="checkbox"> <span class="checkmark"></span></label> <label class="container">Pasus <input class="status-check" id="pasus" name="pasus" type="checkbox"> <span class="checkmark"></span></label> <label class="container">Ketua Siswa <input class="status-check" id="kesiswaan" name="kesiswaan" type="checkbox"> <span class="checkmark"></span></label> <label class="container">Koordinator Ketercapaian <input class="status-check" id="koordinator" name="koordinator" type="checkbox"> <span class="checkmark"></span></label> <label class="container">Admin Web <input class="status-check" id="admin" name="admin" type="checkbox"> <span class="checkmark"></span></label> <label class="container">Ustadzah <input class="status-check" id="ustadzah" name="ustadzah" type="checkbox"> <span class="checkmark"></span></label> <label class="container">Wali Hadist <input class="status-check" id="hadist" name="hadist" type="checkbox"> <span class="checkmark"></span></label> <label class="container">Santri Saringan <input class="status-check" id="saringan" name="saringan" type="checkbox"> <span class="checkmark"></span></label>
+							<label class="container">Wali <input class="status-check" id="wali" name="wali" type="checkbox"> <span class="checkmark"></span></label> <label class="container">Santri Reguler <input class="status-check" id="reguler" name="reguler" type="checkbox"> <span class="checkmark"></span></label> <label class="container">Tim Jurnal <input class="status-check" id="jurnal" name="jurnal" type="checkbox"> <span class="checkmark"></span></label> <label class="container">Pasus <input class="status-check" id="pasus" name="pasus" type="checkbox"> <span class="checkmark"></span></label> <label class="container">Ketua Siswa <input class="status-check" id="kesiswaan" name="kesiswaan" type="checkbox"> <span class="checkmark"></span></label> <label class="container">Koordinator Ketercapaian <input class="status-check" id="koordinator" name="koordinator" type="checkbox"> <span class="checkmark"></span></label> <label class="container">Admin Web <input class="status-check" id="admin" name="admin" type="checkbox"> <span class="checkmark"></span></label> <label class="container">Ustadzah <input class="status-check" id="ustadzah" name="ustadzah" type="checkbox"> <span class="checkmark"></span></label> <label class="container">Wali Hadist <input class="status-check" id="hadist" name="hadist" type="checkbox"> <span class="checkmark"></span></label> <label class="container">Sekretaris FP <input class="status-check" id="saringan" name="saringan" type="checkbox"> <span class="checkmark"></span></label>
 						</div>
 					</div>
 

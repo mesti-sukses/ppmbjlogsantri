@@ -29,6 +29,10 @@
 			$this->load->model('User_m');
 			$this->data['dataWali'] = $this->User_m->get_by('(level & 1) = 1');
 			$this->data['dataPasusAll'] = $this->User_m->get_by('(level & 8) = 8');
+
+			//Untuk mengambil tahun angkatan dari reguler untuk dijadikan jurnal
+			$this->load->model('Target_Quran_m');
+			$this->data['targetAngkatan'] = $this->Target_Quran_m->get();
 			
 			//baris dibawah untuk redirect ke halaman login setelah user mengakses halaman manapun yang dibawah class ini
 			//selain URL untuk login, logout, dan register maka akan diredirect menuju login

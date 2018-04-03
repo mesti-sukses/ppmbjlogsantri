@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 02, 2018 at 10:17 PM
+-- Generation Time: Apr 03, 2018 at 02:10 AM
 -- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.2
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `logsantri_new`
+-- Database: `try`
 --
 
 -- --------------------------------------------------------
@@ -113,6 +113,22 @@ INSERT INTO `menu` (`id`, `type`, `location`, `icon`, `text`, `link`) VALUES
 (5, 'external', 'social', 'facebook', 'Facebook', 'http://www.facebook.com'),
 (6, 'external', 'social', 'youtube', 'Youtube', 'http://youtube.com'),
 (7, 'internal', 'main', 'info-circle', 'About Us', 'page/about');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `musyawarah_fp`
+--
+
+CREATE TABLE `musyawarah_fp` (
+  `usulan_id` int(11) NOT NULL,
+  `pengusul` int(11) NOT NULL,
+  `usulan` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `terlaksana` int(11) NOT NULL,
+  `pembahasan` text COLLATE utf8mb4_unicode_ci,
+  `created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -217,6 +233,12 @@ ALTER TABLE `menu`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `musyawarah_fp`
+--
+ALTER TABLE `musyawarah_fp`
+  ADD PRIMARY KEY (`usulan_id`);
+
+--
 -- Indexes for table `pasus_data`
 --
 ALTER TABLE `pasus_data`
@@ -248,31 +270,37 @@ ALTER TABLE `web_component`
 -- AUTO_INCREMENT for table `blog_post`
 --
 ALTER TABLE `blog_post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `hadist`
 --
 ALTER TABLE `hadist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `materi_hadist`
 --
 ALTER TABLE `materi_hadist`
-  MODIFY `id_materi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_materi` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `musyawarah_fp`
+--
+ALTER TABLE `musyawarah_fp`
+  MODIFY `usulan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pasus_data`
@@ -284,19 +312,19 @@ ALTER TABLE `pasus_data`
 -- AUTO_INCREMENT for table `target_quran`
 --
 ALTER TABLE `target_quran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=237;
 
 --
 -- AUTO_INCREMENT for table `web_component`
 --
 ALTER TABLE `web_component`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

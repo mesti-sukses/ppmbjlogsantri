@@ -51,11 +51,17 @@ Setelah itu akan akan ada form untuk register admin username dan password. Admin
 ## Usage
 ### Features
 1. User access, beberapa akses yang bisa di dobel-dobel dengan beberapa fitur yang eksklusif di tiap akses
+
 ![access](media/User Access.png)
+
 2. Tracking ketercapaian materi Qur'an dengan monitoring dari beberapa wali
+
 ![Tracking](media/Materi Al-Quran.png)
+
 3. Penilaian dari ketua kelompok yang bisa disebut dengan pasus
+
 ![Tracking](media/Penilaian pasus.png)
+
 Untuk lebih lengkapnya bisa refer ke [Wiki]()
 
 ### Development setup
@@ -63,6 +69,10 @@ Untuk lebih lengkapnya bisa refer ke dokumentasi
 ### Notes
 
 ## Release History & Changelog
+* 0.2.1
+  * Tambahkan fitur untuk merekam musyawarah pengajar
+  * Perbaiki bug untuk target pencapaian materi
+  * Perbaiki vulnerable dimana pasus bisa merubah anggotanya sendiri
 * 0.1.0
   * Initial Realease
 

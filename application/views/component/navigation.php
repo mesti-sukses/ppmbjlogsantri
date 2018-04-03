@@ -73,8 +73,16 @@
     <!-- Untuk pengisi jurnal -->
     <?php if ((intval($this->session->userdata('level')) & 4) == 4 ): ?>
 
-      <li>
-        <a href="<?php echo base_url('jurnal') ?>"><em class="fa fa-clipboard">&nbsp;</em> Jurnal Target</a>
+      <li class="parent">
+        <a data-toggle="collapse" href="#sub-item-5"><em class="fa fa-clipboard">&nbsp;</em> Jurnal Qur'an <span class="icon pull-right" data-toggle="collapse"><em class="fa fa-plus"></em></span></a>
+
+        <ul class="children collapse" id="sub-item-5">
+          <?php foreach ($targetAngkatan as $tahun): ?>
+            <li>
+              <a class="" href="<?php echo base_url('jurnal/index/'.$tahun->angkatan) ?>"><span class="fa fa-book">&nbsp;</span> <?php echo $tahun->angkatan ?></a>
+            </li>
+          <?php endforeach ?>
+        </ul>
       </li>
       
     <?php endif ?>
@@ -142,6 +150,8 @@
       
     <?php endif ?>
 
+    <!-- Untuk Wali Hadist -->
+
     <?php if ((intval($this->session->userdata('level')) & 256) == 256 ): ?>
       
       <li class="parent">
@@ -160,6 +170,16 @@
         </ul>
       </li>
 
+    <?php endif ?>
+
+    <!-- Untuk sekretaris FP -->
+
+    <?php if ((intval($this->session->userdata('level')) & 2) != 2 ): ?>
+
+      <li class="parent">
+        <a href="<?php echo base_url('pengajar') ?>"><em class="fa fa-users">&nbsp;</em> Musyawarah Pengajar</a>
+      </li>
+      
     <?php endif ?>
   </ul>
 </div>

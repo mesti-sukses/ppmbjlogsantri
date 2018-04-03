@@ -266,12 +266,24 @@
 			if($this->input->post('reguler') == true)
 			{
 				$this->load->model('Materi_Quran_m');
+				$this->load->model('Target_Quran_m');
 
 				$quranData = array(
 					'santri_id' => $id,
 					'ketercapaian' => serialize(array()),
 					'kosong' => 0
 				);
+
+				$angkatanData = $this->Target_Quran_m->get_by(array('angkatan' => $userData['angkatan']));
+				if(count($angkatanData) == 0) {
+					$angkatanData = array(
+						'angkatan' => $userData['angkatan'],
+						'target' => 0,
+						'target_detail' => serialize(array())
+					);
+
+					$this->Target_Quran_m->save($angkatanData);
+				}
 
 				$this->Materi_Quran_m->save($quranData);
 			}

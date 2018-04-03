@@ -67,7 +67,7 @@
 															No Wali
 														</option><?php foreach ($waliData as $wali): ?>
 
-														<option value="<?php echo $wali->id ?>">
+														<option value="<?php echo $wali->id ?>" <?php if($wali->id == $santri->id_wali) echo 'selected' ?>>
 															<?php echo $wali->nama ?>
 														</option><?php endforeach ?>
 													</select> <button class="btn-success btn-xs btn" type="submit"><i class="fa fa-check"></i></button>
