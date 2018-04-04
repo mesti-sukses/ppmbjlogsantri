@@ -3,7 +3,7 @@
 ## Overview
 Sistem Informasi yang dikhususkan untuk lembaga pendidikan berbasis pondok pesantren yang menitik beratkan pada pembelajaran makna, keterangan, dan tafsir Al-Qur'an dan Al-Hadist. Juga memfasilitasi tentang pendidikan karakter, kontrol ibadah, dan lain sebagainya untuk membentuk generasi yang unggul dengan tagline Profesional Religius.
 
-![Logo](media/Responsive Web Presentation-01.jpg)
+![Logo](media/ResponsiveWebPresentation-01.jpg)
 
 ## Purpose and Needs
 Data merupakan sesuatu yang sangat tidak bisa dipungkiri merupakan sebuah kebutuhan untuk zaman ini. Semua lembaga diberbagai bidang memerlukan data, baik itu untuk arsip, analisis, maupun untuk kepentingan penyimpanan yang terus di update setiap hari.
@@ -52,15 +52,15 @@ Setelah itu akan akan ada form untuk register admin username dan password. Admin
 ### Features
 1. User access, beberapa akses yang bisa di dobel-dobel dengan beberapa fitur yang eksklusif di tiap akses
 
-![access](media/User Access.png)
+![access](media/UserAccess.png)
 
 2. Tracking ketercapaian materi Qur'an dengan monitoring dari beberapa wali
 
-![Tracking](media/Materi Al-Quran.png)
+![Tracking](media/MateriAl-Quran.png)
 
 3. Penilaian dari ketua kelompok yang bisa disebut dengan pasus
 
-![Tracking](media/Penilaian pasus.png)
+![Tracking](media/Penilaianpasus.png)
 
 Untuk lebih lengkapnya bisa refer ke [Wiki]()
 
@@ -69,6 +69,8 @@ Untuk lebih lengkapnya bisa refer ke dokumentasi
 ### Notes
 
 ## Release History & Changelog
+* 0.3.0
+	* Tambahkan instagram pada gallery, bukan gambar internal
 * 0.2.1
   * Tambahkan fitur untuk merekam musyawarah pengajar
   * Perbaiki bug untuk target pencapaian materi

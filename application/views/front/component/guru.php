@@ -4,7 +4,6 @@
       <div class="section-row-header-center">
         <h6><i class="fa fa-star-o"></i>DEWAN GURU<i class="fa fa-star-o"></i></h6>
         <h1>DEWAN GURU PONDOK</h1>
-        <p>Dewan guru di PPM Malang Raya berjumlah 4 orang yaitu Ustad Arif (Baitul Jannah), Ustad Charis (Nur Muhammad), Ustad Amir (Al Kautsar)dan Ustad Fandi (Al Kautsar)</p>
       </div>
       <div class="owl-carousel" id="ourTeacher">
         <?php foreach ($dewanGuruData as $guru): ?>

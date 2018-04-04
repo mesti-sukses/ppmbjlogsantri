@@ -168,11 +168,13 @@
 
 						<div class="inner-item">
 							<div class="dash-form">
-								<?php echo form_open() ?><label class="clear-top-margin"><i class="fa fa-photo"></i>Icon</label> <input name="icon" placeholder="Menu FA Icon" type="text"> <label><i class="fa fa-i-cursor"></i>Text</label> <input name="text" placeholder="Menu Text" type="text"> <label><i class="fa fa-user-secret"></i>Type</label> <label class="container">Internal <input name="type" type="radio" value="internal"> <span class="checkmark"></span></label> <label class="container">External <input name="type" type="radio" value="external"> <span class="checkmark"></span></label> <label><i class="fa fa-link"></i>Location</label> <input name="link" placeholder="Menu Link" type="text"> <input name="location" type="hidden" value="main">
+								<?php echo form_open() ?>
+									<label class="clear-top-margin"><i class="fa fa-photo"></i>Icon</label> <input name="icon" placeholder="Menu FA Icon" type="text"> <label><i class="fa fa-i-cursor"></i>Text</label> <input name="text" placeholder="Menu Text" type="text"> <label><i class="fa fa-user-secret"></i>Type</label> <label class="container">Internal <input name="type" type="radio" value="internal"> <span class="checkmark"></span></label> <label class="container">External <input name="type" type="radio" value="external"> <span class="checkmark"></span></label> <label><i class="fa fa-link"></i>Location</label> <input name="link" placeholder="Menu Link" type="text"> <input name="location" type="hidden" value="main">
 
-								<div>
-									<button class="btn btn-success" style="margin-top: 24px" type="submit"><i class="fa fa-paper-plane"></i> Create</button>
-								</div>
+									<div>
+										<button class="btn btn-success" style="margin-top: 24px" type="submit"><i class="fa fa-paper-plane"></i> Create</button>
+									</div>
+								<?php echo form_close() ?>
 							</div>
 						</div>
 					</div>
@@ -186,11 +188,13 @@
 
 						<div class="inner-item">
 							<div class="dash-form">
-								<?php echo form_open() ?><label class="clear-top-margin"><i class="fa fa-photo"></i>Icon</label> <input name="icon" placeholder="Menu FA Icon" type="text"> <label><i class="fa fa-i-cursor"></i>Text</label> <input name="text" placeholder="Menu Text" type="text"> <label><i class="fa fa-link"></i>Location</label> <input name="link" placeholder="Menu Link" type="text"> <input name="location" type="hidden" value="social"> <input name="type" type="hidden" value="external">
+								<?php echo form_open() ?>
+									<label class="clear-top-margin"><i class="fa fa-photo"></i>Icon</label> <input name="icon" placeholder="Menu FA Icon" type="text"> <label><i class="fa fa-i-cursor"></i>Text</label> <input name="text" placeholder="Menu Text" type="text"> <label><i class="fa fa-link"></i>Location</label> <input name="link" placeholder="Menu Link" type="text"> <input name="location" type="hidden" value="social"> <input name="type" type="hidden" value="external">
 
-								<div>
-									<button class="btn btn-success" style="margin-top: 24px" type="submit"><i class="fa fa-paper-plane"></i> Create</button>
-								</div>
+									<div>
+										<button class="btn btn-success" style="margin-top: 24px" type="submit"><i class="fa fa-paper-plane"></i> Create</button>
+									</div>
+								<?php echo form_close() ?>
 							</div>
 						</div>
 					</div>

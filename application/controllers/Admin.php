@@ -52,7 +52,7 @@
 				//save data
 				$this->Menu_m->save($menuData, $id);
 				redirect('admin/menu', 'refresh');
-			}
+			} else echo validation_errors();
 
 			//need social menu to edit them
 			$this->data['socialMenu'] = $this->Menu_m->get_by(array('location' => 'social'));

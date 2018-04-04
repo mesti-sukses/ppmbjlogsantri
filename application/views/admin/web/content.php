@@ -19,11 +19,12 @@
 
 
 						<div class="inner-item">
+							<?php $k = $ketuaData != NULL ?>
 							<div class="dash-form">
-								<?php echo form_open('',array('id' => 'editor')) ?><button class="btn btn-success btn-xs pull-right btn-editor" type="submit">Save</button> <label class="clear-top-margin"><i class="fa fa-i-cursor"></i>Nama</label> <input name="nama" placeholder="Nama Ketua Pondok" type="text" value="<?php echo $ketuaData->nama ?>"> <label class="clear-top-margin"><i class="fa fa-link"></i>Link</label> <input name="extra" placeholder="Link" type="text" value="<?php echo $ketuaData->extra ?>"> <label class="clear-top-margin"><i class="fa fa-user"></i>Tentang</label>
+								<?php echo form_open('',array('id' => 'editor')) ?><button class="btn btn-success btn-xs pull-right btn-editor" type="submit">Save</button> <label class="clear-top-margin"><i class="fa fa-i-cursor"></i>Nama</label> <input name="nama" placeholder="Nama Ketua Pondok" type="text" value="<?php if($k) echo $ketuaData->nama ?>"> <label class="clear-top-margin"><i class="fa fa-link"></i>Link</label> <input name="extra" placeholder="Link" type="text" value="<?php if($k) echo $ketuaData->extra ?>"> <label class="clear-top-margin"><i class="fa fa-user"></i>Tentang</label>
 
 								<div id="div-editor">
-									<?php echo $ketuaData->content ?>
+									<?php if($k) echo $ketuaData->content ?>
 								</div>
 
 								<textarea id="text-editor" name="content" style="display: none;"></textarea> <input name="location" type="hidden" value="ketua"> 
@@ -104,7 +105,7 @@
 
 				<div class="col-sm-4">
 					<div class="dash-item first-dash-item">
-						<h6 class="item-title"><i class="fa fa-graduation-cap"></i>Dewan Guru</h6>
+						<h6 class="item-title"><i class="fa fa-comment"></i>Testimoni</h6>
 
 
 						<div class="inner-item">
@@ -115,7 +116,7 @@
 
 
 								<div class="col-xs-6">
-									<h6>Deskripsi</h6>
+									<h6>Testimoni</h6>
 								</div>
 
 
