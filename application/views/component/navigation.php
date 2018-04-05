@@ -5,15 +5,25 @@
     <?php if ((intval($this->session->userdata('level')) & 64) == 64 ): ?>
 
       <li class="parent">
-        <a data-toggle="collapse" href="#sub-item-4"><em class="fa fa-globe">&nbsp;</em> Web <span class="icon pull-right" data-toggle="collapse"><em class="fa fa-plus"></em></span></a>
+        <a data-toggle="collapse" href="#sub-item-4"><em class="fa fa-globe">&nbsp;</em> Component <span class="icon pull-right" data-toggle="collapse"><em class="fa fa-plus"></em></span></a>
 
         <ul class="children collapse" id="sub-item-4">
           <li>
-            <a class="" href="<?php echo base_url('admin/menu') ?>"><i class="fa fa-list"></i> Menu</a>
+            <a class="" href="<?php echo base_url('admin/config') ?>"><i class="fa fa-gears"></i> Configuration</a>
           </li>
           <li>
-            <a class="" href="<?php echo base_url('admin/content') ?>"><i class="fa fa-pencil-square"></i> Content</a>
+            <a class="" href="<?php echo base_url('admin/content') ?>"><i class="fa fa-pencil"></i> Content</a>
           </li>
+          <li>
+            <a class="" href="<?php echo base_url('admin/menu') ?>"><i class="fa fa-list"></i> Menu</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="parent">
+        <a data-toggle="collapse" href="#sub-item-5"><em class="fa fa-wordpress">&nbsp;</em> Blog <span class="icon pull-right" data-toggle="collapse"><em class="fa fa-plus"></em></span></a>
+
+        <ul class="children collapse" id="sub-item-5">
           <li>
             <a class="" href="<?php echo base_url('admin/blog') ?>"><i class="fa fa-file"></i> Blog</a>
           </li>
@@ -177,7 +187,7 @@
     <?php if ((intval($this->session->userdata('level')) & 2) != 2 ): ?>
 
       <li class="parent">
-        <a href="<?php echo base_url('pengajar') ?>"><em class="fa fa-users">&nbsp;</em> Musyawarah Pengajar</a>
+        <a href="<?php echo base_url('pengajar') ?>"><em class="fa fa-users">&nbsp;</em> Musyawarah</a>
       </li>
       
     <?php endif ?>

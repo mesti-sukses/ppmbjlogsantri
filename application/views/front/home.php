@@ -4,9 +4,9 @@
         <div class="item active">
           <img alt="slide1" src="<?php echo base_url('/') ?>assets/img/slider/slide4.jpg">
           <div class="carousel-caption">
-            <h4><i class="fa fa-star-o"></i>PROFESSIONAL RELIGIUS<i class="fa fa-star-o"></i></h4>
-            <h2>MA'HAD BAITUL JANNAH OFFICIAL SITE</h2>
-            <p>Dua tahun <strong>Ulama'</strong>, Empat tahun <strong>Sarjana</strong></p>
+            <h4><i class="fa fa-star-o"></i><?php echo $this->data['tagline']->value ?><i class="fa fa-star-o"></i></h4>
+            <h2><?php echo $this->data['title'] ?></h2>
+            <p><?php echo $slogan->value ?></p>
             <a href="<?php echo base_url('page/about') ?>"><i class="fa fa-paper-plane"></i>KNOW MORE</a>
           </div>
         </div>
@@ -19,7 +19,7 @@
   <div class="row section-row evets-row">
     <div class="container">
       <div class="section-row-header-center">
-        <h6><i class="fa fa-star-o"></i>PROFESIONAL RELIGIUS<i class="fa fa-star-o"></i></h6>
+        <h6><i class="fa fa-star-o"></i><?php echo $this->data['tagline']->value ?><i class="fa fa-star-o"></i></h6>
         <h1>EVENTS</h1>
       </div>
       <div class="clearfix"></div>

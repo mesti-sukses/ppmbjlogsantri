@@ -45,6 +45,10 @@ Masukkan info host pada form yang ada
 3. password: password dari mysql defaultnya adalah tidak ada
 4. database name: nama database yang akan diisi
 
+![Config](media/Config.png)
+
+Setelah itu masukan konfigurasi website yang diinginkan untuk website
+
 ![Register](media/Register.png)
 
 Setelah itu akan akan ada form untuk register admin username dan password. Admin ini berguna untuk mengatur seluruh dapukan dan regulasi akun lainnya.

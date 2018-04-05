@@ -37,7 +37,7 @@
 			//baris dibawah untuk redirect ke halaman login setelah user mengakses halaman manapun yang dibawah class ini
 			//selain URL untuk login, logout, dan register maka akan diredirect menuju login
 			//contoh : ketika akan membuka list santri maka dicek apakah user sudah login atau belum
-			$exception = array('user/login', 'user/logout', 'user/register');
+			$exception = array('user/login', 'user/logout', 'user/register', 'user/genconfig');
 			if(in_array(uri_string(), $exception) == FALSE){
 				if($this->User_m->loggedin() == FALSE){
 					redirect('user/login');

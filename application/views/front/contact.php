@@ -41,7 +41,7 @@
 								<i class="fa fa-map-marker"></i>
 							</div>
 							<div class="col-xs-11">
-								<p>PPM Baitul Jannah, Jalan Bendungan Nawangan 13, Karang Besuki, Sukun, Malang</p>
+								<p><?php echo $alamat ?></p>
 							</div>
 							<div class="clearfix"></div>
 						</div>
@@ -50,7 +50,7 @@
 								<i class="fa fa-envelope-o"></i>
 							</div>
 							<div class="col-xs-11">
-								<p>admin@ppmbaituljannah.com</p>
+								<p><?php echo $email ?></p>
 							</div>
 							<div class="clearfix"></div>
 						</div>
@@ -59,7 +59,7 @@
 								<i class="fa fa-phone"></i>
 							</div>
 							<div class="col-xs-11">
-								<p>+62 857-5597-1755</p>
+								<p><?php echo $telp ?></p>
 							</div>
 							<div class="clearfix"></div>
 						</div>
@@ -68,7 +68,7 @@
 								<i class="fa fa-clock-o"></i>
 							</div>
 							<div class="col-xs-11">
-								<p>MON to FRI: 09:00 AM - 03:00 PM </p>
+								<p><?php echo $jam ?> </p>
 							</div>
 							<div class="clearfix"></div>
 						</div>

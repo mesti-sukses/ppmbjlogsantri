@@ -33,7 +33,7 @@
       <nav class="navbar navbar-default" id="pathshalaNavbar" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <button class="navbar-toggle" data-target="#pathshalaNavbarCollapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <a class="navbar-brand" href="index.html">Ma'had Baitul Jannah</a>
+          <button class="navbar-toggle" data-target="#pathshalaNavbarCollapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <a class="navbar-brand" href="index.html"><?php echo $this->data['title'] ?></a>
         </div><!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="pathshalaNavbarCollapse">
           <ul class="nav navbar-nav">

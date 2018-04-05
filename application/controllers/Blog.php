@@ -31,7 +31,7 @@
 			$this->data['postData'] = $this->Post_m->get_full(array('sticky' => 0));
 
 			//load page info
-			$this->data['title'] = "Blog | Ma'had Baitul Jannah Official Site";
+			$this->data['title'] = "Blog | ".$this->data['title']->value;
 
 			//load page
 			$this->data['subview'] = 'blog';
@@ -54,7 +54,7 @@
 			$this->data['postData'] = $this->Post_m->get_full(array('id' => $id), TRUE);
 
 			//load page info
-			$this->data['title'] = $this->data['postData']->title." | Ma'had Baitul Jannah Official Site";
+			$this->data['title'] = $this->data['postData']->title." | ".$this->data['title']->value;
 
 			//load page
 			$this->data['subview'] = 'post';
@@ -78,7 +78,7 @@
 			$catName = $this->Category_m->get_by(array('cat_id' => $id), TRUE)->name;
 
 			//load page info
-			$this->data['title'] = $catName." | Ma'had Baitul Jannah Official Site";
+			$this->data['title'] = $catName." | ".$this->data['title']->value;
 
 			//load page
 			$this->data['subview'] = 'blog';

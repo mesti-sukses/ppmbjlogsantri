@@ -1,7 +1,7 @@
 <!-- Page Title Section -->
 		<div class="row page-title page-title-events">
 			<div class="container">
-				<h2>PROFESIONAL RELIGIUS</h2>
+				<h2><?php echo $this->data['tagline']->value ?></h2>
 			</div>
 		</div>
 		

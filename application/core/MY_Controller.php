@@ -16,7 +16,9 @@
 
 			//Untuk mengambil list main menu yang berguna di setiap page dari database menu
 			$this->load->model('Menu_m');
+			$this->load->model('Web_Config_m');
 			$this->data['mainMenu'] = $this->Menu_m->get_by(array('location' => 'main'));
+			$this->data['title'] = $this->Web_Config_m->get_by(array('key_config' => 'title'), TRUE);
 		}
 	}
 ?>

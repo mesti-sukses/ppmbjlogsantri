@@ -19,8 +19,8 @@
     <div class="container">
       <div class="school-logo">
         <i class="fa fa-graduation-cap"></i>
-        <h3>BAITUL JANNAH</h3>
-        <h6>PROFESIONAL RELIGIUS</h6>
+        <h3><?php echo $this->data['title'] ?></h3>
+        <h6><?php echo $this->data['tagline']->value ?></h6>
       </div>
       <div class="col-md-3 - col-sm-6 footer-item">
         <h5>FIND US</h5>
@@ -35,9 +35,9 @@
       </div>
       <div class="col-md-3 col-sm-6 footer-item">
         <h5>CONTACT US</h5>
-        <p><i class="fa fa-map-marker"></i>Jalan Bendungan Nawangan 13, Karang Besuki, Sukun, Malang</p>
-        <p><i class="fa fa-mobile"></i> +62 857-5597-1755</p>
-        <p><i class="fa fa-envelope"></i>admin@ppmbaituljannah.com</p>
+        <p><i class="fa fa-map-marker"></i><?php echo $alamat ?></p>
+        <p><i class="fa fa-mobile"></i> <?php echo $telp ?></p>
+        <p><i class="fa fa-envelope"></i> <?php echo $email ?></p>
       </div>
       <div class="col-md-3 col-sm-6 footer-item">
         <h5>QUICK LINKS</h5>
@@ -55,9 +55,7 @@
       <div class="clearfix visible-sm"></div>
       <div class="col-md-3 col-sm-6 footer-item">
         <h5>WAKTU KBM</h5>
-        <p><i class="fa fa-clock-o"></i> MON - FRI 5:00 AM - 6:00 AM</p>
-        <p><i class="fa fa-clock-o"></i> MON - FRI 7:30 PM - 9:00 PM</p>
-        <p><i class="fa fa-clock-o"></i> SAT 8:00 AM - 11:00 AM</p>
+        <p><i class="fa fa-clock-o"></i> <?php echo $jam ?></p>
       </div>
     </div>
     <div class="footer-social-row">

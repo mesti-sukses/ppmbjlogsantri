@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 03, 2018 at 02:10 AM
+-- Generation Time: Apr 04, 2018 at 10:52 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -112,7 +112,9 @@ INSERT INTO `menu` (`id`, `type`, `location`, `icon`, `text`, `link`) VALUES
 (4, 'internal', 'main', 'file', 'Blog', 'blog'),
 (5, 'external', 'social', 'facebook', 'Facebook', 'http://www.facebook.com'),
 (6, 'external', 'social', 'youtube', 'Youtube', 'http://youtube.com'),
-(7, 'internal', 'main', 'info-circle', 'About Us', 'page/about');
+(7, 'internal', 'main', 'info-circle', 'About Us', 'page/about'),
+(8, 'internal', 'main', 'address-book', 'Contact Us', 'page/contact'),
+(9, 'internal', 'main', 'photo', 'Gallery', 'page/gallery');
 
 -- --------------------------------------------------------
 
@@ -192,6 +194,18 @@ CREATE TABLE `web_component` (
   `extra` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `web_config`
+--
+
+CREATE TABLE `web_config` (
+  `id` int(11) NOT NULL,
+  `key_config` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` text COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -263,6 +277,12 @@ ALTER TABLE `web_component`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `web_config`
+--
+ALTER TABLE `web_config`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -294,7 +314,7 @@ ALTER TABLE `materi_hadist`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `musyawarah_fp`
@@ -325,6 +345,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `web_component`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `web_config`
+--
+ALTER TABLE `web_config`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

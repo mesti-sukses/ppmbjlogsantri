@@ -26,7 +26,8 @@
 			$this->load->model('Post_m');
 
 			//load page info
-			$this->data['title'] = "Ma'had Baitul Jannah Official Site";
+			$this->data['title'] = $this->data['title']->value;
+			$this->data['slogan'] = $this->Web_Config_m->get_by(array('key_config' => 'slogan'), TRUE);
 
 			//fetch data from database
 			$this->data['testimoniData'] = $this->Web_Component_m->get_by(array('location' => 'testimoni'));
@@ -46,7 +47,7 @@
 		public function about()
 		{
 			//load page info
-			$this->data['title'] = "About Us | Ma'had Baitul Jannah";
+			$this->data['title'] = "About Us | ".$this->data['title']->value;
 
 			//fetch data from database
 			$this->data['ketuaData'] = $this->Web_Component_m->get_by(array('location' => 'ketua'), TRUE);
@@ -63,7 +64,7 @@
 		public function contact()
 		{
 			//load page_info
-			$this->data['title'] = "Contact Us | Ma'had Baitul Jannah";
+			$this->data['title'] = "Contact Us | ".$this->data['title']->value;
 
 			//load page
 			$this->data['subview'] = 'contact';
@@ -75,7 +76,9 @@
 		*/
 		public function gallery()
 		{
-			$this->data['title'] = "Gallery | Ma'had Baitul Jannah";
+			$this->data['title'] = "Gallery | ".$this->data['title']->value;
+			$this->data['clientId'] = $this->Web_Config_m->get_by(array('key_config' => 'client_id'), TRUE)->value;
+			$this->data['accessToken'] = $this->Web_Config_m->get_by(array('key_config' => 'accessToken'), TRUE)->value;
 
 			$this->data['subview'] = 'gallery';
 			$this->load->view('front/main_layout', $this->data);
@@ -99,7 +102,7 @@
 			$this->data['postData']->image = 'principal1.jpg';
 
 			//load page info
-			$this->data['title'] = "Ketua Pondok | Ma'had Baitul Jannah Official Site";
+			$this->data['title'] = "Ketua Pondok | ".$this->data['title']->value;
 
 			//load page
 			$this->data['subview'] = 'post';

@@ -23,7 +23,7 @@
 			//load page info
 			$this->data['page_info'] = array(
 					'css' => array('login.css'),
-					'title' => 'Login | '.config_item('site_name'),
+					'title' => 'Login | '.$this->data['title']->value,
 					'js' => array('login.js'),
 					'no-nav' => TRUE
 				);
@@ -69,7 +69,7 @@
 			//load page info
 			$this->data['page_info'] = array(
 					'css' => array('login.css'),
-					'title' => 'Admin Register | '. config_item('site_name'),
+					'title' => 'Admin Register | '.$this->data['title']->value,
 					'js' => array('login.js'),
 					'no-nav' => TRUE
 				);
@@ -321,6 +321,51 @@
 			$userData->level = $level;
 			$this->User_m->save((array)$userData, $id);
 			redirect('user/list');
+		}
+
+		/*
+			* Method ini untuk generate config file dengan menggunakan form login
+		*/
+		public function genconfig()
+		{
+			//load page info
+			$this->data['page_info'] = array(
+					'css' => array('login.css'),
+					'title' => 'Generate Config | Acadiquis',
+					'js' => array('login.js'),
+					'no-nav' => TRUE
+				);
+			$this->data['no_menu'] = TRUE;
+
+			//check if current config is true
+			$config = $this->Web_Config_m->get();
+			if(count($config)){
+				redirect('admin/config');
+			}
+
+			//validation form
+			$rules = $this->Web_Config_m->rules_generate;
+			$this->form_validation->set_rules($rules);
+
+			if($this->form_validation->run() == TRUE){
+				$key_config = $this->input->post('key_config');
+				$value = $this->input->post('value');
+
+				//level ketua siswa adalah 16
+				for ($i=0; $i < 9; $i++) { 
+					//save data
+					$data['key_config'] = $key_config[$i];
+					$data['value'] = $value[$i];
+
+					$this->Web_Config_m->save($data);
+				}
+
+				redirect('user/register');
+			}
+
+			//load page
+			$this->data['subview'] = 'gen_config';
+			$this->load->view('main_layout', $this->data);
 		}
 	}
 ?>

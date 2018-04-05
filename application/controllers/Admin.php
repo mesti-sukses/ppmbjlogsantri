@@ -227,7 +227,8 @@
 		/*
 			* Method ini merupakan controller yang mengatur pengeditan kategori, penghapusan kategori
 		*/
-		public function category(){
+		public function category()
+		{
 			$this->load->model('Category_m');
 
 			//load page info
@@ -248,15 +249,15 @@
 
 				//get the input post
 				$id = $this->input->post('cat_id');
-				$catData = $this->Category_m->array_from_post(array('name'));
+				$configData = $this->Category_m->array_from_post(array('name'));
 				if($id != "") 
 				{
-					$catData['cat_id'] = $id;
+					$configData['cat_id'] = $id;
 				} 
 				else $id = NULL;
 
 				//save the input post
-				$this->Category_m->save($catData, $id);
+				$this->Category_m->save($configData, $id);
 				redirect('admin/category', 'refresh');
 			}
 
@@ -268,6 +269,43 @@
 			$this->load->view('main_layout', $this->data);
 		}
 
+		/*
+			* Method ini merupakan controller yang mengatur config dari website
+		*/
+		public function config()
+		{
+			$this->load->model('Web_Config_m');
 
+			//load the page info
+			$this->data['page_info'] = array(
+					'css' => array('jquery.dataTables.min.css', 'responsive.dataTables.min.css'),
+					'title' => 'Website Configuration | '.$this->session->userdata['name'],
+					'js' => array('catList.js', 'jquery.dataTables.min.js', 'dataTables.responsive.min.js'),
+					'no-nav' => FALSE
+				);
+
+			//set the form rule
+			$rules = $this->Web_Config_m->rules;
+			$this->form_validation->set_rules($rules);
+
+			//run if satisfied
+			if($this->form_validation->run() == TRUE)
+			{
+
+				//get the input post
+				$configData = $this->Web_Config_m->array_from_post(array('value', 'key_config', 'id'));
+
+				//save the input post
+				$this->Web_Config_m->save($configData, $configData['id']);
+				redirect('admin/config', 'refresh');
+			}
+
+			//fetch required data
+			$this->data['configData'] = $this->Web_Config_m->get();
+
+			//load the page
+			$this->data['subview'] = 'admin/web/site_config';
+			$this->load->view('main_layout', $this->data);
+		}
 	}
 ?>
