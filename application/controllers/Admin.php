@@ -174,37 +174,37 @@
 
 				//file upload
 				$config['upload_path'] = './images/Post/';
-        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+		        $config['allowed_types'] = 'gif|jpg|png|jpeg';
 
-        //load the library
-        $this->load->library('upload', $config);
+        		//load the library
+        		$this->load->library('upload', $config);
 
-        //check if the upload success or not
-        if (!$this->upload->do_upload('userFile'))
-        {
+		        //check if the upload success or not
+		        if (!$this->upload->do_upload('userFile'))
+		        {
 
-        	//if the image sent is null (it means that the image is nothing) then send error
-        	if($this->input->post('image') == NULL)
-        		$this->data['fileError'] = $this->upload->display_errors();
-        	//but if it's an edit data and the image has a value just pass this check
-        	else $postData['image'] = $this->input->post('image');
-        }
-        else
-        {
+		        	//if the image sent is null (it means that the image is nothing) then send error
+		        	if($this->input->post('image') == NULL)
+		        		$this->data['fileError'] = $this->upload->display_errors();
+		        	//but if it's an edit data and the image has a value just pass this check
+		        	else $postData['image'] = $this->input->post('image');
+		        }
+		        else
+		        {
 
-        	//rename the image to the title of the post
-        	$a = $this->upload->data();
-        	rename($a['full_path'], $a['file_path'].$postData['title'].$a['file_ext']);
-        	$this->data['uploadData'] = $this->upload->data();
+		        	//rename the image to the title of the post
+		        	$a = $this->upload->data();
+		        	rename($a['full_path'], $a['file_path'].$postData['title'].$a['file_ext']);
+		        	$this->data['uploadData'] = $this->upload->data();
 
-        	//set the image name to the image attribute
-        	$postData['image'] = $postData['title'].$a['file_ext'];
-        }
+		        	//set the image name to the image attribute
+		        	$postData['image'] = $postData['title'].$a['file_ext'];
+		        }
 
-        //save to the database
-        $this->Post_m->save($postData, $id);
-        redirect('admin/blog');
-			} 
+		        //save to the database
+		        $this->Post_m->save($postData, $id);
+		        redirect('admin/blog');
+			}
 
 			//output error if required form is not satisfied
 			else echo validation_errors();
@@ -306,6 +306,19 @@
 			//load the page
 			$this->data['subview'] = 'admin/web/site_config';
 			$this->load->view('main_layout', $this->data);
+		}
+
+		public function delPost($id)
+		{
+			$this->load->model('Post_m');
+
+			$tile = $this->Post_m->get($id, TRUE)->image;
+			$ath = FCPATH.'images/Post/'.$tile;
+
+			unlink($ath);
+
+			$this->Post_m->delete($id);
+			redirect('admin/blog');
 		}
 	}
 ?>

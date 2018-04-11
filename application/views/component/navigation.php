@@ -84,9 +84,9 @@
     <?php if ((intval($this->session->userdata('level')) & 4) == 4 ): ?>
 
       <li class="parent">
-        <a data-toggle="collapse" href="#sub-item-5"><em class="fa fa-clipboard">&nbsp;</em> Jurnal Qur'an <span class="icon pull-right" data-toggle="collapse"><em class="fa fa-plus"></em></span></a>
+        <a data-toggle="collapse" href="#sub-item-6"><em class="fa fa-clipboard">&nbsp;</em> Jurnal Qur'an <span class="icon pull-right" data-toggle="collapse"><em class="fa fa-plus"></em></span></a>
 
-        <ul class="children collapse" id="sub-item-5">
+        <ul class="children collapse" id="sub-item-6">
           <?php foreach ($targetAngkatan as $tahun): ?>
             <li>
               <a class="" href="<?php echo base_url('jurnal/index/'.$tahun->angkatan) ?>"><span class="fa fa-book">&nbsp;</span> <?php echo $tahun->angkatan ?></a>

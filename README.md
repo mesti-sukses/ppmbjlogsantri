@@ -73,6 +73,11 @@ Untuk lebih lengkapnya bisa refer ke dokumentasi
 ### Notes
 
 ## Release History & Changelog
+* 0.4.1
+	* Fix side navbar
+	* Fix for delete post
+* 0.4.0
+	* Tambah fitur website config
 * 0.3.0
 	* Tambahkan instagram pada gallery, bukan gambar internal
 * 0.2.1
