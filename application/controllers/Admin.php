@@ -13,12 +13,7 @@
 		public function __construct()
 		{
 			parent::__construct();
-			
-			if((intval($this->session->userdata('level')) & 64) != 64)
-			{
-				echo('Anda bukan admin website');
-				exit();
-			}
+			parent::raiseError(64);
 		}
 
 		/*
@@ -27,14 +22,6 @@
 		public function menu()
 		{
 			$this->load->model('Menu_m');
-
-			//loading page data info including title, required css, and required js
-			$this->data['page_info'] = array(
-					'css' => array('checkbox.css'),
-					'title' => 'Menu Web | '.$this->session->userdata['name'],
-					'js' => array('editButton.js'),
-					'no-nav' => FALSE
-				);
 
 			//declare rule for this form
 			$rules = $this->Menu_m->rules;
@@ -52,14 +39,15 @@
 				//save data
 				$this->Menu_m->save($menuData, $id);
 				redirect('admin/menu', 'refresh');
+
 			} else echo validation_errors();
 
 			//need social menu to edit them
 			$this->data['socialMenu'] = $this->Menu_m->get_by(array('location' => 'social'));
 
-			//load the page
-			$this->data['subview'] = 'admin/web/menu';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'Menu Web | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/web/menu', 'table_with_modal');
 		}
 
 		/*
@@ -81,14 +69,6 @@
 		{
 			$this->load->model('Web_Component_m');
 
-			//load page info
-			$this->data['page_info'] = array(
-					'css' => array('summernote.css'),
-					'title' => 'Konten Web | '.$this->session->userdata['name'],
-					'js' => array('summernote.js', 'editr.js'),
-					'no-nav' => FALSE
-				);
-
 			//fetch required data
 			$this->data['dewanGuruData'] = $this->Web_Component_m->get_by(array('location' => 'dgcontent'));
 			$this->data['testimoniData'] = $this->Web_Component_m->get_by(array('location' => 'testimoni'));
@@ -97,6 +77,7 @@
 			//declare form rule
 			$rules = $this->Web_Component_m->rules;
 			$this->form_validation->set_rules($rules);
+			$hello = $this->Web_Component_m->array_from_post(array('location', 'nama', 'content', 'extra'));
 
 			//run the form action if required rule is satisfied
 			if($this->form_validation->run() == TRUE)
@@ -109,11 +90,11 @@
 				//save the data
 				$this->Web_Component_m->save($componentData);
 				redirect('admin/content', 'refresh');
-			}
+			} else echo validation_errors();
 
-			//load the page
-			$this->data['subview'] = 'admin/web/content';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'Konten Web | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/web/content', 'admin_editor');
 		}
 
 		/*
@@ -123,20 +104,12 @@
 		{
 			$this->load->model('Post_m');
 
-			//load the page info
-			$this->data['page_info'] = array(
-					'css' => array('jquery.dataTables.min.css', 'responsive.dataTables.min.css'),
-					'title' => 'All Posts | '.$this->session->userdata['name'],
-					'js' => array('savereport.js', 'jquery.dataTables.min.js', 'dataTables.responsive.min.js'),
-					'no-nav' => FALSE
-				);
-
 			//fetch required data
 			$this->data['postData'] = $this->Post_m->get_full();
 
-			//load the page
-			$this->data['subview'] = 'admin/web/blog';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'All Posts | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/web/blog', 'data_table');
 		}
 
 		/*
@@ -146,14 +119,6 @@
 		{
 			$this->load->model('Post_m');
 			$this->load->model('Category_m');
-
-			//load the page info
-			$this->data['page_info'] = array(
-					'css' => array('summernote.css', 'checkbox.css'),
-					'title' => 'Konten Web | '.$this->session->userdata['name'],
-					'js' => array('summernote.js', 'editr.js', 'image.js'),
-					'no-nav' => FALSE
-				);
 
 			//set form rule
 			$rules = $this->Post_m->rules;
@@ -219,9 +184,9 @@
 			} 
 			else $this->data['edit'] = false;
 
-			//load the page
-			$this->data['subview'] = 'admin/web/post';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'Konten Web | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/web/post', 'admin_editor');
 		}
 
 		/*
@@ -230,14 +195,6 @@
 		public function category()
 		{
 			$this->load->model('Category_m');
-
-			//load page info
-			$this->data['page_info'] = array(
-					'css' => array('jquery.dataTables.min.css', 'responsive.dataTables.min.css'),
-					'title' => 'Kategori | '.$this->session->userdata['name'],
-					'js' => array('catList.js', 'jquery.dataTables.min.js', 'dataTables.responsive.min.js'),
-					'no-nav' => FALSE
-				);
 
 			//set the form rule
 			$rules = $this->Category_m->rules;
@@ -264,9 +221,9 @@
 			//fetch the required data
 			$this->data['catData'] = $this->Category_m->get();
 
-			//load the page
-			$this->data['subview'] = 'admin/web/cat_list';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'Kategori | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/web/cat_list', 'data_table');
 		}
 
 		/*
@@ -275,14 +232,6 @@
 		public function config()
 		{
 			$this->load->model('Web_Config_m');
-
-			//load the page info
-			$this->data['page_info'] = array(
-					'css' => array('jquery.dataTables.min.css', 'responsive.dataTables.min.css'),
-					'title' => 'Website Configuration | '.$this->session->userdata['name'],
-					'js' => array('catList.js', 'jquery.dataTables.min.js', 'dataTables.responsive.min.js'),
-					'no-nav' => FALSE
-				);
 
 			//set the form rule
 			$rules = $this->Web_Config_m->rules;
@@ -303,9 +252,9 @@
 			//fetch required data
 			$this->data['configData'] = $this->Web_Config_m->get();
 
-			//load the page
-			$this->data['subview'] = 'admin/web/site_config';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'Website Configuration | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/web/site_config', 'data_table');
 		}
 
 		public function delPost($id)

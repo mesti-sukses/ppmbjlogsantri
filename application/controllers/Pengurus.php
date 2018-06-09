@@ -30,14 +30,6 @@
 			$this->load->model('Pasus_m');
 			$this->load->model('Detail_Pasus_m');
 
-			//load page info
-			$this->data['page_info'] = array(
-					'css' => array('jquery.dataTables.min.css', 'responsive.dataTables.min.css'),
-					'title' => 'List Pasus | '.$this->session->userdata['name'],
-					'js' => array('savereport.js', 'jquery.dataTables.min.js', 'dataTables.responsive.min.js'),
-					'no-nav' => FALSE
-				);
-
 			//ambil data dari pasus
 			$this->data['dataPasus'] = $this->Pasus_m->get_non_pasus();
 			//ambil data penilaian tiap pasus
@@ -49,9 +41,9 @@
 				$santri->updated = $temp->updated;
 			}
 
-			//load page
-			$this->data['subview'] = 'admin/pasus/list';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'List Pasus | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/pasus/list', 'data_table');
 		}
 
 		/*

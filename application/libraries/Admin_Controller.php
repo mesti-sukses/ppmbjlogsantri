@@ -10,7 +10,8 @@
 			@author Logic_Boys
 		*/
 		
-		function __construct(){
+		function __construct()
+		{
 			parent::__construct();
 
 			//Helper dan library yang harus di load agar tidak bolak-balik me load library yang sama di setiap class
@@ -42,6 +43,15 @@
 				if($this->User_m->loggedin() == FALSE){
 					redirect('user/login');
 				}
+			}
+		}
+
+		public function raiseError($level)
+		{
+			if((intval($this->session->userdata('level')) & $level) != $level)
+			{
+				echo('Access Denied');
+				exit();
 			}
 		}
 	}

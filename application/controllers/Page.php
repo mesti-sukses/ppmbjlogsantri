@@ -87,7 +87,8 @@
 		/*
 			* Method ini merupakan method untuk mengatur page khusus untuk ulasan singkat bagi ketua pondok
 		*/
-		public function ketua(){
+		public function ketua()
+		{
 			$this->load->model('Category_m');
 			$this->load->model('Web_Component_m');
 			$this->load->model('Post_m');

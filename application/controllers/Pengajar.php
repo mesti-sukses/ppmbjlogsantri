@@ -58,14 +58,6 @@
 			$this->data['musyawarahData'] = $this->Musyawarah_m->get();
 			$this->data['dataFP'] = $this->User_m->get_by('(level & 2) != 2');
 
-			//load page info
-			$this->data['page_info'] = array(
-					'css' => array('jquery.dataTables.min.css', 'responsive.dataTables.min.css', 'checkbox.css'),
-					'title' => 'Semua Usulan | '.$this->session->userdata['name'],
-					'js' => array('savereport.js', 'jquery.dataTables.min.js', 'dataTables.responsive.min.js'),
-					'no-nav' => FALSE
-				);
-
 			//set form rule
 			$rules = $this->Musyawarah_m->rules;
 			$this->form_validation->set_rules($rules);
@@ -82,9 +74,9 @@
 				redirect('pengajar/index', 'refresh');
 			}
 
-			//load the page
-			$this->data['subview'] = 'admin/fp/list';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'Semua Usulan | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/fp/list', 'data_table');
 		}
 
 		/*
@@ -98,14 +90,6 @@
 		public function edit($id)
 		{
 			$this->load->model('Musyawarah_m');
-
-			//load the page info
-			$this->data['page_info'] = array(
-					'css' => array('summernote.css', 'checkbox.css'),
-					'title' => 'Pembahasan Usulan | '.$this->session->userdata['name'],
-					'js' => array('summernote.js', 'editr.js'),
-					'no-nav' => FALSE
-				);
 
 			// fetch data
 			$this->data['dataUsulan'] = $this->Musyawarah_m->get($id, TRUE);
@@ -136,9 +120,9 @@
 				redirect('pengajar');
 			}
 
-			//load the page
-			$this->data['subview'] = 'admin/fp/post';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'Pembahasan Usulan | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/fp/post', 'admin_editor');
 		}
 
 		/*
@@ -152,20 +136,12 @@
 		{
 			$this->load->model('Musyawarah_m');
 
-			//load the page info
-			$this->data['page_info'] = array(
-					'css' => array(),
-					'title' => 'Usulan | '.$this->session->userdata['name'],
-					'js' => array(),
-					'no-nav' => FALSE
-				);
-
 			// fetch data
 			$this->data['dataUsulan'] = $this->Musyawarah_m->get($id, TRUE);
 
-			//load the page
-			$this->data['subview'] = 'admin/fp/view';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'Usulan | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/fp/view', 'admin_editor');
 		}
 	}
 ?>

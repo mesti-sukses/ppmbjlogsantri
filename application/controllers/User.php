@@ -106,15 +106,6 @@
 		*/
 		public function index()
 		{
-
-			//load page info
-			$this->data['page_info'] = array(
-					'css' => array(''),
-					'title' => 'Dashboard | '.$this->session->userdata['name'],
-					'js' => array(''),
-					'no-nav' => FALSE
-				);
-
 			//ambil data lengkap user (termasuk wali dan pasus yang merupakan foreign key)
 			$this->data['userData'] = $this->User_m->get_complete_user_by_id($this->session->userdata('id'));
 
@@ -145,9 +136,9 @@
 				$this->data['anggotaWali'] = $this->Wali_m->get_complete_wali_child($this->session->userdata('id'));
 			}
 
-			//load page
-			$this->data['subview'] = 'admin/dashboard';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'Dashboard | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/dashboard', 'data_table');
 		}
 
 		//Logout method handle the logout method
@@ -159,14 +150,6 @@
 		//Untuk setting page dan profile
 		public function setting()
 		{
-			//load page info
-			$this->data['page_info'] = array(
-					'css' => array(),
-					'title' => 'Profile | '.$this->session->userdata('name'),
-					'js' => array(),
-					'no-nav' => FALSE
-				);
-
 			//fetch data from database
 			$this->data['userData'] = $this->User_m->get_by(array('id' => $this->session->userdata('id')), TRUE);
 
@@ -190,30 +173,22 @@
 				redirect('user');
 			}
 
-			//load page
-			$this->data['subview'] = 'admin/setting';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'Profile | '.$this->session->userdata('name');
+			$this->loadPage($title, 'admin/setting', 'data_table');
 		}
 
 		//untuk lihat data seluruh santri
 		public function list()
 		{
-			//load page info
-			$this->data['page_info'] = array(
-					'css' => array('jquery.dataTables.min.css', 'responsive.dataTables.min.css', 'checkbox.css'),
-					'title' => 'Data Seluruh Santri',
-					'js' => array('checkStatus.js', 'savereport.js', 'jquery.dataTables.min.js', 'dataTables.responsive.min.js'),
-					'no-nav' => FALSE
-				);
-
 			//fetch data
 			$this->data['santriData'] = $this->User_m->get_complete_user_by_id();
 			//untuk list wali sehingga migrasi wali menjadi lebih mudah
 			$this->data['waliData'] = $this->User_m->get_by('(level & 1) = 1');
 
-			//load page
-			$this->data['subview'] = 'admin/super/list';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'Data Seluruh Santri';
+			$this->loadPage($title, 'admin/super/list', 'data_table');
 		}
 
 		//untuk delete santri

@@ -7,10 +7,7 @@
 		public function __construct()
 		{
 			parent::__construct();
-			if ((intval($this->session->userdata('level')) & 1) != 1){
-				echo "Anda bukan wali";
-				exit();
-			}
+			parent::raiseError(1);
 		}
 
 		/*
@@ -23,14 +20,6 @@
 			$this->load->model('Wali_m');
 			$this->load->model('User_m');
 
-			//load page info
-			$this->data['page_info'] = array(
-					'css' => array('jquery.dataTables.min.css', 'responsive.dataTables.min.css'),
-					'title' => 'List Santri | '.$this->session->userdata['name'],
-					'js' => array('savereport.js', 'jquery.dataTables.min.js', 'dataTables.responsive.min.js'),
-					'no-nav' => FALSE
-				);
-
 			//jika id = null maka yang dilihat adalah wali yang login saat itu
 			if($id == NULL) 
 			{
@@ -39,7 +28,7 @@
 				//catat waktu wali terakhir melihat list santrinya
 				//untuk mengontrol apakah wali ini bekerja dengan baik dalam mengontrol anak didiknya
 				$now = date('Y-m-d H:i:s');
-				$dataUser = (array)$this->User_m->get_by(array('id' => $idx), TRUE);
+				$dataUser = (array) $this->User_m->get_by(array('id' => $idx), TRUE);
 				$dataUser['updated'] = $now;
 
 				//save data
@@ -51,13 +40,13 @@
 			$this->data['santriData'] = $this->Wali_m->get_complete_wali_child($idx);
 			$this->data['waliData'] = $this->User_m->get_by('(level & 1) = 1');
 
-			//jika ternyata yang melihat adalah koordinator wali maka ambil lis semua santri
+			//jika ternyata yang melihat adalah koordinator wali maka ambil list semua santri
 			if (((intval($this->session->userdata('level')) & 32) == 32) && $id == NULL)
 				$this->data['santriData'] = $this->Wali_m->get_complete_wali_child();
 
-			//load the page
-			$this->data['subview'] = 'admin/wali/list';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'List Santri | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/wali/list', 'data_table');
 		}
 
 		/*
@@ -65,18 +54,9 @@
 		*/
 		public function list()
 		{
-
-			//load page info
-			$this->data['page_info'] = array(
-					'css' => array('jquery.dataTables.min.css', 'responsive.dataTables.min.css'),
-					'title' => 'List Wali | '.$this->session->userdata['name'],
-					'js' => array('savereport.js', 'jquery.dataTables.min.js', 'dataTables.responsive.min.js'),
-					'no-nav' => FALSE
-				);
-
-			//load page
-			$this->data['subview'] = 'admin/wali/list_wali';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'List Wali | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/wali/list_wali', 'data_table');
 		}
 
 		/*
@@ -89,31 +69,22 @@
 		{
 			$this->load->model('Materi_Quran_m');
 
-			//load page info
-			$this->data['page_info'] = array(
-				'title' => 'Pembanding | '.$this->session->userdata('name'),
-				'css' => array('switch.css'),
-				'js' => array(),
-				'no-nav' => FALSE
-				);
-
 			//fetch data materi quran seluruh santri
 			$this->data['santriData'] = $this->Materi_Quran_m->get_materi_quran_user_id();
 
 			//set rule untuk form validation
 			$rules = array(
-					array(
-						'field' => 'check[]',
-						'rules' => 'trim|required'
-						)
-				);
-			$this->form_validation->set_rules($rules);
+				array(
+					'field' => 'check[]',
+					'rules' => 'trim|required'
+					)
+			);
+			$check = $this->form('', 'check', $rules);
 
 			//run saat rule sudah terpenuhi
-			if($this->form_validation->run() == TRUE)
+			if($check)
 			{
 				//ambil data santri yang sudah di checklist
-				$check = $_POST['check'];
 				$this->data['santriCheck'] = $check;
 
 				//untuk menyimpan array ketercapaian setiap user
@@ -145,9 +116,9 @@
 				$this->data['name'] = $dataName;
 			}
 
-			//load page
-			$this->data['subview'] = 'admin/wali/compare';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'Pembanding | '.$this->session->userdata('name');
+			$this->loadPage($title, 'admin/wali/compare', 'switch_list');
 		}
 
 		/*
@@ -155,7 +126,8 @@
 
 			@param $id: id adari santri yang bersangkutan
 		*/
-		public function change($id){
+		public function change($id)
+		{
 			$this->load->model('User_m');
 
 			//ambil data user dari database

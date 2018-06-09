@@ -9,10 +9,7 @@
 		public function __construct()
 		{
 			parent::__construct();
-			if ((intval($this->session->userdata('level')) & 256) != 256){
-				echo "Anda bukan wali hadist";
-				exit();
-			}
+			parent::raiseError(256);
 		}
 
 		/*
@@ -24,20 +21,12 @@
 		{
 			$this->load->model('Materi_Hadist_m');
 
-			//load page info
-			$this->data['page_info'] = array(
-					'css' => array('jquery.dataTables.min.css', 'responsive.dataTables.min.css'),
-					'title' => 'List Santri | '.$this->session->userdata['name'],
-					'js' => array('savereport.js', 'jquery.dataTables.min.js', 'dataTables.responsive.min.js'),
-					'no-nav' => FALSE
-				);
-
 			//fetch data from database
 			$this->data['santriData'] = $this->Materi_Hadist_m->get_materi_hadist_user($id);
 
-			//load page
-			$this->data['subview'] = 'admin/wali/list_hadist';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'List Santri | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/wali/list_hadist', 'data_table');
 		}
 
 		/*
@@ -45,31 +34,15 @@
 		*/
 		public function addHadist()
 		{
-
-			//load page info
-			$this->data['page_info'] = array(
-					'css' => array('jquery.dataTables.min.css', 'responsive.dataTables.min.css'),
-					'title' => 'Tambahkan Hadist | '.$this->session->userdata['name'],
-					'js' => array('savereport.js', 'jquery.dataTables.min.js', 'dataTables.responsive.min.js'),
-					'no-nav' => FALSE
-				);
-
-			//set rules
-			$rules = $this->Hadist_m->rules;
-			$this->form_validation->set_rules($rules);
-
-			//run if rule is satisfied
-			if($this->form_validation->run() == TRUE)
-			{
-				$dataHadist = $this->Hadist_m->array_from_post(array('nama', 'offset'));
+			$dataHadist = $this->form('Hadist_m', array('nama', 'offset'));
+			if($dataHadist)
 				$this->Hadist_m->save($dataHadist);
-			}
 
 			$this->data['dataHadist'] = $this->Hadist_m->get();
 
-			//load page
-			$this->data['subview'] = 'admin/wali/hadist_list';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'Tambahkan Hadist | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/wali/hadist_list', 'data_table');
 		}
 	}
 ?>

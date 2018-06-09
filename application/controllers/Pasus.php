@@ -27,14 +27,6 @@
 			//Detail pasus untuk mengambil data tiap anggota pasus
 			$this->load->model('Detail_Pasus_m');
 
-			//Load page info
-			$this->data['page_info'] = array(
-					'css' => array('jquery.dataTables.min.css', 'responsive.dataTables.min.css'),
-					'title' => 'Anggota Pasus | '.$this->session->userdata['name'],
-					'js' => array('savereport.js', 'jquery.dataTables.min.js', 'dataTables.responsive.min.js'),
-					'no-nav' => FALSE
-				);
-
 			//Fetch data anggota tiap pasus
 			//ambil id dari session agar tahu siapa yang login saat ini
 			$id = $this->session->userdata('id');
@@ -50,9 +42,9 @@
 				$santri->updated = $temp->updated;
 			}
 
-			//load page
-			$this->data['subview'] = 'admin/pasus/list';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'Anggota Pasus | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/pasus/list', 'data_table');
 		}
 
 		/*
@@ -87,7 +79,8 @@
 
 			@param $id int: id yang akan diberikan penilaian
 		*/
-		public function edit($id){
+		public function edit($id)
+		{
 			$this->load->model('Detail_Pasus_m');
 			$this->load->model('Pasus_m');
 
@@ -219,7 +212,8 @@
 
 			@param $id int: id yang akan dihapus
 		*/
-		public function delete($id){
+		public function delete($id)
+		{
 			$this->load->model('User_m');
 
 			//fetch userdata

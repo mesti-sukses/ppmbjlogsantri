@@ -25,14 +25,6 @@
 		{
 			$this->load->model('Materi_Quran_m');
 
-			//load page info
-			$this->data['page_info'] = array(
-					'css' => array('switch.css'),
-					'title' => 'Ketercapaian Quran | '.$this->session->userdata['name'],
-					'js' => array('counter.js'),
-					'no-nav' => FALSE
-				);
-
 			//set id for current user
 			if($id == NULL)
 			{
@@ -73,9 +65,9 @@
 			} 
 			else $this->data['dump'] = validation_errors();
 
-			//load page
-			$this->data['subview'] = 'admin/santri/quran';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'Ketercapaian Quran | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/santri/quran', 'switch_list');
 		}
 
 		/*
@@ -86,14 +78,6 @@
 		public function addHadist($id = NULL)
 		{
 			$this->load->model('Hadist_m');
-
-			//load page info
-			$this->data['page_info'] = array(
-					'css' => array('jquery.dataTables.min.css', 'responsive.dataTables.min.css'),
-					'title' => 'Tambah Hadist | '.$this->session->userdata['name'],
-					'js' => array('jquery.dataTables.min.js', 'dataTables.responsive.min.js'),
-					'no-nav' => FALSE
-				);
 
 			//jika ada id maka artinya menambahkan hadist baru
 			if($id)
@@ -116,9 +100,9 @@
 				//fetch data hadist
 				$this->data['hadistData'] = $this->Hadist_m->get_hadist_added();
 
-				//load page
-				$this->data['subview'] = 'admin/santri/tambah_hadist';
-				$this->load->view('main_layout', $this->data);
+				// Load The Page
+				$title = 'Tambah Hadist | '.$this->session->userdata['name'];
+				$this->loadPage($title, 'admin/santri/tambah_hadist', 'data_table');
 			}
 		}
 
@@ -130,14 +114,6 @@
 		public function hadist($idHadist)
 		{
 			$this->load->model('Materi_Hadist_m');
-
-			//load page info
-			$this->data['page_info'] = array(
-					'css' => array('switch.css'),
-					'title' => 'Ketercapaian Hadist | '.$this->session->userdata['name'],
-					'js' => array('counter.js'),
-					'no-nav' => FALSE
-				);
 
 			//ambil data ketercapaian materi hadist
 			$this->data['hadistData'] = $this->Materi_Hadist_m->get_materi_hadist($this->session->userdata('id'), $idHadist);
@@ -180,9 +156,10 @@
 			} 
 			else {$this->data['dump'] = validation_errors();
 
-			//load page
-			$this->data['subview'] = 'admin/santri/hadist';
-			$this->load->view('main_layout', $this->data);}
+				// Load The Page
+				$title = 'Ketercapaian Hadist | '.$this->session->userdata['name'];
+				$this->loadPage($title, 'admin/santri/hadist', 'switch_list');
+			}
 		}
 	}
 ?>

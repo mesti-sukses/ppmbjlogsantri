@@ -18,6 +18,9 @@
 
 
 							<div class="inner-item">
+								<?php if (isset($inputError)): ?>
+									<div class="alert alert-danger"><?php echo $inputError; ?></div>
+								<?php endif ?>
 								<table cellspacing="0" class="display responsive nowrap" id="attendenceDetailedTable" width="100%">
 									<thead>
 										<tr>

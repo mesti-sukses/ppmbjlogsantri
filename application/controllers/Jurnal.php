@@ -13,10 +13,7 @@
 		{
 			parent::__construct();
 			
-			if((intval($this->session->userdata('level')) & 4) != 4){
-				echo('Anda bukan santri update jurnal');
-				exit();
-			}
+			parent::raiseError(4);
 		}
 
 		/*
@@ -25,14 +22,6 @@
 		public function index($tahun)
 		{
 			$this->load->model('Target_Quran_m');
-
-			//load page info
-			$this->data['page_info'] = array(
-					'css' => array('switch.css'),
-					'title' => 'Jurnal Target Quran | '.$this->session->userdata['name'],
-					'js' => array('counter.js'),
-					'no-nav' => FALSE
-				);
 
 			//fetch the data
 			$this->data['target'] = $this->Target_Quran_m->get_by(array('angkatan' => $tahun), TRUE);
@@ -68,9 +57,9 @@
 				redirect('jurnal/index/'.$tahun, 'refresh');
 			}
 
-			//load page
-			$this->data['subview'] = 'admin/jurnal/quran';
-			$this->load->view('main_layout', $this->data);
+			// Load The Page
+			$title = 'Jurnal Target Quran | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/jurnal/quran', 'switch_list');
 		}
 	}
 ?>
