@@ -1,0 +1,52 @@
+{
+    "name": "php-ai/php-ml",
+    "type": "library",
+    "description": "PHP-ML - Machine Learning library for PHP",
+    "keywords": [
+        "machine learning",
+        "pattern recognition",
+        "neural network",
+        "computational learning theory",
+        "artificial intelligence",
+        "data science",
+        "feature extraction"
+    ],
+    "homepage": "https://github.com/php-ai/php-ml",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Arkadiusz Kondas",
+            "email": "arkadiusz.kondas@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1"
+    },
+    "require-dev": {
+        "phpstan/phpstan-phpunit": "^0.9.4",
+        "phpstan/phpstan-shim": "^0.9",
+        "phpstan/phpstan-strict-rules": "^0.9.0",
+        "phpunit/phpunit": "^7.0.0",
+        "symplify/coding-standard": "^3.1",
+        "symplify/easy-coding-standard": "^3.1"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Phpml\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Phpml\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "check-cs": "vendor/bin/ecs check src tests bin",
+        "fix-cs": "vendor/bin/ecs check src tests bin --fix",
+        "phpstan": "vendor/bin/phpstan.phar analyse src tests bin --level max --configuration phpstan.neon"
+    }
+}

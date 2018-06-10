@@ -40,6 +40,14 @@
 			$this->db->order_by('p.updated', 'desc');
 			return $this->db->get()->row();
 		}
+
+		public function get_saringan(){
+			$this->db->select('', FALSE);
+			$this->db->from('user as u');
+			$this->db->join('pasus_data as p', 'p.santri_id = u.id', 'left');
+			$this->db->where('(level & 1024) = 1024');
+			return $this->db->get()->result();
+		}
 		
 	}
 ?>

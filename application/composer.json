@@ -1,0 +1,9 @@
+{
+	"description": "Academi of quran information system",
+	"name": "Acadequis",
+	"type": "project",
+	"require": {
+		"php": ">=7.1",
+		"php-ai/php-ml": "^0.6.2"
+	}
+}
