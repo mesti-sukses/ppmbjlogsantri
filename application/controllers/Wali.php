@@ -8,18 +8,20 @@
 		{
 			parent::__construct();
 			parent::raiseError(1);
+
+			$this->load->model('Materi_Quran_m');
+			$this->load->model('Wali_m');
+			$this->load->model('User_m');
 		}
 
 		/*
 			* Method ini merupakan method untuk me list anggota dari wali yang bersangkutan
+			* Done refactoring
 
 			@param $id merupakan id dari wali yang bersangkutan, jika id adalah null maka yang dilihat adalah wali yang login saat itu
 		*/
 		public function index($id = NULL)
 		{
-			$this->load->model('Wali_m');
-			$this->load->model('User_m');
-
 			//jika id = null maka yang dilihat adalah wali yang login saat itu
 			if($id == NULL) 
 			{
@@ -36,13 +38,19 @@
 			} 
 			else $idx = $id;
 
-			//fetch data from database
+			// Fetch the data
 			$this->data['santriData'] = $this->Wali_m->get_complete_wali_child($idx);
 			$this->data['waliData'] = $this->User_m->get_by('(level & 1) = 1');
 
 			//jika ternyata yang melihat adalah koordinator wali maka ambil list semua santri
 			if (((intval($this->session->userdata('level')) & 32) == 32) && $id == NULL)
 				$this->data['santriData'] = $this->Wali_m->get_complete_wali_child();
+
+			// Process the data
+
+			// Get form feedback
+
+			// Process form feedback
 
 			// Load The Page
 			$title = 'List Santri | '.$this->session->userdata['name'];
@@ -51,6 +59,7 @@
 
 		/*
 			* Method ini merupakan method untuk memanggil list wali untuk koordinator wali yang ingin mengontrol apakah walinya mengerjakan tugasnya secara baik atau tidak
+			* Done refactoring
 		*/
 		public function list()
 		{
@@ -64,15 +73,16 @@
 			* Jadi santri bisa melihat halaman yang kosong dari banyak orang
 			* Tujuannya adalah membentuk mentoring kecil untuk mempelajari halaman quran yang kosong tersebut entah karena santri itu sakit atau pun karena santri tersebut tidak bisa hadir
 			* Mereka bisa mengundang guru dari santri pasca untuk mengajarkan halaman yang kosong tersebut
+			* Done refactoring
 		*/
 		public function comparator()
 		{
-			$this->load->model('Materi_Quran_m');
-
-			//fetch data materi quran seluruh santri
+			// Fetch the data
 			$this->data['santriData'] = $this->Materi_Quran_m->get_materi_quran_user_id();
 
-			//set rule untuk form validation
+			// Process the data
+
+			// Get form feedback
 			$rules = array(
 				array(
 					'field' => 'check[]',
@@ -81,7 +91,7 @@
 			);
 			$check = $this->form('', 'check', $rules);
 
-			//run saat rule sudah terpenuhi
+			// Process form feedback
 			if($check)
 			{
 				//ambil data santri yang sudah di checklist
@@ -123,13 +133,12 @@
 
 		/*
 			* Method ini merupakan method untuk migrasi wali
+			* Done refactoring
 
 			@param $id: id adari santri yang bersangkutan
 		*/
 		public function change($id)
 		{
-			$this->load->model('User_m');
-
 			//ambil data user dari database
 			$userData = $this->User_m->get_by(array('id' => $id), TRUE);
 

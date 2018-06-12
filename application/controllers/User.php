@@ -12,27 +12,24 @@
 		public function __construct()
 		{
 			parent::__construct();
+
+			// Load the model
+			$this->load->model('User_m');
+			$this->load->model('Materi_Quran_m');
+			$this->load->model('Target_Quran_m');
 		}
 
 		/*
 			* Method ini merupakan method untuk fungsi login bagi user
+			* Done refactoring
 		*/
 		public function login()
 		{
-
-			//load page info
-			$this->data['page_info'] = array(
-					'css' => array('login.css'),
-					'title' => 'Login | '.$this->data['title']->value,
-					'js' => array('login.js'),
-					'no-nav' => TRUE
-				);
-
 			//jika user udah logged in maka langsung redirect ke dashboar
 			$dashboard = 'user';
 			$this->User_m->loggedin() == FALSE || redirect($dashboard);
 
-			//validation form
+			// validation form
 			$rules = $this->User_m->rules;
 			$this->form_validation->set_rules($rules);
 
@@ -55,8 +52,8 @@
 			}
 
 			//load page
-			$this->data['subview'] = 'login';
-			$this->load->view('main_layout', $this->data);
+			$title = 'Login | '.$this->data['title']->value;
+			$this->loadPage($title, 'login', 'login', TRUE);
 		}
 
 		/*
@@ -66,14 +63,6 @@
 		*/
 		public function register()
 		{
-			//load page info
-			$this->data['page_info'] = array(
-					'css' => array('login.css'),
-					'title' => 'Admin Register | '.$this->data['title']->value,
-					'js' => array('login.js'),
-					'no-nav' => TRUE
-				);
-
 			//cari ketua siswa. Ketika sudah ada ketua siswa maka tidak bisa daftar ketua siswa lagi
 			//Apaan ketua siswa ada 2
 			$data = $this->User_m->get_by(array('level' => 16));
@@ -96,8 +85,8 @@
 			}
 
 			//load page
-			$this->data['subview'] = 'register';
-			$this->load->view('main_layout', $this->data);
+			$title = 'Admin Register | '.$this->data['title']->value;
+			$this->loadPage($title, 'register', 'login', TRUE);
 		}
 
 
@@ -178,13 +167,83 @@
 			$this->loadPage($title, 'admin/setting', 'data_table');
 		}
 
-		//untuk lihat data seluruh santri
-		public function list()
+		// Untuk lihat data seluruh santri
+		// Done refactoring
+		public function list($id = NULL)
 		{
-			//fetch data
+			// Fetch the required data
 			$this->data['santriData'] = $this->User_m->get_complete_user_by_id();
-			//untuk list wali sehingga migrasi wali menjadi lebih mudah
-			$this->data['waliData'] = $this->User_m->get_by('(level & 1) = 1');
+			if($id)
+				$this->data['santriDataEdit'] = $this->User_m->get_complete_user_by_id($id);
+
+			// Process data
+
+			// Get the form data
+			$rules_level = array(
+				array(
+					'field' => 'level[]',
+					'rules' => 'trim|required'
+					)
+			);
+			$rules_add = array(
+				array(
+					'field' => 'nama',
+					'rules' => 'trim|required'
+					),
+				array(
+					'field' => 'angkatan',
+					'rules' => 'trim|required'
+					)
+			);
+			$newNama = $this->form('', 'nama', $rules_add);
+			$newLevel = $this->form('', 'level', $rules_level);
+
+			// Process form data
+			if($newLevel){
+
+				$sum = 0;
+				foreach ($newLevel as $value) {
+					$sum += $value;
+				}
+
+				$newUserData = $this->User_m->get_by(array('id' => $id), TRUE);
+				$newUserData->level = $sum;
+
+				$this->User_m->save((array)$newUserData, $id);
+				redirect('user/list');
+			}
+			if($newNama)
+			{
+				$newUser = array();
+				$newUser['nama'] = $newNama;
+				$newUser['pass'] = $this->User_m->hash('santri');
+				$newUser['angkatan'] = $this->input->post('angkatan');
+				if($this->input->post('reguler') == true) $newUser['level'] = 2; else $newUser['level'] = 0;
+				$newId = $this->User_m->save($newUser);
+				if($this->input->post('reguler') == true)
+				{
+					$quranData = array(
+						'santri_id' => $newId,
+						'ketercapaian' => serialize(array()),
+						'kosong' => 0
+					);
+
+					$angkatanData = $this->Target_Quran_m->get_by(array('angkatan' => $newUser['angkatan']));
+					if(count($angkatanData) == 0) {
+						$angkatanData = array(
+							'angkatan' => $newUser['angkatan'],
+							'target' => 0,
+							'target_detail' => serialize(array())
+						);
+
+						$this->Target_Quran_m->save($angkatanData);
+					}
+
+					$this->Materi_Quran_m->save($quranData);
+				}
+
+				// redirect('user/list');
+			}
 
 			// Load The Page
 			$title = 'Data Seluruh Santri';
@@ -218,83 +277,6 @@
 
 			//delete santri dan balik lagi ke awal
 			$this->User_m->delete($id);
-			redirect('user/list');
-		}
-
-		/*
-			* Method ini merupakan method untuk menambahkan fungsi tambah santri @Logic Boys
-		*/
-		public function add()
-		{
-			$this->load->model('User_m');
-
-			//ambil data dari post
-			$userData = $this->User_m->array_from_post(array('nama', 'angkatan'));
-			//hitung hash password
-			$userData['pass'] = $this->User_m->hash('santri');
-			//jika merupakan reguler maka levelnya 2
-			if($this->input->post('reguler') == true) $userData['level'] = 2; else $userData['level'] = 0;
-			//ambil id saat insert id
-			$id = $this->User_m->save($userData);
-			//jika reguler maka create juga materi qurannya
-			//karena jika reguler tanpa materi quran pasti akan error
-			if($this->input->post('reguler') == true)
-			{
-				$this->load->model('Materi_Quran_m');
-				$this->load->model('Target_Quran_m');
-
-				$quranData = array(
-					'santri_id' => $id,
-					'ketercapaian' => serialize(array()),
-					'kosong' => 0
-				);
-
-				$angkatanData = $this->Target_Quran_m->get_by(array('angkatan' => $userData['angkatan']));
-				if(count($angkatanData) == 0) {
-					$angkatanData = array(
-						'angkatan' => $userData['angkatan'],
-						'target' => 0,
-						'target_detail' => serialize(array())
-					);
-
-					$this->Target_Quran_m->save($angkatanData);
-				}
-
-				$this->Materi_Quran_m->save($quranData);
-			}
-
-			redirect('user/list');
-		}
-
-		/*
-			* Method ini merupakan method untuk mengubah status dan level dari user
-		*/
-		public function status()
-		{
-			$this->load->model('User_m');
-			$id =  $this->input->post('id');
-
-			$userData = $this->User_m->get_by(array('id' => $id), TRUE);
-			$level = 0;
-
-			//sistem level menggunakan masking sehingga akan ditambah dengan perpangkatan 2
-			//0001 + 10000 = 1001
-			//Bisa di mask oleh dua buah dapukan
-			//agar wali bisa menjadi pasus, reguler bisa menjadi pasus dsb
-			if($this->input->post('wali') == TRUE) $level += 1;
-			if($this->input->post('reguler') == TRUE) $level += 2;
-			if($this->input->post('jurnal') == TRUE) $level += 4;
-			if($this->input->post('pasus') == TRUE) $level += 8;
-			if($this->input->post('kesiswaan') == TRUE) $level += 16;
-			if($this->input->post('koordinator') == TRUE) $level += 32;
-			if($this->input->post('admin') == TRUE) $level += 64;
-			if($this->input->post('ustadzah') == TRUE) $level += 128;
-			if($this->input->post('hadist') == TRUE) $level += 256;
-			if($this->input->post('saringan') == TRUE) $level += 512;
-
-			//save data
-			$userData->level = $level;
-			$this->User_m->save((array)$userData, $id);
 			redirect('user/list');
 		}
 

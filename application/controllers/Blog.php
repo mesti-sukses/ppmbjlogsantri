@@ -14,7 +14,10 @@
 		public function __construct()
 		{
 			parent::__construct();
+
 			$this->load->model('Web_Component_m');
+			$this->load->model('Category_m');
+			$this->load->model('Post_m');
 		}
 		
 		/*
@@ -22,18 +25,13 @@
 		*/
 		public function index()
 		{
-			$this->load->model('Category_m');
-			$this->load->model('Post_m');
-
 			//fetch the data
 			$this->data['catData'] = $this->Category_m->get();
 			$this->data['stickyData'] = $this->Post_m->get_full(array('sticky' => 1), TRUE);
 			$this->data['postData'] = $this->Post_m->get_full(array('sticky' => 0));
 
-			//load page info
-			$this->data['title'] = "Blog | ".$this->data['title']->value;
-
 			//load page
+			$this->data['title'] = "Blog | ".$this->data['title']->value;
 			$this->data['subview'] = 'blog';
 			$this->load->view('front/main_layout', $this->data);
 		}
@@ -45,18 +43,13 @@
 		*/
 		public function post($id)
 		{
-			$this->load->model('Category_m');
-			$this->load->model('Post_m');
-
 			//fetch the data
 			$this->data['catData'] = $this->Category_m->get();
 			$this->data['stickyData'] = $this->Post_m->get_full(array('sticky' => 1), TRUE);
 			$this->data['postData'] = $this->Post_m->get_full(array('id' => $id), TRUE);
 
-			//load page info
-			$this->data['title'] = $this->data['postData']->title." | ".$this->data['title']->value;
-
 			//load page
+			$this->data['title'] = $this->data['postData']->title." | ".$this->data['title']->value;
 			$this->data['subview'] = 'post';
 			$this->load->view('front/main_layout', $this->data);
 		}
@@ -68,19 +61,14 @@
 		*/
 		public function category($id)
 		{
-			$this->load->model('Category_m');
-			$this->load->model('Post_m');
-
 			//fetch data from database
 			$this->data['catData'] = $this->Category_m->get();
 			$this->data['stickyData'] = $this->Post_m->get_full(array('sticky' => 1), TRUE);
 			$this->data['postData'] = $this->Post_m->get_full(array('categories' => $id));
 			$catName = $this->Category_m->get_by(array('cat_id' => $id), TRUE)->name;
 
-			//load page info
-			$this->data['title'] = $catName." | ".$this->data['title']->value;
-
 			//load page
+			$this->data['title'] = $catName." | ".$this->data['title']->value;
 			$this->data['subview'] = 'blog';
 			$this->load->view('front/main_layout', $this->data);
 		}

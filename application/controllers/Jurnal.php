@@ -13,7 +13,11 @@
 		{
 			parent::__construct();
 			
+			// Access Control
 			parent::raiseError(4);
+
+			// Load the model
+			$this->load->model('Target_Quran_m');
 		}
 
 		/*
@@ -21,21 +25,22 @@
 		*/
 		public function index($tahun)
 		{
-			$this->load->model('Target_Quran_m');
 
-			//fetch the data
+			// Fetch the data
 			$this->data['target'] = $this->Target_Quran_m->get_by(array('angkatan' => $tahun), TRUE);
 
-			//declare form rules
+			// Process the Data
+
+			// Get Form Feedback
+			$angkatanData = $this->form('Target_Quran_m', array('id','angkatan', 'target'));
 			$rules = $this->Target_Quran_m->rules;
 			$this->form_validation->set_rules($rules);
 
-			//run form action when satisfied
-			if($this->form_validation->run() == TRUE)
+			// Process the Form Feedback
+			if($angkatanData)
 			{
 
 				//ambil target yang sudah di post berupa halaman dan angkatannya
-				$angkatanData = $this->Target_Quran_m->array_from_post(array('id','angkatan', 'target'));
 				$id = $angkatanData['id'];
 
 				//buat array kosong yang akan menampung halaman yang sudah dikaji
@@ -49,10 +54,10 @@
 					if($this->input->post($i) != NULL) $progress[$i] = $i;
 				}
 
-				//serialize array progress sehingga membentuk string untuk disimpan dalam database
+				// serialize array progress sehingga membentuk string untuk disimpan dalam database
 				$angkatanData['target_detail'] = serialize($progress);
 
-				//simpan data dalam database
+				// simpan data dalam database
 				$this->Target_Quran_m->save($angkatanData, $id);
 				redirect('jurnal/index/'.$tahun, 'refresh');
 			}

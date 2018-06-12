@@ -12,10 +12,19 @@
             <a class="" href="<?php echo base_url('admin/config') ?>"><i class="fa fa-gears"></i> Configuration</a>
           </li>
           <li>
-            <a class="" href="<?php echo base_url('admin/content') ?>"><i class="fa fa-pencil"></i> Content</a>
+            <a class="" href="<?php echo base_url('admin/content/ketua') ?>"><i class="fa fa-user"></i> Ketua Pondok</a>
           </li>
           <li>
-            <a class="" href="<?php echo base_url('admin/menu') ?>"><i class="fa fa-list"></i> Menu</a>
+            <a class="" href="<?php echo base_url('admin/content/dgcontent') ?>"><i class="fa fa-user"></i> Dewan Guru</a>
+          </li>
+          <li>
+            <a class="" href="<?php echo base_url('admin/content/testimoni') ?>"><i class="fa fa-comment"></i> Testimoni</a>
+          </li>
+          <li>
+            <a class="" href="<?php echo base_url('admin/menu/main') ?>"><i class="fa fa-list"></i> Main menu</a>
+          </li>
+          <li>
+            <a class="" href="<?php echo base_url('admin/menu/social') ?>"><i class="fa fa-facebook"></i> Social menu</a>
           </li>
         </ul>
       </li>

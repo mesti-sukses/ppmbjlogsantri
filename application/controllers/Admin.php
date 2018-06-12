@@ -13,99 +13,108 @@
 		public function __construct()
 		{
 			parent::__construct();
+
+			// Give permission
 			parent::raiseError(64);
+
+			// Load the model
+			$this->load->model('Post_m');
+			$this->load->model('Web_Component_m');
+			$this->load->model('Web_Config_m');
+			$this->load->model('Category_m');
+			$this->load->model('Menu_m');
 		}
 
 		/*
 			* Method ini merupakan controller yang mengatur menu dari website melalui admin
+			* Done Refactoring
 		*/
-		public function menu()
+		public function menu($location, $id=NULL)
 		{
-			$this->load->model('Menu_m');
+			// Fetch the required data
+			$this->data[$location] = $this->Menu_m->get_by(array('location' => $location));
+			if($id)
+				$this->data[$location.'NewData'] = $this->Menu_m->get_by(array('id' => $id), TRUE);
 
-			//declare rule for this form
-			$rules = $this->Menu_m->rules;
-			$this->form_validation->set_rules($rules);
+			// Process the data
 
-			//run the form action if the rule is satisfied
-			if($this->form_validation->run() == TRUE)
+			// Get some form feedback
+			$menuData = $this->form('Menu_m', array('icon', 'text', 'type', 'location', 'link'));
+
+			// Process form feedback
+			if($menuData)
 			{
-
-				//fetch data from post input
-				$id = $this->input->post('id');
-				$menuData = $this->Menu_m->array_from_post(array('icon', 'text', 'type', 'location', 'link'));
 				if($id) $menuData['id'] = $id;
 
-				//save data
+				// Save data
 				$this->Menu_m->save($menuData, $id);
-				redirect('admin/menu', 'refresh');
+				redirect('admin/menu/'.$location, 'refresh');
 
 			} else echo validation_errors();
 
-			//need social menu to edit them
-			$this->data['socialMenu'] = $this->Menu_m->get_by(array('location' => 'social'));
-
 			// Load The Page
 			$title = 'Menu Web | '.$this->session->userdata['name'];
-			$this->loadPage($title, 'admin/web/menu', 'table_with_modal');
+			$this->loadPage($title, 'admin/web/menu/'.$location, 'table_with_modal');
 		}
 
 		/*
 			* Method ini merupakan controller yang mengatur penghapusan menu
+			* DOne Refactoring
 		*/
-		public function delMenu($id)
+		public function delMenu($location, $id)
 		{
-			$this->load->model('Menu_m');
-
 			$this->Menu_m->delete($id);
-			redirect('admin/menu');
+			redirect('admin/menu/'.$location);
 		}
 
 		/*
 			* Method ini merupakan controller yang mengatur content dari web component melalui admin page
 			* Web component termasuk footer, tentang guru pondok dll
+			* Done refactoring
 		*/
-		public function content()
+		public function content($location, $id=NULL)
 		{
-			$this->load->model('Web_Component_m');
+			// Fetch required data
+			$this->data[$location] = $this->Web_Component_m->get_by(array('location' => $location), $location == 'ketua');
+			if($id) 
+				$this->data[$location.'NewData'] = $this->Web_Component_m->get_by(array('id' => $id), TRUE);
 
-			//fetch required data
-			$this->data['dewanGuruData'] = $this->Web_Component_m->get_by(array('location' => 'dgcontent'));
-			$this->data['testimoniData'] = $this->Web_Component_m->get_by(array('location' => 'testimoni'));
-			$this->data['ketuaData'] = $this->Web_Component_m->get_by(array('location' => 'ketua'), TRUE);
+			// Process the data
 
-			//declare form rule
-			$rules = $this->Web_Component_m->rules;
-			$this->form_validation->set_rules($rules);
-			$hello = $this->Web_Component_m->array_from_post(array('location', 'nama', 'content', 'extra'));
-
-			//run the form action if required rule is satisfied
-			if($this->form_validation->run() == TRUE)
+			// Get the feedback form
+			$componentData = $this->form('Web_Component_m', array('location', 'nama', 'content', 'extra'));
+			if($componentData)
 			{
-
-				//get data from post
-				$componentData = $this->Web_Component_m->array_from_post(array('location', 'nama', 'content', 'extra'));
+				// Process the form data
 				$componentData['image'] = 'male.png';
+				if($location == 'ketua') $id = $this->data[$location]->id;
+				if($id) $componentData['id'] = $id;
+				$this->Web_Component_m->save($componentData, $id);
 
-				//save the data
-				$this->Web_Component_m->save($componentData);
-				redirect('admin/content', 'refresh');
+				// redirect to previouse page
+				redirect('admin/content/'.$location, 'refresh');
+
 			} else echo validation_errors();
 
 			// Load The Page
-			$title = 'Konten Web | '.$this->session->userdata['name'];
-			$this->loadPage($title, 'admin/web/content', 'admin_editor');
+			$title = $location.' | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/web/content/'.$location, 'admin_editor');
 		}
 
 		/*
 			* Method ini merupakan controller yang mengatur list dan pengeditan serta penghapusan postingan dari blog
+			* Done refactoring
 		*/
 		public function blog()
 		{
-			$this->load->model('Post_m');
-
-			//fetch required data
+			// fetch required data
 			$this->data['postData'] = $this->Post_m->get_full();
+
+			// Process the data
+
+			// Get some form feedback
+
+			// Process the feedback data
 
 			// Load The Page
 			$title = 'All Posts | '.$this->session->userdata['name'];
@@ -191,35 +200,30 @@
 
 		/*
 			* Method ini merupakan controller yang mengatur pengeditan kategori, penghapusan kategori
+			* Done refactoring
 		*/
-		public function category()
+		public function category($id = NULL)
 		{
-			$this->load->model('Category_m');
+			// Fetch the required data
+			$this->data['catData'] = $this->Category_m->get();
+			if($id)
+				$this->data['editCatData'] = $this->Category_m->get_by(array('cat_id' => $id), TRUE);
 
-			//set the form rule
-			$rules = $this->Category_m->rules;
-			$this->form_validation->set_rules($rules);
+			// Process the data
 
-			//run if satisfied
-			if($this->form_validation->run() == TRUE)
+			// Get Form Feedback
+			$catData = $this->form('Category_m', array('name'));
+
+			// Process the Form Data
+			if($catData)
 			{
+				if($id)
+					$catData['cat_id'] = $id;
 
-				//get the input post
-				$id = $this->input->post('cat_id');
-				$configData = $this->Category_m->array_from_post(array('name'));
-				if($id != "") 
-				{
-					$configData['cat_id'] = $id;
-				} 
-				else $id = NULL;
-
-				//save the input post
-				$this->Category_m->save($configData, $id);
+				// Save the input post
+				$this->Category_m->save($catData, $id);
 				redirect('admin/category', 'refresh');
 			}
-
-			//fetch the required data
-			$this->data['catData'] = $this->Category_m->get();
 
 			// Load The Page
 			$title = 'Kategori | '.$this->session->userdata['name'];
@@ -228,29 +232,30 @@
 
 		/*
 			* Method ini merupakan controller yang mengatur config dari website
+			* Done Refactoring
 		*/
-		public function config()
+		public function config($id = NULL)
 		{
-			$this->load->model('Web_Config_m');
+			// Fetch required data
+			$this->data['configData'] = $this->Web_Config_m->get();
+			if($id)
+				$this->data['editConfigData'] = $this->Web_Config_m->get_by(array('id' => $id), TRUE);
 
-			//set the form rule
-			$rules = $this->Web_Config_m->rules;
-			$this->form_validation->set_rules($rules);
+			// Process the data
 
-			//run if satisfied
-			if($this->form_validation->run() == TRUE)
+			// Get some form feedback
+			$configData = $this->form('Web_Config_m', array('value', 'key_config'));
+
+			// Process the form data
+			if($configData)
 			{
+				// Save the input post
+				if($id)
+					$configData['id'] = $id;
 
-				//get the input post
-				$configData = $this->Web_Config_m->array_from_post(array('value', 'key_config', 'id'));
-
-				//save the input post
-				$this->Web_Config_m->save($configData, $configData['id']);
+				$this->Web_Config_m->save($configData, $id);
 				redirect('admin/config', 'refresh');
 			}
-
-			//fetch required data
-			$this->data['configData'] = $this->Web_Config_m->get();
 
 			// Load The Page
 			$title = 'Website Configuration | '.$this->session->userdata['name'];
@@ -259,8 +264,6 @@
 
 		public function delPost($id)
 		{
-			$this->load->model('Post_m');
-
 			$tile = $this->Post_m->get($id, TRUE)->image;
 			$ath = FCPATH.'images/Post/'.$tile;
 

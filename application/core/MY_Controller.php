@@ -24,9 +24,21 @@
 				'js' => array('counter.js')
 			),
 			'data_table' => array(
-				'css' => array('jquery.dataTables.min.css', 'responsive.dataTables.min.css'),
+				'css' => array('jquery.dataTables.min.css', 'responsive.dataTables.min.css', 'checkbox.css'),
 				'js' => array('catList.js', 'savereport.js', 'jquery.dataTables.min.js', 'dataTables.responsive.min.js')
-			)
+			),
+			'accordion' => array(
+				'css' => array(),
+				'js' => array('jquery-ui.min.js', 'accordion.js')
+			),
+			'slider' => array(
+				'css' => array('slider.css'),
+				'js' => array('slider.js')
+			),
+			'login' => array(
+				'css' => array('login.css'),
+				'js' => array('login.js')
+			),
 		);
 		
 		function __construct()
@@ -57,21 +69,25 @@
 		}
 
 		// Untuk form validation
-		protected function form($model, $fields, $rules=NULL){
+		protected function form($model, $fields, $rules=NULL, $sub=NULL){
 			//set rules
 			if($model != '')
 				$rules = $this->$model->rules;
 			$this->form_validation->set_rules($rules);
 
 			//run if rule is satisfied
-			if($this->form_validation->run() == TRUE)
+			if($this->form_validation->run($sub) == TRUE)
 			{
 				if($model != '')
 					$data = $this->$model->array_from_post($fields);
 				else
 					$data = $this->input->post($fields);
+				$this->form_validation->reset_validation();
 				return $data;
-			} else return FALSE;
+			} else {
+				$this->form_validation->reset_validation();
+				return FALSE;
+			}
 		}
 	}
 ?>

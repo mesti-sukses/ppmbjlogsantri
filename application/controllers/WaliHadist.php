@@ -9,7 +9,10 @@
 		public function __construct()
 		{
 			parent::__construct();
+
 			parent::raiseError(256);
+
+			$this->load->model('Materi_Hadist_m');
 		}
 
 		/*
@@ -19,8 +22,6 @@
 		*/
 		public function index($id)
 		{
-			$this->load->model('Materi_Hadist_m');
-
 			//fetch data from database
 			$this->data['santriData'] = $this->Materi_Hadist_m->get_materi_hadist_user($id);
 
@@ -34,6 +35,7 @@
 		*/
 		public function addHadist()
 		{
+			// Fetch the data
 			$dataHadist = $this->form('Hadist_m', array('nama', 'offset'));
 			if($dataHadist)
 				$this->Hadist_m->save($dataHadist);

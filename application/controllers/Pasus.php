@@ -12,31 +12,35 @@
 		{
 			parent::__construct();
 			
+			// Access Control
 			if(((($this->session->userdata('level')) & 8) != 8) && (($this->session->userdata('level') & 16) != 16) &&(($this->session->userdata('level') & 128) != 128)){
 				echo('Anda bukan pasus XD');
 				exit();
 			}
+
+			// Load the model
+			$this->load->model('User_m');
+			$this->load->model('Pasus_m');
+			$this->load->model('Detail_Pasus_m');
 		}
 
 		/*
 			* Method ini merupakan method untuk memanggil list anggota pasus
+			* Done refactoring
 		*/
 		public function index()
 		{
-			$this->load->model('Pasus_m');
-			//Detail pasus untuk mengambil data tiap anggota pasus
-			$this->load->model('Detail_Pasus_m');
-
-			//Fetch data anggota tiap pasus
-			//ambil id dari session agar tahu siapa yang login saat ini
+			// Fetch the Data
 			$id = $this->session->userdata('id');
-			//ambil data identitas pasus saja
 			$this->data['dataPasus'] = $this->Pasus_m->get_complete_pasus_child($id);
-			//ambil data penilaian dari tiap anggota pasus
+
+			// Process the data
 			foreach ($this->data['dataPasus'] as $santri) 
 			{
+				// Fetch more data
 				$temp = $this->Detail_Pasus_m->get_detail_pasus($santri->id);
 
+				// Process the data
 				$santri->detail = unserialize($temp->detail);
 				$santri->ket = $temp->ket;
 				$santri->updated = $temp->updated;
@@ -48,63 +52,19 @@
 		}
 
 		/*
-			* Method ini merupakan method untuk menambahkan anggota pasus
-
-			@param $id int: id santri yang akan ditambahkan... Ketika berisi null maka tambahkan santri baru
-		*/
-		public function add($id = NULL)
-		{
-			if($id == NULL)
-			{
-				$dataUser = $this->User_m->array_from_post(array('nama'));
-				$dataUser['pass'] = $this->User_m->hash('santri');
-			}
-			else
-			{
-				$dataUser = (array)$this->User_m->get_by(array('id' => $id), TRUE);
-			}
-
-			//set asus menuju ke user yang sedang login (karena yang menambahkan adalah pasus)
-			$dataUser['pasus'] = $this->session->userdata('id');
-			//jika id sudah ada maka berarti update dan harus ada atribut id dalam data
-			if($id != NULL) $id = $dataUser['id'];
-
-			//save data
-			$this->User_m->save($dataUser, $id);
-			redirect('pasus', 'refresh');
-		}
-
-		/*
 			* Method ini merupakan method untuk memberikan penilaian pada setiap anggota pasus
+			* Done refactoring
 
 			@param $id int: id yang akan diberikan penilaian
 		*/
 		public function edit($id)
 		{
-			$this->load->model('Detail_Pasus_m');
-			$this->load->model('Pasus_m');
-
-			//load page info
-			$this->data['page_info'] = array(
-					'css' => array('slider.css'),
-					'title' => 'Edit data pasus | '.$this->session->userdata['name'],
-					'js' => array('slider.js'),
-					'no-nav' => FALSE
-				);
-
 			//fetch data pasus anggota
 			$this->data['dataSantri'] = $this->Pasus_m->get_complete_child_detail($id);
 			$this->data['santri_id'] = $id;
 
-			//declare form requirement
-			$rules = $this->Detail_Pasus_m->rules;
-			$this->form_validation->set_rules($rules);
-
-			//run if requirement is satisfied
-			if($this->form_validation->run() == TRUE)
-			{
-				//ambil data penilaian
-				$dataDetail = $this->Detail_Pasus_m->array_from_post(array(
+			// Get form data
+			$data = array(
 						'sholat',
 						'pengajian',
 						'tengah_malam',
@@ -121,11 +81,18 @@
 						'teman',
 						'orang_lain',
 						'masjid'
-					));
+					);
+			$dataDetail = $this->form('Detail_Pasus_m', $data);
+
+			// Process form data
+			if($dataDetail)
+			{
 				//ambil data santri
 				$dataSave = $this->Detail_Pasus_m->array_from_post(array('santri_id', 'ket'));
+
 				//serialize penilaian untuk dimasukan dalam data santri
 				$dataSave['detail'] = serialize($dataDetail);
+
 				//save data
 				$this->Detail_Pasus_m->save($dataSave);
 
@@ -136,35 +103,30 @@
 					redirect('pasus');
 			}
 
-			//load page
-			$this->data['subview'] = 'admin/pasus/edit';
-			$this->load->view('main_layout', $this->data);
+			// Load page
+			$title = 'Edit data pasus | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/pasus/edit', 'slider');
 		}
 
 		/*
 			* Method ini merupakan method untuk melihat report yang sudah dilaporkan oleh pasus
+			* Done refactoring
 
 			@param $id int: id yang akan diberikan penilaian
 		*/
 		public function report($id)
 		{
-			$this->load->model('Pasus_m');
-			$this->load->model('Detail_Pasus_m');
-
-			//load page info
-			$this->data['page_info'] = array(
-					'css' => array(),
-					'title' => 'Laporan Pasus | '.$this->session->userdata['name'],
-					'js' => array('jquery-ui.min.js', 'accordion.js'),
-					'no-nav' => FALSE
-				);
-
-			//ambil data seluruh anggota pasus
+			// Fetch the data
 			$this->data['dataPasus'] = $this->Pasus_m->get_complete_pasus_child($id);
-			//ambil data penilaian setiap anggota pasus
+
+			// Process the data
 			foreach ($this->data['dataPasus'] as $santri) 
 			{
+
+				// Fetch the data
 				$temp = $this->Detail_Pasus_m->get_detail_pasus($santri->id);
+
+				// Process the data
 				$santri->detail = unserialize($temp->detail);
 				$santri->status = "info";
 				if(is_array($santri->detail)){
@@ -182,8 +144,8 @@
 			}
 
 			//load page
-			$this->data['subview'] = 'admin/pasus/report';
-			$this->load->view('main_layout', $this->data);
+			$title = 'Laporan Pasus | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/pasus/report', 'accordion');
 		}
 
 		/*
@@ -193,8 +155,6 @@
 		*/
 		public function change($id)
 		{
-			$this->load->model('User_m');
-
 			//fetch data
 			$userData = $this->User_m->get_by(array('id' => $id), TRUE);
 
@@ -214,8 +174,6 @@
 		*/
 		public function delete($id)
 		{
-			$this->load->model('User_m');
-
 			//fetch userdata
 			$userData = $this->User_m->get_by(array('id' => $id), TRUE);
 

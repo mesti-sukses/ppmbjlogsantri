@@ -36,6 +36,8 @@
 				echo('Anda bukan pengajar ataupun pasca saringan');
 				exit();
 			}
+
+			$this->load->model('Musyawarah_m');
 		}
 
 		/*
@@ -52,20 +54,16 @@
 
 		public function index()
 		{
-			$this->load->model('Musyawarah_m');
-
 			//fetch data
 			$this->data['musyawarahData'] = $this->Musyawarah_m->get();
 			$this->data['dataFP'] = $this->User_m->get_by('(level & 2) != 2');
 
-			//set form rule
-			$rules = $this->Musyawarah_m->rules;
-			$this->form_validation->set_rules($rules);
+			// Get form feedback
+			$dataUsulan = $this->form('Musyawarah_m', array('usulan', 'pengusul'));
 
-			//run form action after meet the requirement
-			if($this->form_validation->run() == TRUE)
+			// Process form feedback
+			if($dataUsulan)
 			{
-				$dataUsulan = $this->Musyawarah_m->array_from_post(array('usulan', 'pengusul'));
 				$dataUsulan['terlaksana'] = 0;
 				$dataUsulan['created'] = date('Y-m-d H:i:s');
 
@@ -85,12 +83,12 @@
 			TODO :
 			- (done) Form seperti form blog post cuma lebih lebar dikit
 			- (done) Side bar berisi list FP dengan tanda centang untuk pengusul (radio)
+
+			* Done
 		*/
 
 		public function edit($id)
 		{
-			$this->load->model('Musyawarah_m');
-
 			// fetch data
 			$this->data['dataUsulan'] = $this->Musyawarah_m->get($id, TRUE);
 			$this->data['dataFP'] = $this->User_m->get_by('(level & 2) != 2');
@@ -134,8 +132,6 @@
 
 		public function view($id)
 		{
-			$this->load->model('Musyawarah_m');
-
 			// fetch data
 			$this->data['dataUsulan'] = $this->Musyawarah_m->get($id, TRUE);
 

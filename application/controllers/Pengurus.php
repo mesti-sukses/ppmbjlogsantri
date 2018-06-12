@@ -20,22 +20,27 @@
 				echo('Anda bukan pengurus XD');
 				exit();
 			}
+
+			// Load the model
+			$this->load->model('Pasus_m');
+			$this->load->model('Detail_Pasus_m');
 		}
 
 		/*
 			* Method ini merupakan method untuk memanggil list pasus untuk diberikan penilaian
+			* Done refactoring
 		*/
 		public function list()
 		{
-			$this->load->model('Pasus_m');
-			$this->load->model('Detail_Pasus_m');
-
-			//ambil data dari pasus
+			// Fetch the data
 			$this->data['dataPasus'] = $this->Pasus_m->get_non_pasus();
-			//ambil data penilaian tiap pasus
+			// Process the data
 			foreach ($this->data['dataPasus'] as $santri) 
 			{
+				// Fetch more data
 				$temp = $this->Detail_Pasus_m->get_detail_pasus($santri->id);
+
+				// Process the data
 				$santri->detail = unserialize($temp->detail);
 				$santri->ket = $temp->ket;
 				$santri->updated = $temp->updated;
@@ -48,25 +53,19 @@
 
 		/*
 			* Method ini merupakan method untuk melihat laporan penilaian dari pasus yang sudah dinilai
+			* Done refactoring
 		*/
 		public function report()
 		{
-			$this->load->model('Pasus_m');
-			$this->load->model('Detail_Pasus_m');
-
-			//load page info
-			$this->data['page_info'] = array(
-					'css' => array(),
-					'title' => 'Laporan Pasus | '.$this->session->userdata['name'],
-					'js' => array('jquery-ui.min.js', 'accordion.js'),
-					'no-nav' => FALSE
-				);
-
-			//ambil data tiap pasus
+			// Fetch the data
 			$this->data['dataPasus'] = $this->Pasus_m->get_non_pasus();
-			//ambil data penilaian tiap pasus
+
+			// Process the data
 			foreach ($this->data['dataPasus'] as $santri) {
+				// Fetch more data
 				$temp = $this->Detail_Pasus_m->get_detail_pasus($santri->id);
+
+				// Process the data
 				$santri->detail = unserialize($temp->detail);
 				$santri->status = "info";
 				if(is_array($santri->detail))
@@ -89,18 +88,18 @@
 			}
 
 			//load page
-			$this->data['subview'] = 'admin/pasus/report';
-			$this->load->view('main_layout', $this->data);
+			$title = 'Laporan Pasus | '.$this->session->userdata['name'];
+			$this->loadPage($title, 'admin/pasus/report', 'accordion');
 		}
 
 
 		/*
 			* Method ini merupakan method untuk mendownload laporan pasus dalam bentuk CSV
+			* Get this to write laporan per pasus
+			* Done refactoring
 		*/
 		public function download()
 		{
-			$this->load->model('Pasus_m');
-
 			//ambil semua data laporan
 			$data_pasus = $this->Pasus_m->get_data_raw();
 

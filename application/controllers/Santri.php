@@ -13,18 +13,21 @@
 		public function __construct()
 		{
 			parent::__construct();
+
+			$this->load->model('Materi_Quran_m');
+			$this->load->model('Hadist_m');
+			$this->load->model('Materi_Hadist_m');
 		}
 
 
 		/*
 			* Method ini merupakan method untuk melihat ketercapaian quran dari santri
+			* Done refactoring
 
 			@param $id int: merupakan id santri yang akan di lihat ketercapaiannya. Jika null maka user yang aktif saat itu
 		*/
 		public function quran($id = NULL)
 		{
-			$this->load->model('Materi_Quran_m');
-
 			//set id for current user
 			if($id == NULL)
 			{
@@ -42,12 +45,11 @@
 			//fetch data
 			$this->data['quranData'] = $this->Materi_Quran_m->get_materi_quran_user_id($id);
 
-			//declaru rule for form validation
-			$rules = $this->Materi_Quran_m->rules;
-			$this->form_validation->set_rules($rules);
+			// Get feedback form
+			$dataMateriQuran = $this->form('Materi_Quran_m', array('kosong'));
 
-			//run if rule's satisfied
-			if($this->form_validation->run() == TRUE)
+			// Process form data
+			if($dataMateriQuran)
 			{
 				$dataMateriQuran = $this->Materi_Quran_m->array_from_post(array('kosong'));
 				$dataMateriQuran['santri_id'] = $id;
@@ -61,7 +63,7 @@
 				$dataMateriQuran['ketercapaian'] = serialize($progress);
 
 				$this->Materi_Quran_m->save($dataMateriQuran, $id);
-				redirect('user');
+				redirect('santri/quran/'.$id);
 			} 
 			else $this->data['dump'] = validation_errors();
 
@@ -72,21 +74,19 @@
 
 		/*
 			* Method ini merupakan method untuk menambahkan hadist yang akan di track ketercapaiannya pada santri
+			* Done refactoring
 
 			@param $id int: merupakan id dari hadist yang akan ditambahkan, jika null maka santri akan melihat list hadist yang bisa ditambahkan
 		*/
 		public function addHadist($id = NULL)
 		{
-			$this->load->model('Hadist_m');
-
 			//jika ada id maka artinya menambahkan hadist baru
 			if($id)
 			{
-				$this->load->model('Materi_Hadist_m');
-
 				//fetch hadist data
 				$hadistData = $this->Hadist_m->get_by(array('id' => $id), TRUE);
-				//add hadist to santri database
+
+				// Process the data
 				$dataHadist['santri_id'] = $this->session->userdata('id');
 				$dataHadist['hadist_id'] = $id;
 				$dataHadist['ketercapaian'] = serialize(array());
@@ -95,6 +95,7 @@
 				//save the data
 				$this->Materi_Hadist_m->save($dataHadist);
 				redirect('santri/addhadist');
+
 			} else { //jika tidak ada $id maka lihat daftar hadist
 
 				//fetch data hadist
@@ -108,32 +109,27 @@
 
 		/*
 			* Method ini merupakan method untuk melihat ketercapaian hadist santri
+			* Done refactoring
 
 			@param $id int: merupakan id hadist yang akan dilihat dan di update ketercapaiannya
 		*/
 		public function hadist($idHadist)
 		{
-			$this->load->model('Materi_Hadist_m');
-
-			//ambil data ketercapaian materi hadist
+			// Fetch the data
 			$this->data['hadistData'] = $this->Materi_Hadist_m->get_materi_hadist($this->session->userdata('id'), $idHadist);
-
-			//ambil data ketercapaian saat mau update
 			$id = $this->session->userdata('id');
 			$idMateri = $this->data['hadistData']->id_materi;
 			$page = $this->data['hadistData']->offset;
 
-			//declare form rule
-			$rules = $this->Materi_Hadist_m->rules;
-			$this->form_validation->set_rules($rules);
+			// Get feedback form
+			$dataMateriHadist = $this->form('Hadist_m', array('kosong'));
 
-			//run if rule is satisfied
-			if($this->form_validation->run() == TRUE)
+			// Process form data
+			if($dataMateriHadist)
 			{
 
 				//ambil data hadist dari post
 				//serialize array
-				$dataMateriHadist = $this->Materi_Hadist_m->array_from_post(array('kosong'));
 				$dataMateriHadist['id_materi'] = $idMateri;
 				$dataMateriHadist['santri_id'] = $id;
 				$dataMateriHadist['hadist_id'] = $idHadist;
@@ -152,6 +148,7 @@
 
 				//save ke database
 				$this->Materi_Hadist_m->save($dataMateriHadist, $idMateri);
+
 				redirect('user');
 			} 
 			else {$this->data['dump'] = validation_errors();
