@@ -29,7 +29,7 @@
 			),
 			'accordion' => array(
 				'css' => array(),
-				'js' => array('jquery-ui.min.js', 'accordion.js')
+				'js' => array('jquery-ui.min.js', 'accordion.js', 'jquery.canvasjs.min.js')
 			),
 			'slider' => array(
 				'css' => array('slider.css'),

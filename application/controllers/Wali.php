@@ -10,6 +10,7 @@
 			parent::raiseError(1);
 
 			$this->load->model('Materi_Quran_m');
+			$this->load->model('Materi_Hadist_m');
 			$this->load->model('Wali_m');
 			$this->load->model('User_m');
 		}
@@ -149,6 +150,129 @@
 			//simpan
 			$this->User_m->save((array)$userData, $id);
 			redirect('wali');
+		}
+
+		/*
+			* Method khusus untuk mengambil file laporan
+		*/
+		public function report()
+		{
+			$quran = $this->User_m->get_materi_quran();
+			$hadist = $this->User_m->get_materi_hadist();
+			$res = array();
+			foreach ($quran as $value) {
+				if(!array_key_exists($value->nama, $res)){
+					$res[$value->nama]["quran"] = $value;
+				}
+			}
+			foreach ($hadist as $value) {
+				if(array_key_exists("hadist", $res[$value->nama])){
+					array_push($res[$value->nama]["hadist"], $value);
+				} else {
+					$res[$value->nama]["hadist"] = array($value);
+				}
+			}
+			// create new PDF document
+			$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+			// set document information
+			$pdf->SetCreator(PDF_CREATOR);
+			$pdf->SetAuthor('Yan Ruzika Achmad Zubaidi');
+			$pdf->SetTitle('Laporan Ketercapaian');
+			$pdf->SetSubject('Ketercapaian Santri');
+			$pdf->SetKeywords('');
+
+			// set default header data
+			$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 006', PDF_HEADER_STRING);
+
+			// set header and footer fonts
+			$pdf->setPrintHeader(false);
+			$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+			$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+			// set default monospaced font
+			$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+			// set margins
+			$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+			$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+			$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+			// set auto page breaks
+			$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+			// set image scale factor
+			$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+			// set some language-dependent strings (optional)
+			if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+				require_once(dirname(__FILE__).'/lang/eng.php');
+				$pdf->setLanguageArray($l);
+			}
+
+			// ---------------------------------------------------------
+
+			// set font
+			$pdf->SetFont('times', '', 10);
+			foreach ($res as $key => $value) {
+				// add a page
+				$pdf->AddPage();
+
+				// create some HTML content
+				$html = '<h1 style="text-align:center;">'.$key.'</h1>
+						<table cellpadding="10" border="1">
+							<tr>
+								<th style="font-size: 1.5em; font-weight:bold">Materi</th>
+								<th style="font-size: 1.5em; font-weight:bold">Target</th>
+								<th style="font-size: 1.5em; font-weight:bold">Kosong</th>
+								<th style="font-size: 1.5em; font-weight:bold">Terisi</th>
+								<th style="font-size: 1.5em; font-weight:bold">Presentasi</th>
+							</tr>
+							<tr>
+								<td colspan="5" style="background-color: #eee">
+									Quran
+								</td>
+							</tr>
+							<tr>
+								<td>Quran</td>
+								<td>'.$value['quran']->target.' Halaman</td>
+								<td>'.$value['quran']->terisi.' Halaman</td>
+								<td>'.$value['quran']->kosong.' Halaman</td>
+								<td>'.((intval($value['quran']->kosong))/(intval($value['quran']->target)))*100
+								.' %</td>
+							</tr>';
+				if (isset($value['hadist'])){
+					$html .= '<tr>
+						<td colspan="5" style="background-color: #eee">
+							Hadist
+						</td>
+					</tr>';
+					foreach ($value['hadist'] as $hadist){
+						$html .= '<tr>
+							<td>'.$hadist->hadist.'</td>
+							<td>'.$hadist->target.' Halaman</td>
+							<td>'.$hadist->terisi.' Halaman</td>
+							<td>'.$hadist->kosong.' Halaman</td>
+							<td>'.((intval($hadist->kosong))/(intval($hadist->target)))*100
+								.' %</td>
+						</tr>';
+					}
+				}
+				$html .= '</table>';
+
+				// output the HTML content
+				$pdf->writeHTML($html, true, false, true, false, '');
+
+				// reset pointer to the last page
+				$pdf->lastPage();
+			}
+
+			//Close and output PDF document
+			$pdf->Output('Laporan Ketercapaian.pdf', 'I');
+
+			//============================================================+
+			// END OF FILE
+			//============================================================+
 		}
 	}
 ?>

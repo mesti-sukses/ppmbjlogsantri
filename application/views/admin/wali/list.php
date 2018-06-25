@@ -14,6 +14,8 @@
 						<div class="dash-item">
 							<div class="item-title">
 								List Santri
+
+								<a href="<?php echo base_url('wali/report') ?>" class="btn btn-primary pull-right btn-xs"><i class="fa fa-print"></i> Print Report</a>
 							</div>
 
 

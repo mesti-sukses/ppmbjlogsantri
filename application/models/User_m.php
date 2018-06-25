@@ -119,5 +119,21 @@
 			}
 			return $this->db->get()->result();
 		}
+
+		public function get_materi_quran(){
+			$this->db->select('u.nama, (t.target - m.kosong) as terisi, m.kosong, t.target', FALSE);
+			$this->db->from('user as u');
+			$this->db->join('materi_quran as m', 'm.santri_id = u.id');
+			$this->db->join('target_quran as t', 't.angkatan = u.angkatan');
+			return $this->db->get()->result();
+		}
+
+		public function get_materi_hadist(){
+			$this->db->select('h.nama as hadist, u.nama, m.kosong, h.offset as target, (h.offset - m.kosong) as terisi', FALSE);
+			$this->db->from('user as u');
+			$this->db->join('materi_hadist as m', 'm.santri_id = u.id');
+			$this->db->join('hadist as h', 'm.hadist_id = h.id');
+			return $this->db->get()->result();
+		}
 	}
 ?>

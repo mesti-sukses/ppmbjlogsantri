@@ -4,6 +4,7 @@
 	"type": "project",
 	"require": {
 		"php": ">=7.1",
-		"php-ai/php-ml": "^0.6.2"
+		"php-ai/php-ml": "^0.6.2",
+		"tecnickcom/tcpdf": "^6.2"
 	}
 }

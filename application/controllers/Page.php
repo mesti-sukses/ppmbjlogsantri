@@ -28,6 +28,7 @@
 		{
 			//fetch data from database
 			$this->data['testimoniData'] = $this->Web_Component_m->get_by(array('location' => 'testimoni'));
+			// dump($this->data['testimoniData']);
 			$this->data['dewanGuruData'] = $this->Web_Component_m->get_by(array('location' => 'dgcontent'));
 			$this->data['stickyData'] = $this->Post_m->get_full(array('sticky' => 1), TRUE);
 			$this->data['postData'] = $this->Post_m->get_full(array('sticky' => 0), FALSE, 2);

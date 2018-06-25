@@ -86,6 +86,21 @@
 				$santri->ket = $temp->ket;
 				$santri->updated = $temp->updated;
 			}
+			$graph = array();
+			foreach ($this->data['dataPasus'] as $value) {
+				$temp = array();
+				if($value->detail) {
+					foreach ($value->detail as $key => $valueDetail) {
+						$node = array(
+							"y" => $valueDetail,
+							"label" => $key
+						);
+						array_push($temp, $node);
+					}
+				}
+				$graph[$value->santri] = $temp;
+			}
+			$this->data['graph'] = $graph;
 
 			//load page
 			$title = 'Laporan Pasus | '.$this->session->userdata['name'];

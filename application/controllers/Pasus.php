@@ -142,10 +142,65 @@
 				$santri->ket = $temp->ket;
 				$santri->updated = $temp->updated;
 			}
+			$graph = array();
+			foreach ($this->data['dataPasus'] as $value) {
+				$temp = array();
+				if($value->detail) {
+					foreach ($value->detail as $key => $valueDetail) {
+						$node = array(
+							"y" => $valueDetail,
+							"label" => $key
+						);
+						array_push($temp, $node);
+					}
+				}
+				$graph[$value->santri] = $temp;
+			}
+			$this->data['graph'] = $graph;
+			// dump($graph);
 
 			//load page
 			$title = 'Laporan Pasus | '.$this->session->userdata['name'];
 			$this->loadPage($title, 'admin/pasus/report', 'accordion');
+
+			// $file = fopen(base_url('unique_data.csv'), 'r');
+			// while(!feof($file)){
+			// 	$data = fgetcsv($file);
+			// 	$user = $this->User_m->get_by(array('nama' => $data[0]), TRUE);
+			// 	$detail['santri_id'] = $user->id;
+			// 	$key = array(
+			// 			'sholat',
+			// 			'pengajian',
+			// 			'tengah_malam',
+			// 			'amal_sholih',
+			// 			'apel',
+			// 			'penampilan',
+			// 			'kuliah',
+			// 			'sosmed',
+			// 			'olahraga',
+			// 			'kbm',
+			// 			'musyawarah',
+			// 			'pengurus',
+			// 			'guru',
+			// 			'teman',
+			// 			'orang_lain',
+			// 			'masjid'
+			// 		);
+			// 	$i = 2;
+			// 	$dataDetail = array();
+			// 	foreach ($key as $value) {
+			// 		if(is_numeric($data[$i])){
+			// 			$dataDetail[$value] = intval($data[$i]);
+			// 		} else 
+			// 			$dataDetail[$value] = 50;
+			// 		$i++;
+			// 	}
+			// 	$detail['ket'] = $data[18];
+			// 	$detail['detail'] = serialize($dataDetail);
+			// 	dump($detail);
+			// 	$this->Detail_Pasus_m->save($detail);
+			// }
+			// fclose($file);
 		}
 
 		/*
