@@ -80,10 +80,23 @@
 					<div class="dash-item first-dash-item">
 						<h6 class="item-title"><i class="fa fa-plus"></i>Tambahkan Dewan Guru</h6>
 
-
 						<div class="inner-item">
 							<div class="dash-form">
-								<?php echo form_open() ?><button class="btn btn-success btn-xs pull-right" type="submit">Save</button> <label class="clear-top-margin"><i class="fa fa-i-cursor"></i>Nama</label> <input name="nama" placeholder="Nama Dewan Guru" type="text" value="<?php if($k) echo $dgcontentNewData->nama ?>"> <label class="clear-top-margin"><i class="fa fa-university"></i>Sub</label> <input name="extra" placeholder="Sub" type="text" value="<?php if($k) echo $dgcontentNewData->extra ?>"> <label class="clear-top-margin"><i class="fa fa-search"></i>Deskripsi</label> 
+								<?php echo form_open() ?><button class="btn btn-success btn-xs pull-right" type="submit">Save</button> 
+								<label class="clear-top-margin"><i class="fa fa-i-cursor"></i>Nama</label> <input name="nama" placeholder="Nama Dewan Guru" type="text" value="<?php if($k) echo $dgcontentNewData->nama ?>"> 
+								<label class="clear-top-margin"><i class="fa fa-university"></i>Sub</label> <input name="extra" placeholder="Sub" type="text" value="<?php if($k) echo $dgcontentNewData->extra ?>"> 
+								<label class="clear-top-margin"><i class="fa fa-photo"></i>Foto</label>
+								<select name="image" class="form-control" style="height: auto;" id="comboInput" data-base="<?php echo base_url('media_content/') ?>">
+									<option value="male.png">Pilih Gambar</option>
+									<?php foreach ($mediaData as $media): ?>
+										<option value="<?php echo $media->file_name ?>"><?php echo $media->file_name ?></option>
+									<?php endforeach ?>
+								</select>
+								<?php
+									$image = $k ? $dgcontentNewData->image : 'male.png';
+								?>
+								<img src="<?php echo base_url('media_content/'.$image) ?>" alt="" class="img-responsive" style="margin-bottom: 18px; margin-top: 18px;" id="blah">
+								<label class="clear-top-margin"><i class="fa fa-search"></i>Deskripsi</label> 
 
 								<textarea name="content" placeholder="Enter Description" style="height: 240px;"><?php if($k) echo $dgcontentNewData->content ?></textarea> <input name="location" type="hidden" value="dgcontent"> 
 							</div>

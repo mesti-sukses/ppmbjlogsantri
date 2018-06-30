@@ -39,6 +39,10 @@
 				'css' => array('login.css'),
 				'js' => array('login.js')
 			),
+			'media' => array(
+				'css' => array(),
+				'js' => array('media.js')
+			),
 		);
 		
 		function __construct()

@@ -42,6 +42,19 @@
         </ul>
       </li>
 
+      <li class="parent">
+        <a data-toggle="collapse" href="#sub-item-7"><em class="fa fa-photo">&nbsp;</em> Media <span class="icon pull-right" data-toggle="collapse"><em class="fa fa-plus"></em></span></a>
+
+        <ul class="children collapse" id="sub-item-7">
+          <li>
+            <a class="" href="<?php echo base_url('media/add') ?>"><i class="fa fa-plus"></i> Add New</a>
+          </li>
+          <li>
+            <a class="" href="<?php echo base_url('index.php/media') ?>"><i class="fa fa-photo"></i> Library</a>
+          </li>
+        </ul>
+      </li>
+
     <?php endif ?>
 
     <!-- Untuk pasus -->
@@ -197,6 +210,10 @@
 
       <li class="parent">
         <a href="<?php echo base_url('pengajar') ?>"><em class="fa fa-users">&nbsp;</em> Musyawarah</a>
+      </li>
+
+      <li class="parent">
+        <a href="<?php echo base_url('quran') ?>"><em class="fa fa-book">&nbsp;</em> Tafsir Quran</a>
       </li>
       
     <?php endif ?>

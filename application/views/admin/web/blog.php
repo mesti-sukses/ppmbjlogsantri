@@ -50,9 +50,9 @@
 
 											<td data-label="Last Update" data-order="<?php echo $post->updated ?>">
 												<?php
-                          $date = strtotime($post->updated);
-                          echo date("d F y", $date);
-                        ?>
+						                          $date = strtotime($post->updated);
+						                          echo date("d F y", $date);
+						                        ?>
 											</td>
 
 											<td data-label="Summary"><?php echo limit_to_numwords($post->content, 20) ?>

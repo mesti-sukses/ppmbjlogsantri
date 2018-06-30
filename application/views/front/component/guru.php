@@ -11,7 +11,7 @@
             <h5><i class="fa fa-flask"></i><?php echo $guru->extra ?></h5>
             <div class="teacher-item-inner">
               <p class="teacher-desc"><?php echo $guru->content ?></p>
-              <div class="col-xs-4 clear-padding teacher-img"><img alt="teacher" src="<?php echo base_url('/') ?>assets/img/parent/<?php echo $guru->image ?>"></div>
+              <div class="col-xs-4 clear-padding teacher-img"><img alt="teacher" src="<?php echo base_url('/') ?>media_content/<?php echo $guru->image ?>"></div>
               <div class="col-xs-8 teacher-details">
                 <p><strong><?php echo $guru->nama ?></strong></p>
               </div>

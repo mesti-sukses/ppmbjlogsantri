@@ -64,7 +64,7 @@
 
 
 						<div class="inner-item">
-							<?php foreach ($categoryData as $cat): ?><label class="container"><?php echo $cat->name ?> <input name="categories" type="radio" value="<?php echo $cat->cat_id ?>"> <span class="checkmark"></span></label> <?php endforeach ?>
+							<?php foreach ($categoryData as $cat): ?><label class="container"><?php echo $cat->name ?> <input name="categories" type="radio" value="<?php echo $cat->cat_id ?>" <?php if($cat->cat_id == $dataPost->categories) echo "checked" ?>> <span class="checkmark"></span></label> <?php endforeach ?>
 						</div>
 
 

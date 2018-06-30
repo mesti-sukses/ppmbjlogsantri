@@ -20,7 +20,20 @@
 					<div class="inner-item">
 						<?php $k = $ketua != NULL ?>
 						<div class="dash-form">
-							<?php echo form_open('',array('id' => 'editor')) ?><button class="btn btn-success btn-xs pull-right btn-editor" type="submit">Save</button> <label class="clear-top-margin"><i class="fa fa-i-cursor"></i>Nama</label> <input name="nama" placeholder="Nama Ketua Pondok" type="text" value="<?php if($k) echo $ketua->nama ?>"> <label class="clear-top-margin"><i class="fa fa-link"></i>Link</label> <input name="extra" placeholder="Link" type="text" value="<?php if($k) echo $ketua->extra ?>"> <label class="clear-top-margin"><i class="fa fa-user"></i>Tentang</label>
+							<?php echo form_open('',array('id' => 'editor')) ?><button class="btn btn-success btn-xs pull-right btn-editor" type="submit">Save</button> <label class="clear-top-margin"><i class="fa fa-i-cursor"></i>Nama</label> <input name="nama" placeholder="Nama Ketua Pondok" type="text" value="<?php if($k) echo $ketua->nama ?>"> <label class="clear-top-margin"><i class="fa fa-link"></i>Link</label> <input name="extra" placeholder="Link" type="text" value="<?php if($k) echo $ketua->extra ?>"> 
+							
+							<label class="clear-top-margin"><i class="fa fa-photo"></i>Foto</label>
+							<select name="image" class="form-control" style="height: auto;" id="comboInput" data-base="<?php echo base_url('media_content/') ?>">
+								<option value="male.png">Pilih Gambar</option>
+								<?php foreach ($mediaData as $media): ?>
+									<option value="<?php echo $media->file_name ?>"><?php echo $media->file_name ?></option>
+								<?php endforeach ?>
+							</select>
+							<?php
+								$image = $k ? $ketua->image : 'male.png';
+							?>
+							<img src="<?php echo base_url('media_content/'.$image) ?>" alt="" class="img-responsive" style="margin-bottom: 18px; margin-top: 18px;" id="blah">
+							<label class="clear-top-margin"><i class="fa fa-user"></i>Tentang</label>
 
 							<div id="div-editor">
 								<?php if($k) echo $ketua->content ?>

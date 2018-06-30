@@ -648,59 +648,6 @@ html, body {
 	font-weight: 600;
 	margin-bottom: 0;
 }
-
-/*************************  CHART STYLES  ***************************/
-.chart-item {
-	padding: 20px 20px 30px;
-}
-.chart-legends {
-	text-align: center;
-	margin-top: 20px;
-}
-.chart-legends span {
-	display: inline-block;
-	padding: 5px;
-	color: #fff;
-	font-size: 11px;
-	font-weight: 700;
-	border-radius: 5px;
-	margin: 0 2px;
-}
-.chart-legends .red{
-	background: #FF7676;
-}
-.chart-legends .orange{
-	background: #FFC36D;
-}
-.chart-legends .green{
-	background: #27AE60;
-}
-.chart-title {
-	text-align: center;
-}
-.chart-title .bottom-title {
-	font-weight: 700;
-	color: #81878C;
-	margin: 25px 0 0;
-}
-.item-header {
-	padding: 0 0 15px;
-	border-bottom: 1px solid #eee;
-} 	
-.item-header h6 {
-	margin: 0;
-	font-weight: 700;
-	color: #81878C;
-}
-.tbl-row {
-	padding: 15px 0;
-	border-bottom: 1px solid #eee;
-}
-.tbl-row h6 {
-	margin: 0;
-	color: #81878C;
-}
-
 /****************************** Datatable styles ****************************/
 .dash-search-form label {
 	display: block;
@@ -879,51 +826,7 @@ table.dataTable > tbody > tr.child span.dtr-title i {
 		margin-top: 42px;
 	}
 }
-/******************** datepicker style *******************************/
-.ui-datepicker {
-	border: 1px solid #eee;
-	background: #fff;
-	padding: 15px;
-}
-.ui-datepicker-title {
-	text-align: center;
-	color: #81878C;
-}
-.ui-datepicker-prev {
-	float: left;
-}
-.ui-datepicker-next {
-	float: right;
-}
-.ui-datepicker-next,
-.ui-datepicker-prev {
-	color: #81878C;
-	cursor: pointer;
-}
-.ui-datepicker-next:hover,
-.ui-datepicker-prev:hover{
-	text-decoration: none;
-	color: #07253F;
-}
-.ui-datepicker-calendar th {
-	color: #81878C;
-	font-weight: 600;
-	padding: 8px;
-}
-.ui-datepicker-calendar td {
-	padding: 8px;
-	text-align: center;
-}
-.ui-datepicker-calendar td a {
-	color: #81878C;
-}
-.ui-datepicker-calendar td a:hover {
-	text-decoration: none;
-	color: #07253F;
-}
-.ui-datepicker-current-day {
-	border: 1px solid #eee;
-}
+/*Accordion style*/
 .pathshala-accordion h4 {
 	margin: 30px 0 0;
 	font-weight: 700;
@@ -960,4 +863,17 @@ table.dataTable > tbody > tr.child span.dtr-title i {
 	padding: 24px;
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 700;
+}
+/*Media page style*/
+.media-inner figure{
+	margin-bottom: 30px;
+	padding: 12px;
+	border-radius: 4px;
+}
+.media-inner figure:hover, .media-inner figure.active{
+	border: solid #27ae60 2px;
+	cursor: pointer;
+}
+.img-featured{
+	margin-bottom: 30px;
 }

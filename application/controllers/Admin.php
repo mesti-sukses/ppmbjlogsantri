@@ -23,6 +23,7 @@
 			$this->load->model('Web_Config_m');
 			$this->load->model('Category_m');
 			$this->load->model('Menu_m');
+			$this->load->model('Media_m');
 		}
 
 		/*
@@ -76,17 +77,17 @@
 		{
 			// Fetch required data
 			$this->data[$location] = $this->Web_Component_m->get_by(array('location' => $location), $location == 'ketua');
+			$this->data['mediaData'] = $this->Media_m->get();
 			if($id) 
 				$this->data[$location.'NewData'] = $this->Web_Component_m->get_by(array('id' => $id), TRUE);
 
 			// Process the data
 
 			// Get the feedback form
-			$componentData = $this->form('Web_Component_m', array('location', 'nama', 'content', 'extra'));
+			$componentData = $this->form('Web_Component_m', array('location', 'nama', 'content', 'extra', 'image'));
 			if($componentData)
 			{
 				// Process the form data
-				$componentData['image'] = 'male.png';
 				if($location == 'ketua') $id = $this->data[$location]->id;
 				if($id) $componentData['id'] = $id;
 				$this->Web_Component_m->save($componentData, $id);
@@ -146,38 +147,17 @@
 					$id = $this->input->post('id');
 				} else $id = NULL;
 
-				//file upload
-				$config['upload_path'] = './images/Post/';
-		        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+				$image = $this->upload('userFile', './images/Post/', $postData['title']);
 
-        		//load the library
-        		$this->load->library('upload', $config);
+				if($image != FALSE){
+					$postData['image'] = $image;
 
-		        //check if the upload success or not
-		        if (!$this->upload->do_upload('userFile'))
-		        {
-
-		        	//if the image sent is null (it means that the image is nothing) then send error
-		        	if($this->input->post('image') == NULL)
-		        		$this->data['fileError'] = $this->upload->display_errors();
-		        	//but if it's an edit data and the image has a value just pass this check
-		        	else $postData['image'] = $this->input->post('image');
-		        }
-		        else
-		        {
-
-		        	//rename the image to the title of the post
-		        	$a = $this->upload->data();
-		        	rename($a['full_path'], $a['file_path'].$postData['title'].$a['file_ext']);
-		        	$this->data['uploadData'] = $this->upload->data();
-
-		        	//set the image name to the image attribute
-		        	$postData['image'] = $postData['title'].$a['file_ext'];
-		        }
-
-		        //save to the database
-		        $this->Post_m->save($postData, $id);
-		        redirect('admin/blog');
+					//save to the database
+			        $this->Post_m->save($postData, $id);
+			        redirect('admin/blog');
+			    }
+				else
+					$this->data['fileError'] = $this->upload->display_errors();
 			}
 
 			//output error if required form is not satisfied

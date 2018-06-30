@@ -54,5 +54,40 @@
 				exit();
 			}
 		}
+
+		public function upload($name, $path, $rename = FALSE){
+			//file upload
+			$config['upload_path'] = $path;
+	        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+
+    		//load the library
+    		$this->load->library('upload', $config);
+
+	        //check if the upload success or not
+	        if (!$this->upload->do_upload($name))
+	        {
+
+	        	//if the image sent is null (it means that the image is nothing) then send error
+	        	if($this->input->post('image') == NULL){
+	        		dump($this->upload->display_errors());
+	        		return FALSE;
+	        	}
+	        	//but if it's an edit data and the image has a value just pass this check
+	        	else 
+	        		return $this->input->post('image');
+	        }
+	        else
+	        {
+
+	        	//rename the image to the title of the post
+	        	$a = $this->upload->data();
+	        	if($rename != FALSE){
+	        		rename($a['full_path'], $a['file_path'].$rename.$a['file_ext']);
+	        		return $rename.$a['file_ext'];
+	        	}
+
+	        	return $a['file_name'];
+	        }
+		}
 	}
 ?>

@@ -7,7 +7,7 @@
         <?php foreach ($testimoniData as $testimoni): ?>
           <div class="parent-test-item">
             <div class="col-sm-3">
-              <div class="parent-img"><img alt="parent" src="<?php echo base_url('/') ?>assets/img/parent/<?php echo $testimoni->image ?>"></div>
+              <div class="parent-img"><img alt="parent" src="<?php echo base_url('/') ?>media_content/<?php echo $testimoni->image ?>"></div>
             </div>
             <div class="col-sm-9">
               <p class="rating">

@@ -40,9 +40,9 @@
 								<strong>Tanggal Usulan</strong>
 								<p>
 									<?php
-                    $date = strtotime($dataUsulan->created);
-                    echo date("d F y", $date);
-                  ?>
+					                    $date = strtotime($dataUsulan->created);
+					                    echo date("d F y", $date);
+					                  ?>
 								</p>
 
 							</div>
