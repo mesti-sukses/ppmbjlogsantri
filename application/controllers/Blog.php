@@ -23,12 +23,20 @@
 		/*
 			* Method ini merupakan method untuk memanggil list blog post
 		*/
-		public function index()
+		public function index($page = 0)
 		{
 			//fetch the data
 			$this->data['catData'] = $this->Category_m->get();
-			$this->data['stickyData'] = $this->Post_m->get_full(array('sticky' => 1), TRUE);
-			$this->data['postData'] = $this->Post_m->get_full(array('sticky' => 0));
+			$this->data['stickyData'] = $this->Post_m->get_full(array('sticky' => 1), TRUE,0,1);
+
+			$postPerPage = 3;
+			$this->data['totalPost'] = $this->Post_m->get_total();
+
+			$this->data['previous'] = $page - $postPerPage;
+			$this->data['next'] = $page + $postPerPage;
+
+
+			$this->data['postData'] = $this->Post_m->get_full(array('sticky' => 0), FALSE, $postPerPage, $page);
 
 			//load page
 			$this->data['title'] = "Blog | ".$this->data['title']->value;

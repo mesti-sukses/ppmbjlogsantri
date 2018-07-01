@@ -35,16 +35,20 @@
 					<?php endforeach ?>
 					<div class="event-control-box">
 						<div class="pull-left">
-							<a href="events.html#">
-								<i class="fa fa-arrow-left"></i>
-								PREVIOUS
-							</a>
+							<?php if ($previous >= 0): ?>
+								<a href="<?php echo base_url('blog/index/'.$previous) ?>">
+									<i class="fa fa-arrow-left"></i>
+									PREVIOUS
+								</a>
+							<?php endif ?>
 						</div>
 						<div class="pull-right">
-							<a href="events.html#">
-								NEXT
-								<i class="fa fa-arrow-right"></i>
-							</a>
+							<?php if ($next < $totalPost): ?>
+								<a href="<?php echo base_url('blog/index/'.$next) ?>">
+									NEXT
+									<i class="fa fa-arrow-right"></i>
+								</a>
+							<?php endif ?>
 						</div>
 						<div class="clearfix"></div>
 					</div>

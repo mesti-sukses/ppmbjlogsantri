@@ -30,8 +30,8 @@
 			$this->data['testimoniData'] = $this->Web_Component_m->get_by(array('location' => 'testimoni'));
 			// dump($this->data['testimoniData']);
 			$this->data['dewanGuruData'] = $this->Web_Component_m->get_by(array('location' => 'dgcontent'));
-			$this->data['stickyData'] = $this->Post_m->get_full(array('sticky' => 1), TRUE);
-			$this->data['postData'] = $this->Post_m->get_full(array('sticky' => 0), FALSE, 2);
+			$this->data['stickyData'] = $this->Post_m->get_full(array('sticky' => 1), TRUE, 1, 0);
+			$this->data['postData'] = $this->Post_m->get_full(array('sticky' => 0), FALSE, 2, 0);
 			$this->data['ketuaData'] = $this->Web_Component_m->get_by(array('location' => 'ketua'), TRUE);
 
 			//load the page
