@@ -217,5 +217,9 @@
       </li>
       
     <?php endif ?>
+
+    <li class="parent">
+        <a href="<?php echo base_url('user/koperasi') ?>"><em class="fa fa-dollar">&nbsp;</em> Koperasi</a>
+    </li>
   </ul>
 </div>

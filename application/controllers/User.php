@@ -17,6 +17,7 @@
 			$this->load->model('User_m');
 			$this->load->model('Materi_Quran_m');
 			$this->load->model('Target_Quran_m');
+			$this->load->model('Koperasi_m');
 		}
 
 		/*
@@ -242,7 +243,7 @@
 					$this->Materi_Quran_m->save($quranData);
 				}
 
-				// redirect('user/list');
+				redirect('user/list');
 			}
 
 			// Load The Page
@@ -323,6 +324,35 @@
 			//load page
 			$this->data['subview'] = 'gen_config';
 			$this->load->view('main_layout', $this->data);
+		}
+
+		public function koperasi($day = NULL, $session = NULL, $number = NULL){
+			// Declare and Fetch Data
+			$this->data['listHari'] = array("Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu");
+			$this->data['koperasiData'] = $this->Koperasi_m->get();
+
+			// Get feedback from form
+			if($day != NULL && $session != NULL && $number != NULL){
+				if($number > 3) {
+					$this->data['error'] = "Tiap sesi maksimal ada 3 orang";
+				}
+				else {
+					$hari = $this->data['listHari'][$day];
+					$dataInput = array('nama' => $this->session->userdata('name'), 'sesi' => $session, 'hari' => $hari, 'nomor' => $number);
+					$dataError = $this->Koperasi_m->get_by(array('hari' => $hari, 'sesi' => $session, 'nomor' => $number));
+					if(count($dataError)){
+						$this->data['error'] = "Itu sudah dipesan";
+					} else {
+						$this->Koperasi_m->save($dataInput);
+						redirect('user/koperasi', 'refresh');
+					}
+				}
+			}
+
+
+			// Load The Page
+			$title = 'Jadwal Jaga KWU';
+			$this->loadPage($title, 'admin/super/koperasi', 'data_table');
 		}
 	}
 ?>

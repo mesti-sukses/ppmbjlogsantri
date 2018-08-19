@@ -44,7 +44,7 @@
 			@param $single boolean: untuk menentukan apakah ingin satu post atau series post
 			@param $limit int: untuk membatasi jumlah post yang diperlukan. 0 akan mengambil semua post
 		*/
-		public function get_full($where = NULL, $single = FALSE, $limit, $start)
+		public function get_full($where = NULL, $single = FALSE, $limit = 0, $start = 0)
 		{
 			$this->db->select();
 			$this->db->from('blog_post as p');

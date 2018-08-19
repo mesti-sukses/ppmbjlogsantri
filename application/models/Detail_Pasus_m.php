@@ -45,6 +45,7 @@
 			$this->db->select('', FALSE);
 			$this->db->from('user as u');
 			$this->db->join('pasus_data as p', 'p.santri_id = u.id', 'left');
+			$this->db->group_by('u.id');
 			$this->db->where('(level & 1024) = 1024');
 			return $this->db->get()->result();
 		}
